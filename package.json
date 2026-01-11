@@ -1,71 +1,71 @@
 {
-    "name": "agent-pro",
-    "displayName": "Agent Pro - GitHub Copilot Experts",
-    "description": "22+ expert agents, 5 prompts, and comprehensive skills for GitHub Copilot - Your AI development powerhouse",
-    "version": "1.0.1",
-    "publisher": "mdaashir",
-    "author": {
-        "name": "mdaashir"
-    },
-    "engines": {
-        "vscode": "^1.90.0"
-    },
-    "categories": [
-        "AI",
-        "Other"
-    ],
-    "keywords": [
-        "github copilot",
-        "ai agents",
-        "code assistant",
-        "development tools",
-        "expert systems",
-        "copilot agents",
-        "ai development",
-        "code generation",
-        "productivity"
-    ],
-    "icon": "icon.png",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/mdaashir/agent-pro"
-    },
-    "bugs": {
-        "url": "https://github.com/mdaashir/agent-pro/issues"
-    },
-    "license": "MIT",
-    "main": "./extension.js",
-    "activationEvents": [
-        "onStartupFinished"
-    ],
-    "contributes": {
-        "commands": [
-            {
-                "command": "agent-pro.install",
-                "title": "Agent Pro: Install Agents to Workspace"
-            },
-            {
-                "command": "agent-pro.update",
-                "title": "Agent Pro: Update Agents in Workspace"
-            }
-        ]
-    },
-    "scripts": {
-        "package": "vsce package",
-        "lint:md": "markdownlint-cli2 '**/*.md' '#node_modules'",
-        "format": "prettier --write '**/*.{md,json,yml,yaml}'",
-        "format:check": "prettier --check '**/*.{md,json,yml,yaml}'",
-        "validate": "node scripts/validate-frontmatter.js",
-        "test": "node scripts/test.js",
-        "prepackage": "npm run validate && npm run format:check",
-        "release:patch": "npm version patch && git push --follow-tags",
-        "release:minor": "npm version minor && git push --follow-tags",
-        "release:major": "npm version major && git push --follow-tags"
-    },
-    "devDependencies": {
-        "@vscode/vsce": "^2.22.0",
-        "markdownlint-cli2": "^0.12.1",
-        "prettier": "^3.2.4",
-        "js-yaml": "^4.1.0"
-    }
+  "name": "agent-pro",
+  "displayName": "Agent Pro - GitHub Copilot Experts",
+  "description": "22+ expert agents, 5 prompts, and comprehensive skills for GitHub Copilot - Your AI development powerhouse",
+  "version": "1.0.1",
+  "publisher": "mdaashir",
+  "author": {
+    "name": "mdaashir"
+  },
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "AI",
+    "Other"
+  ],
+  "keywords": [
+    "github copilot",
+    "ai agents",
+    "code assistant",
+    "development tools",
+    "expert systems",
+    "copilot agents",
+    "ai development",
+    "code generation",
+    "productivity"
+  ],
+  "icon": "icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mdaashir/agent-pro"
+  },
+  "bugs": {
+    "url": "https://github.com/mdaashir/agent-pro/issues"
+  },
+  "license": "MIT",
+  "main": "./extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "agent-pro.install",
+        "title": "Agent Pro: Install Agents to Workspace"
+      },
+      {
+        "command": "agent-pro.update",
+        "title": "Agent Pro: Update Agents in Workspace"
+      }
+    ]
+  },
+  "scripts": {
+    "package": "vsce package",
+    "lint:md": "markdownlint-cli2 '**/*.md' '#node_modules'",
+    "format": "prettier --write '**/*.{md,json,yml,yaml}'",
+    "format:check": "prettier --check '**/*.{md,json,yml,yaml}'",
+    "validate": "node scripts/validate-frontmatter.js",
+    "test": "node scripts/test.js",
+    "prepackage": "npm run validate && npm run format:check",
+    "release:patch": "npm version patch && git push --follow-tags",
+    "release:minor": "npm version minor && git push --follow-tags",
+    "release:major": "npm version major && git push --follow-tags"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^2.22.0",
+    "markdownlint-cli2": "^0.12.1",
+    "prettier": "^3.2.4",
+    "js-yaml": "^4.1.0"
+  }
 }
