@@ -4,6 +4,10 @@ A comprehensive collection of 22+ expert agents, 5 prompts, and comprehensive sk
 
 Agent Pro provides 34 curated resources to enhance your development workflow with AI-powered assistance across multiple domains including architecture, security, testing, cloud infrastructure, and more.
 
+## Important Note
+
+GitHub Copilot agents work **per-workspace**, not as global VS Code extensions. After downloading this package, you need to **copy the `.github` folder to your project workspace** for the agents to appear in GitHub Copilot Chat.
+
 ## Features
 
 - **22 Expert Agents** - Specialized AI assistants for every development domain
@@ -13,15 +17,39 @@ Agent Pro provides 34 curated resources to enhance your development workflow wit
 
 ## Installation
 
-### Local Installation (VSIX)
+### Step 1: Download the Package
 
-1. Download the `agent-pro-1.0.0.vsix` file
-2. Open VS Code
-3. Go to **Extensions** view (`Ctrl+Shift+X` / `Cmd+Shift+X`)
-4. Click the **...** menu at the top
-5. Select **Install from VSIX...**
-6. Choose the downloaded `.vsix` file
-7. Reload VS Code
+1. Download the `agent-pro-1.0.0.vsix` file from [Releases](https://github.com/mdaashir/agent-pro/releases)
+2. Extract the `.vsix` file (it's a ZIP archive) OR install it as an extension to get the files
+
+### Step 2: Copy to Your Workspace
+
+**This is the critical step:**
+
+```bash
+# Navigate to your project
+cd /path/to/your/project
+
+# Copy the .github folder from the extracted extension
+cp -r /path/to/agent-pro/.github ./
+
+# Or if you installed the extension, find it in:
+# Windows: %USERPROFILE%\.vscode\extensions\mdaashir.agent-pro-1.0.0\
+# macOS/Linux: ~/.vscode/extensions/mdaashir.agent-pro-1.0.0/
+```
+
+**Windows PowerShell:**
+```powershell
+# Copy from installed extension
+Copy-Item -Recurse "$env:USERPROFILE\.vscode\extensions\mdaashir.agent-pro-1.0.0\.github" -Destination .
+```
+
+### Step 3: Verify Installation
+
+1. Open your project in VS Code
+2. Open GitHub Copilot Chat (`Ctrl+Shift+I` or `Cmd+Shift+I`)
+3. Type `@` in the chat input
+4. You should see all 22 custom agents listed
 
 ## Usage
 
