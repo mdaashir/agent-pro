@@ -1,0 +1,139 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+
+jobs:
+  validate:
+    name: Validate Extension
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint markdown files
+        run: npm run lint:md
+
+      - name: Validate frontmatter
+        run: npm run validate
+
+      - name: Check formatting
+        run: npm run format:check
+
+  build:
+    name: Build Extension
+    runs-on: ubuntu-latest
+    needs: validate
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Package extension
+        run: npm run package
+
+      - name: Upload VSIX artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: agent-pro-vsix
+          path: "*.vsix"
+          retention-days: 30
+
+  test:
+    name: Test Extension Structure
+    runs-on: ubuntu-latest
+    needs: validate
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Verify .github folder structure
+        run: |
+          echo "Checking required directories..."
+          test -d .github/agents || (echo "Missing .github/agents directory" && exit 1)
+          test -d .github/prompts || (echo "Missing .github/prompts directory" && exit 1)
+          test -d .github/instructions || (echo "Missing .github/instructions directory" && exit 1)
+          test -d .github/skills || (echo "Missing .github/skills directory" && exit 1)
+          echo "✓ All required directories present"
+
+      - name: Count resources
+        run: |
+          echo "Counting resources..."
+          AGENTS=$(find .github/agents -name "*.agent.md" | wc -l)
+          PROMPTS=$(find .github/prompts -name "*.prompt.md" | wc -l)
+          INSTRUCTIONS=$(find .github/instructions -name "*.instructions.md" | wc -l)
+          SKILLS=$(find .github/skills -name "SKILL.md" | wc -l)
+
+          echo "Found: $AGENTS agents, $PROMPTS prompts, $INSTRUCTIONS instructions, $SKILLS skills"
+
+          # Verify expected counts
+          test $AGENTS -eq 22 || (echo "Expected 22 agents, found $AGENTS" && exit 1)
+          test $PROMPTS -eq 5 || (echo "Expected 5 prompts, found $PROMPTS" && exit 1)
+          test $INSTRUCTIONS -eq 2 || (echo "Expected 2 instructions, found $INSTRUCTIONS" && exit 1)
+          test $SKILLS -eq 5 || (echo "Expected 5 skills, found $SKILLS" && exit 1)
+
+          echo "✓ Resource counts match expectations"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run validation tests
+        run: npm test
+
+  security:
+    name: Security Audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run security audit
+        run: npm audit --audit-level=moderate
+        continue-on-error: true
+
+      - name: Check for secrets
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          base: ${{ github.event.repository.default_branch }}
+          head: HEAD

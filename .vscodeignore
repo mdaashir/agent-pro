@@ -1,0 +1,14 @@
+.vscode/**
+.git/**
+.gitignore
+.gitattributes
+**/*.vsix
+**/node_modules/**
+**/.DS_Store
+**/.env
+**/*.log
+**/*.map
+**/tsconfig.json
+**/webpack.config.js
+**/.eslintrc*
+**/.prettierrc*
