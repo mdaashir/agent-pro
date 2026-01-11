@@ -7,10 +7,11 @@ GitHub Copilot agents from `.github/agents/` folders are **workspace-based**, no
 ### Option 1: Copy to Your Project (Recommended)
 
 1. Copy the `.github` folder from this extension to your project root:
+
    ```bash
    # Navigate to your project
    cd /path/to/your/project
-   
+
    # Copy the .github folder
    cp -r /path/to/agent-pro/.github ./
    ```
@@ -72,6 +73,7 @@ To verify agents are loaded:
 ## Why This Approach?
 
 GitHub Copilot discovers agents from:
+
 - **Workspace `.github/agents/`** - Project-specific agents
 - **User global agents** - Personal agents in `~/.github/agents/`
 - **Extension-registered agents** - Requires proper VS Code Extension API implementation
