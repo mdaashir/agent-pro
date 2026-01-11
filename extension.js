@@ -1,7 +1,6 @@
 const vscode = require('vscode');
 const fs = require('fs');
 const path = require('path');
-const os = require('os');
 
 function activate(context) {
   console.log('Agent Pro extension is now active');
@@ -9,76 +8,44 @@ function activate(context) {
   const extensionPath = context.extensionPath;
   const sourceGithubPath = path.join(extensionPath, '.github');
 
-  // Global installation path in user's home directory
-  const globalAgentsPath = path.join(os.homedir(), '.copilot-agents', '.github');
+  // Use VS Code's global storage path for agents
+  const globalStoragePath = context.globalStorageUri.fsPath;
+  const globalAgentsPath = path.join(globalStoragePath, '.github');
 
-  // Install agents globally on first activation
+  // Install agents to global storage on first activation
   const isGloballyInstalled = context.globalState.get('agentPro.globallyInstalled');
 
   if (!isGloballyInstalled) {
     try {
-      // Copy agents to global location
+      // Ensure global storage directory exists
+      if (!fs.existsSync(globalStoragePath)) {
+        fs.mkdirSync(globalStoragePath, { recursive: true });
+      }
+
+      // Copy agents to global storage
       copyRecursiveSync(sourceGithubPath, globalAgentsPath);
       context.globalState.update('agentPro.globallyInstalled', true);
+
+      vscode.window.showInformationMessage(
+        'Agent Pro: 22 expert agents installed globally! Type @ in Copilot Chat to use them.'
+      );
+
       console.log('Agent Pro: Installed agents globally to', globalAgentsPath);
     } catch (error) {
       console.error('Agent Pro: Failed to install globally:', error);
+      vscode.window.showErrorMessage(`Agent Pro: Installation failed: ${error.message}`);
     }
   }
 
-  // Link agents to current workspace
-  const workspaceFolders = vscode.workspace.workspaceFolders;
-
-  if (workspaceFolders && workspaceFolders.length > 0) {
-    const workspacePath = workspaceFolders[0].uri.fsPath;
-    const targetGithubPath = path.join(workspacePath, '.github');
-
-    // Only create symlink if .github doesn't exist
-    if (!fs.existsSync(targetGithubPath)) {
-      try {
-        // Create junction (Windows) or symlink (Unix)
-        if (process.platform === 'win32') {
-          fs.symlinkSync(globalAgentsPath, targetGithubPath, 'junction');
-        } else {
-          fs.symlinkSync(globalAgentsPath, targetGithubPath, 'dir');
-        }
-        console.log('Agent Pro: Linked agents to workspace');
-      } catch (error) {
-        // If symlink fails, try copying instead
-        console.warn('Agent Pro: Symlink failed, copying instead:', error.message);
-        try {
-          copyRecursiveSync(globalAgentsPath, targetGithubPath);
-          console.log('Agent Pro: Copied agents to workspace');
-        } catch (copyError) {
-          console.error('Agent Pro: Failed to link/copy agents:', copyError);
-        }
-      }
-    }
-  }
+  // No workspace folder manipulation - agents work from global storage only
 
   // Register commands
-  let installCommand = vscode.commands.registerCommand('agent-pro.install', function () {
-    const workspaceFolders = vscode.workspace.workspaceFolders;
-
-    if (!workspaceFolders || workspaceFolders.length === 0) {
-      vscode.window.showWarningMessage('Agent Pro: Please open a workspace first.');
-      return;
-    }
-
-    const workspacePath = workspaceFolders[0].uri.fsPath;
-    const targetGithubPath = path.join(workspacePath, '.github');
-
+  let updateCommand = vscode.commands.registerCommand('agent-pro.update', function () {
     try {
-      // Create symlink or copy
-      if (!fs.existsSync(targetGithubPath)) {
-        if (process.platform === 'win32') {
-          fs.symlinkSync(globalAgentsPath, targetGithubPath, 'junction');
-        } else {
-          fs.symlinkSync(globalAgentsPath, targetGithubPath, 'dir');
-        }
-      }
+      // Update global agents
+      copyRecursiveSync(sourceGithubPath, globalAgentsPath);
       vscode.window.showInformationMessage(
-        'Agent Pro: Successfully linked agents! Reload window to activate.',
+        'Agent Pro: Successfully updated global agents! Reload to apply.',
         'Reload Window'
       ).then(action => {
         if (action === 'Reload Window') {
@@ -86,36 +53,37 @@ function activate(context) {
         }
       });
     } catch (error) {
-      vscode.window.showErrorMessage(`Agent Pro: Installation failed: ${error.message}`);
-    }
-  });
-
-  let updateCommand = vscode.commands.registerCommand('agent-pro.update', function () {
-    try {
-      // Update global agents
-      copyRecursiveSync(sourceGithubPath, globalAgentsPath);
-      vscode.window.showInformationMessage('Agent Pro: Successfully updated global agents! Reload to apply.', 'Reload Window')
-        .then(action => {
-          if (action === 'Reload Window') {
-            vscode.commands.executeCommand('workbench.action.reloadWindow');
-          }
-        });
-    } catch (error) {
       vscode.window.showErrorMessage(`Agent Pro: Update failed: ${error.message}`);
     }
   });
 
   let resetCommand = vscode.commands.registerCommand('agent-pro.reset', function () {
-    context.globalState.update('agentPro.globallyInstalled', undefined);
-    vscode.window.showInformationMessage('Agent Pro: Reset complete. Reload to reinstall globally.', 'Reload Window')
-      .then(action => {
+    try {
+      // Remove global agents
+      if (fs.existsSync(globalAgentsPath)) {
+        fs.rmSync(globalAgentsPath, { recursive: true, force: true });
+      }
+      context.globalState.update('agentPro.globallyInstalled', undefined);
+
+      vscode.window.showInformationMessage(
+        'Agent Pro: Reset complete. Reload to reinstall globally.',
+        'Reload Window'
+      ).then(action => {
         if (action === 'Reload Window') {
           vscode.commands.executeCommand('workbench.action.reloadWindow');
         }
       });
+    } catch (error) {
+      vscode.window.showErrorMessage(`Agent Pro: Reset failed: ${error.message}`);
+    }
   });
 
-  context.subscriptions.push(installCommand, updateCommand, resetCommand);
+  let openStorageCommand = vscode.commands.registerCommand('agent-pro.openStorage', function () {
+    // Open global storage location
+    vscode.env.openExternal(vscode.Uri.file(globalAgentsPath));
+  });
+
+  context.subscriptions.push(updateCommand, resetCommand, openStorageCommand);
 }
 
 function copyRecursiveSync(src, dest) {
