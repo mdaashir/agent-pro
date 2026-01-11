@@ -32,17 +32,22 @@ Search for "Agent Pro" in the VS Code Extensions Marketplace.
 
 When you open a workspace, Agent Pro will prompt you to install the agents:
 
-1. Click "Yes" to install agents in the current workspace
-2. Click "Always" to auto-install in all future workspaces
-3. Agents will be added to your workspace's `.github` folder
-4. Reload window when prompted
+### Installation
 
-### Manual Installation
+1. Install the extension from the VS Code Marketplace
+2. Open any workspace
+3. Agents are automatically available globally - no setup needed!
+4. Type `@` in Copilot Chat to see all 22 agents
+
+The extension installs agents once to `~/.copilot-agents/.github` and links them to your workspaces automatically.
+
+### Manual Commands
 
 Use the Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`):
 
-- **Agent Pro: Install Agents to Workspace** - Install agents
-- **Agent Pro: Update Agents in Workspace** - Update to latest version
+- **Agent Pro: Install Agents to Workspace** - Manually link agents to current workspace
+- **Agent Pro: Update Agents** - Update global agents to latest version
+- **Agent Pro: Reset** - Reinstall agents globally
 
 ### Using Agents
 

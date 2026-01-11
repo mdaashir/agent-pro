@@ -5,6 +5,21 @@ All notable changes to the "Agent Pro" extension will be documented in this file
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-01-12
+
+### Changed
+
+- **Global Installation**: Agents now installed once to `~/.copilot-agents/.github` and automatically linked to all workspaces
+- No more prompts or per-workspace copying - agents are truly "install once, available everywhere"
+- Creates symlinks (or copies as fallback) to workspace `.github` folders automatically
+- Simplified commands: "Update Global Agents" and "Reset and Reinstall"
+
+### Improved
+
+- Faster workspace switching - no copying needed
+- Single source of truth for all agents in user home directory
+- Automatic updates propagate to all workspaces instantly
+
 ## [1.0.1] - 2026-01-12
 
 ### Changed
