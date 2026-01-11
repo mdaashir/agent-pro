@@ -9,18 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Global Installation**: Agents now installed to VS Code's global storage (no workspace `.github` folders created)
-- Works like built-in agents - available everywhere without workspace modification
-- Completely transparent - zero workspace pollution
-- Uses VS Code's extension global storage API for proper isolation
+- **Global Installation**: Agents installed to `~/.github` in user home directory
+- GitHub Copilot automatically discovers agents from this standard location
+- Zero workspace pollution - no files created in projects
+- Works exactly like built-in agents - available everywhere
 
 ### Improved
 
-- No `.github` folders created in workspaces
-- No symlinks or copying needed
-- Cleaner workspace directories
-- Agents automatically available in all workspaces
-- Added "Open Agent Storage Location" command to view installed agents
+- No workspace `.github` folders needed
+- Proper GitHub Copilot agent discovery
+- Agents automatically available across all projects
+- Added "Open Agent Storage Location" command to view `~/.github`
 
 ## [1.0.1] - 2026-01-12
 
