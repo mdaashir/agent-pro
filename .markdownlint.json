@@ -1,11 +1,13 @@
 {
-  "default": true,
-  "MD013": false,
-  "MD033": false,
-  "MD041": false,
-  "MD034": false,
-  "line-length": false,
-  "no-inline-html": false,
-  "first-line-heading": false,
-  "no-bare-urls": false
+    "default": true,
+    "MD013": false,
+    "MD033": false,
+    "MD034": false,
+    "MD040": false,
+    "MD041": false,
+    "line-length": false,
+    "no-inline-html": false,
+    "no-bare-urls": false,
+    "first-line-heading": false,
+    "fenced-code-language": false
 }
