@@ -5,6 +5,10 @@ const path = require('path');
 function activate(context) {
   console.log('Agent Pro extension is now active');
 
+  // Check if user has opted in or out
+  const autoInstall = context.globalState.get('agentPro.autoInstall');
+  const hasAskedBefore = context.globalState.get('agentPro.hasAsked');
+
   // Copy .github folder to workspace on activation
   const workspaceFolders = vscode.workspace.workspaceFolders;
 
@@ -16,40 +20,55 @@ function activate(context) {
 
     // Check if .github folder already exists in workspace
     if (!fs.existsSync(targetGithubPath)) {
-      // Ask user if they want to copy the agents
-      vscode.window.showInformationMessage(
-        'Agent Pro: Would you like to add 22+ expert agents to this workspace?',
-        'Yes', 'No', 'Always'
-      ).then(selection => {
-        if (selection === 'Yes' || selection === 'Always') {
-          try {
-            // Copy .github folder to workspace
-            copyRecursiveSync(sourceGithubPath, targetGithubPath);
-
-            vscode.window.showInformationMessage(
-              'Agent Pro: Successfully added 22 expert agents! Type @ in Copilot Chat to use them.',
-              'Open Chat'
-            ).then(action => {
-              if (action === 'Open Chat') {
-                vscode.commands.executeCommand('workbench.panel.chat.view.copilot.focus');
-              }
-            });
-
-            // Save preference if "Always" was selected
-            if (selection === 'Always') {
-              context.globalState.update('agentPro.autoInstall', true);
-            }
-          } catch (error) {
-            vscode.window.showErrorMessage(`Agent Pro: Failed to copy agents: ${error.message}`);
-          }
+      // Auto-install if user previously selected "Always"
+      if (autoInstall === true) {
+        try {
+          copyRecursiveSync(sourceGithubPath, targetGithubPath);
+          console.log('Agent Pro: Auto-installed agents to workspace');
+        } catch (error) {
+          console.error('Agent Pro auto-install failed:', error);
         }
-      });
-    } else if (context.globalState.get('agentPro.autoInstall')) {
-      // Auto-update if preference is set
-      try {
-        copyRecursiveSync(sourceGithubPath, targetGithubPath);
-      } catch (error) {
-        console.error('Agent Pro auto-update failed:', error);
+      } else if (!hasAskedBefore) {
+        // Only ask once if we haven't asked before
+        vscode.window.showInformationMessage(
+          'Agent Pro: Would you like to automatically add 22+ expert agents to all your workspaces?',
+          'Yes, Always', 'No, Never', 'Ask Each Time'
+        ).then(selection => {
+          context.globalState.update('agentPro.hasAsked', true);
+
+          if (selection === 'Yes, Always') {
+            context.globalState.update('agentPro.autoInstall', true);
+            try {
+              copyRecursiveSync(sourceGithubPath, targetGithubPath);
+              vscode.window.showInformationMessage(
+                'Agent Pro: Successfully added 22 expert agents! Type @ in Copilot Chat to use them.'
+              );
+            } catch (error) {
+              vscode.window.showErrorMessage(`Agent Pro: Failed to copy agents: ${error.message}`);
+            }
+          } else if (selection === 'No, Never') {
+            context.globalState.update('agentPro.autoInstall', false);
+          } else if (selection === 'Ask Each Time') {
+            context.globalState.update('agentPro.autoInstall', 'ask');
+          }
+        });
+      } else if (autoInstall === 'ask') {
+        // Ask for this workspace only
+        vscode.window.showInformationMessage(
+          'Agent Pro: Add expert agents to this workspace?',
+          'Yes', 'No'
+        ).then(selection => {
+          if (selection === 'Yes') {
+            try {
+              copyRecursiveSync(sourceGithubPath, targetGithubPath);
+              vscode.window.showInformationMessage(
+                'Agent Pro: Successfully added 22 expert agents! Type @ in Copilot Chat to use them.'
+              );
+            } catch (error) {
+              vscode.window.showErrorMessage(`Agent Pro: Failed to copy agents: ${error.message}`);
+            }
+          }
+        });
       }
     }
   }
@@ -104,8 +123,18 @@ function activate(context) {
     }
   });
 
-  context.subscriptions.push(installCommand);
-  context.subscriptions.push(updateCommand);
+  let resetCommand = vscode.commands.registerCommand('agent-pro.reset', function () {
+    context.globalState.update('agentPro.autoInstall', undefined);
+    context.globalState.update('agentPro.hasAsked', undefined);
+    vscode.window.showInformationMessage('Agent Pro: Preferences reset. Reload window to reconfigure.', 'Reload Window')
+      .then(action => {
+        if (action === 'Reload Window') {
+          vscode.commands.executeCommand('workbench.action.reloadWindow');
+        }
+      });
+  });
+
+  context.subscriptions.push(installCommand, updateCommand, resetCommand);
 }
 
 function copyRecursiveSync(src, dest) {
