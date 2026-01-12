@@ -17,26 +17,38 @@ async function ensureGlobalAssets(context) {
   const src = context.asAbsolutePath('resources');
   const dest = path.join(storagePath, 'resources');
 
-  copyRecursive(src, dest);
-  await context.globalState.update(versionKey, currentVersion);
-
-  vscode.window.showInformationMessage(
-    `Agent Pro v${currentVersion}: Agents installed globally! Access via sidebar or commands.`
-  );
+  try {
+    copyRecursive(src, dest);
+    await context.globalState.update(versionKey, currentVersion);
+    console.log(`Agent Pro: Resources installed to ${dest}`);
+  } catch (error) {
+    console.error('Agent Pro: Failed to install resources:', error);
+    throw error;
+  }
 }
 
 function copyRecursive(src, dest) {
-  if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
+  if (!fs.existsSync(src)) {
+    throw new Error(`Source directory not found: ${src}`);
+  }
+  if (!fs.existsSync(dest)) {
+    fs.mkdirSync(dest, { recursive: true });
+  }
   for (const item of fs.readdirSync(src)) {
     const s = path.join(src, item);
     const d = path.join(dest, item);
-    if (fs.statSync(s).isDirectory()) copyRecursive(s, d);
-    else fs.copyFileSync(s, d);
+    const stat = fs.statSync(s);
+    if (stat.isDirectory()) {
+      copyRecursive(s, d);
+    } else {
+      fs.copyFileSync(s, d);
+    }
   }
 }
 
 class AgentProFS {
   constructor(context) {
+    this.context = context;
     this.base = path.join(context.globalStorageUri.fsPath, 'resources');
     this._emitter = new vscode.EventEmitter();
     this.onDidChangeFile = this._emitter.event;
@@ -47,26 +59,45 @@ class AgentProFS {
   }
 
   stat(uri) {
-    const stat = fs.statSync(this._path(uri));
-    const isDir = stat.isDirectory();
-    return {
-      type: isDir ? vscode.FileType.Directory : vscode.FileType.File,
-      size: stat.size,
-      ctime: stat.ctimeMs,
-      mtime: stat.mtimeMs
-    };
+    try {
+      const fsPath = this._toFsPath(uri);
+      const stat = fs.statSync(fsPath);
+      return {
+        type: stat.isDirectory() ? vscode.FileType.Directory : vscode.FileType.File,
+        size: stat.size,
+        ctime: stat.ctimeMs,
+        mtime: stat.mtimeMs,
+        permissions: vscode.FilePermission.Readonly
+      };
+    } catch (error) {
+      if (error.code === 'ENOENT') {
+        throw vscode.FileSystemError.FileNotFound(uri);
+      }
+      throw error;
+    }
   }
 
   readDirectory(uri) {
-    const p = this._path(uri);
-    const entries = fs.readdirSync(p);
-    const result = [];
-    for (const entry of entries) {
-      const entryPath = path.join(p, entry);
-      const stat = fs.statSync(entryPath);
-      result.push([entry, stat.isDirectory() ? vscode.FileType.Directory : vscode.FileType.File]);
+    try {
+      const fsPath = this._toFsPath(uri);
+      if (!fs.existsSync(fsPath)) {
+        throw vscode.FileSystemError.FileNotFound(uri);
+      }
+      const entries = fs.readdirSync(fsPath);
+      const result = [];
+      for (const entry of entries) {
+        const entryPath = path.join(fsPath, entry);
+        const stat = fs.statSync(entryPath);
+        const type = stat.isDirectory() ? vscode.FileType.Directory : vscode.FileType.File;
+        result.push([entry, type]);
+      }
+      return result;
+    } catch (error) {
+      if (error.code === 'ENOENT') {
+        throw vscode.FileSystemError.FileNotFound(uri);
+      }
+      throw error;
     }
-    return result;
   }
 
   createDirectory(uri) {
@@ -74,7 +105,18 @@ class AgentProFS {
   }
 
   readFile(uri) {
-    return fs.readFileSync(this._path(uri));
+    try {
+      const fsPath = this._toFsPath(uri);
+      if (!fs.existsSync(fsPath)) {
+        throw vscode.FileSystemError.FileNotFound(uri);
+      }
+      return fs.readFileSync(fsPath);
+    } catch (error) {
+      if (error.code === 'ENOENT') {
+        throw vscode.FileSystemError.FileNotFound(uri);
+      }
+      throw error;
+    }
   }
 
   writeFile(uri, content, options) {
@@ -89,87 +131,187 @@ class AgentProFS {
     throw vscode.FileSystemError.NoPermissions('Read-only file system');
   }
 
-  _path(uri) {
-    return path.join(this.base, uri.path.replace(/^\/+/, ''));
+  _toFsPath(uri) {
+    let fsPath = path.join(this.base, uri.path);
+    if (process.platform === 'win32' && fsPath.startsWith('/')) {
+      fsPath = fsPath.substring(1);
+    }
+    return fsPath;
+  }
+}
+
+class AgentTreeItem extends vscode.TreeItem {
+  constructor(label, collapsibleState, resourcePath, isFile) {
+    super(label, collapsibleState);
+    this.resourcePath = resourcePath;
+    this.isFile = isFile;
+
+    if (isFile) {
+      this.iconPath = new vscode.ThemeIcon('file');
+      this.command = {
+        command: 'agent-pro.open',
+        title: 'Open Agent',
+        arguments: [resourcePath]
+      };
+    } else {
+      this.iconPath = new vscode.ThemeIcon('folder');
+    }
+
+    this.contextValue = isFile ? 'file' : 'folder';
   }
 }
 
 class AgentTreeProvider {
-  constructor(basePath) {
-    this.basePath = basePath;
-  }
-
-  getChildren(element) {
-    if (!element) {
-      return this.readDir('').map(item => ({
-        label: item.charAt(0).toUpperCase() + item.slice(1),
-        path: item,
-        collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
-        contextValue: 'folder'
-      }));
-    } else {
-      return this.readDir(element.path).map(f => ({
-        label: f,
-        path: `${element.path}/${f}`,
-        collapsibleState: vscode.TreeItemCollapsibleState.None,
-        contextValue: 'file',
-        command: {
-          command: 'agent-pro.open',
-          arguments: [`${element.path}/${f}`],
-          title: 'Open Agent'
-        }
-      }));
-    }
+  constructor(context) {
+    this.context = context;
+    this.basePath = path.join(context.globalStorageUri.fsPath, 'resources');
+    this._onDidChangeTreeData = new vscode.EventEmitter();
+    this.onDidChangeTreeData = this._onDidChangeTreeData.event;
   }
 
   getTreeItem(element) {
     return element;
   }
 
-  readDir(dir) {
-    const p = path.join(this.basePath, dir);
-    if (!fs.existsSync(p)) return [];
-    return fs.readdirSync(p).filter(f => {
-      const fullPath = path.join(p, f);
-      return fs.statSync(fullPath).isDirectory() || f.endsWith('.md');
-    });
+  getChildren(element) {
+    try {
+      if (!element) {
+        return this._getRootItems();
+      } else {
+        return this._getChildItems(element);
+      }
+    } catch (error) {
+      console.error('Error in getChildren:', error);
+      return [];
+    }
+  }
+
+  _getRootItems() {
+    if (!fs.existsSync(this.basePath)) {
+      console.warn(`Resources path not found: ${this.basePath}`);
+      return [];
+    }
+
+    const items = [];
+    try {
+      const dirs = fs.readdirSync(this.basePath);
+      for (const dir of dirs) {
+        const fullPath = path.join(this.basePath, dir);
+        const stat = fs.statSync(fullPath);
+        if (stat.isDirectory()) {
+          items.push(
+            new AgentTreeItem(
+              dir.charAt(0).toUpperCase() + dir.slice(1),
+              vscode.TreeItemCollapsibleState.Collapsed,
+              dir,
+              false
+            )
+          );
+        }
+      }
+    } catch (error) {
+      console.error('Error reading root items:', error);
+    }
+    return items;
+  }
+
+  _getChildItems(parentElement) {
+    const folderPath = path.join(this.basePath, parentElement.resourcePath);
+    if (!fs.existsSync(folderPath)) {
+      return [];
+    }
+
+    const items = [];
+    try {
+      const files = fs.readdirSync(folderPath);
+      for (const file of files) {
+        const fullPath = path.join(folderPath, file);
+        const stat = fs.statSync(fullPath);
+
+        if (stat.isFile() && file.endsWith('.md')) {
+          const resourcePath = `${parentElement.resourcePath}/${file}`;
+          items.push(
+            new AgentTreeItem(
+              file.replace(/\.md$/, ''),
+              vscode.TreeItemCollapsibleState.None,
+              resourcePath,
+              true
+            )
+          );
+        } else if (stat.isDirectory()) {
+          const resourcePath = `${parentElement.resourcePath}/${file}`;
+          items.push(
+            new AgentTreeItem(
+              file,
+              vscode.TreeItemCollapsibleState.Collapsed,
+              resourcePath,
+              false
+            )
+          );
+        }
+      }
+    } catch (error) {
+      console.error('Error reading child items:', error);
+    }
+    return items;
+  }
+
+  refresh() {
+    this._onDidChangeTreeData.fire(undefined);
   }
 }
 
 async function openAgent(relPath) {
   if (!relPath) {
-    vscode.window.showInformationMessage('Please select an agent from the sidebar.');
-    return;
+    const picked = await vscode.window.showQuickPick(
+      getAgentQuickPickItems(),
+      { placeHolder: 'Select an agent to open' }
+    );
+    if (!picked) return;
+    relPath = picked.detail;
   }
 
-  const uri = vscode.Uri.parse(`agentpro:/${relPath}`);
-  const doc = await vscode.workspace.openTextDocument(uri);
-  vscode.window.showTextDocument(doc, { preview: true });
+  try {
+    const uri = vscode.Uri.parse(`agentpro:/${relPath}`);
+    const doc = await vscode.workspace.openTextDocument(uri);
+    await vscode.window.showTextDocument(doc, { preview: true });
+  } catch (error) {
+    vscode.window.showErrorMessage(`Failed to open agent: ${error.message}`);
+  }
 }
 
 async function insertAgent(relPath) {
   const editor = vscode.window.activeTextEditor;
   if (!editor) {
-    vscode.window.showWarningMessage('No active editor');
+    vscode.window.showWarningMessage('No active editor. Open a file first.');
     return;
   }
 
   if (!relPath) {
-    vscode.window.showInformationMessage('Please select an agent from the sidebar.');
-    return;
+    const picked = await vscode.window.showQuickPick(
+      getAgentQuickPickItems(),
+      { placeHolder: 'Select an agent to insert' }
+    );
+    if (!picked) return;
+    relPath = picked.detail;
   }
 
-  const uri = vscode.Uri.parse(`agentpro:/${relPath}`);
-  const doc = await vscode.workspace.openTextDocument(uri);
-
-  editor.edit(edit =>
-    edit.insert(editor.selection.active, doc.getText())
-  );
+  try {
+    const uri = vscode.Uri.parse(`agentpro:/${relPath}`);
+    const doc = await vscode.workspace.openTextDocument(uri);
+    const text = doc.getText();
+    await editor.edit(editBuilder => {
+      editBuilder.insert(editor.selection.active, text);
+    });
+    vscode.window.showInformationMessage('Agent content inserted successfully');
+  } catch (error) {
+    vscode.window.showErrorMessage(`Failed to insert agent: ${error.message}`);
+  }
 }
 
 async function exportAgent(relPath) {
   if (!vscode.workspace.isTrusted) {
-    vscode.window.showWarningMessage('Workspace not trusted');
+    vscode.window.showWarningMessage('Workspace is not trusted. Cannot export agents.');
     return;
   }
 
@@ -180,39 +322,91 @@ async function exportAgent(relPath) {
   }
 
   if (!relPath) {
-    vscode.window.showInformationMessage('Please select an agent from the sidebar.');
-    return;
+    const picked = await vscode.window.showQuickPick(
+      getAgentQuickPickItems(),
+      { placeHolder: 'Select an agent to export' }
+    );
+    if (!picked) return;
+    relPath = picked.detail;
   }
 
-  const src = vscode.Uri.parse(`agentpro:/${relPath}`);
-  const text = (await vscode.workspace.openTextDocument(src)).getText();
+  try {
+    const src = vscode.Uri.parse(`agentpro:/${relPath}`);
+    const text = (await vscode.workspace.openTextDocument(src)).getText();
+    const dest = vscode.Uri.joinPath(ws.uri, '.github', relPath);
 
-  const dest = vscode.Uri.joinPath(ws.uri, '.github', relPath);
-  await vscode.workspace.fs.writeFile(dest, Buffer.from(text));
+    await vscode.workspace.fs.writeFile(dest, Buffer.from(text));
+    vscode.window.showInformationMessage(`Agent exported to ${relPath}`);
+  } catch (error) {
+    vscode.window.showErrorMessage(`Failed to export agent: ${error.message}`);
+  }
+}
 
-  vscode.window.showInformationMessage(`Agent exported to ${relPath}`);
+function getAgentQuickPickItems() {
+  const basePath = vscode.extensions.getExtension('mdaashir.agent-pro').extensionPath;
+  const resourcePath = path.join(basePath, 'resources');
+  const items = [];
+
+  if (!fs.existsSync(resourcePath)) {
+    return items;
+  }
+
+  const categories = fs.readdirSync(resourcePath);
+  for (const category of categories) {
+    const categoryPath = path.join(resourcePath, category);
+    if (fs.statSync(categoryPath).isDirectory()) {
+      const files = fs.readdirSync(categoryPath).filter(f => f.endsWith('.md'));
+      for (const file of files) {
+        items.push({
+          label: `[${category}] ${file.replace(/\.md$/, '')}`,
+          detail: `${category}/${file}`,
+          description: file
+        });
+      }
+    }
+  }
+
+  return items.sort((a, b) => a.label.localeCompare(b.label));
 }
 
 async function activate(context) {
-  await ensureGlobalAssets(context);
+  console.log('Agent Pro: Activating extension...');
 
-  context.subscriptions.push(
-    vscode.workspace.registerFileSystemProvider(
-      'agentpro',
-      new AgentProFS(context),
-      { isReadonly: true }
-    )
-  );
+  try {
+    await ensureGlobalAssets(context);
 
-  context.subscriptions.push(
-    vscode.commands.registerCommand('agent-pro.open', openAgent),
-    vscode.commands.registerCommand('agent-pro.insert', insertAgent),
-    vscode.commands.registerCommand('agent-pro.export', exportAgent)
-  );
+    const agentFS = new AgentProFS(context);
+    context.subscriptions.push(
+      vscode.workspace.registerFileSystemProvider('agentpro', agentFS, {
+        isCaseSensitive: true,
+        isReadonly: true
+      })
+    );
 
-  const base = path.join(context.globalStorageUri.fsPath, 'resources');
-  const treeProvider = new AgentTreeProvider(base);
-  vscode.window.registerTreeDataProvider('agentProView', treeProvider);
+    const treeProvider = new AgentTreeProvider(context);
+    const treeView = vscode.window.createTreeView('agentProView', {
+      treeDataProvider: treeProvider,
+      canSelectMany: false,
+      showCollapseAll: true
+    });
+
+    context.subscriptions.push(treeView);
+
+    context.subscriptions.push(
+      vscode.commands.registerCommand('agent-pro.open', openAgent),
+      vscode.commands.registerCommand('agent-pro.insert', insertAgent),
+      vscode.commands.registerCommand('agent-pro.export', exportAgent),
+      vscode.commands.registerCommand('agent-pro.refresh', () => {
+        treeProvider.refresh();
+        vscode.window.showInformationMessage('Agent Pro: TreeView refreshed');
+      })
+    );
+
+    console.log('Agent Pro: Activated successfully');
+  } catch (error) {
+    console.error('Agent Pro: Activation failed:', error);
+    vscode.window.showErrorMessage(`Agent Pro failed to activate: ${error.message}`);
+  }
 }
 
 function deactivate() {}
