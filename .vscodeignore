@@ -12,3 +12,11 @@
 **/webpack.config.js
 **/.eslintrc*
 **/.prettierrc*
+scripts/**
+RD/**
+SETUP_GUIDE.md
+CONTRIBUTING.md
+.markdownlint.json
+.prettierignore
+.prettierrc.json
+MIGRATION_V2.md

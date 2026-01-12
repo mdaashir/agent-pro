@@ -5,6 +5,78 @@ All notable changes to the "Agent Pro" extension will be documented in this file
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2026-01-13
+
+### Major Architectural Overhaul
+
+Complete rewrite following VS Code extension best practices. Agents now use global storage instead of workspace files.
+
+### Added
+
+- **TreeView Sidebar**: Browse agents, prompts, skills, and instructions in dedicated sidebar
+- **Virtual File System**: Access agents via `agentpro:` URI scheme (read-only)
+- **Global Storage**: Agents stored in VS Code's globalStorageUri (per-user, not per-workspace)
+- **New Commands**:
+  - `Agent Pro: Open Agent` - Opens agent in preview tab
+  - `Agent Pro: Insert Agent` - Inserts agent content at cursor position
+  - `Agent Pro: Export Agent to Workspace` - Explicitly exports to workspace .github
+- **Automatic Updates**: Version-based updates when extension is updated
+- **Instructions Support**: Now includes all instructions files in global storage
+
+### Changed
+
+- **Storage Location**: `~/.github` → VS Code global storage (`~/.config/Code/User/globalStorage/mdaashir.agent-pro/`)
+- **Installation**: Per-workspace → Per-user (global)
+- **Updates**: Manual → Automatic (version-tracked)
+- **Access Pattern**: File-based → Virtual URI-based
+- **Workspace Behavior**: No automatic `.github` folder creation (zero pollution)
+
+### Removed
+
+- `agent-pro.update` command (now automatic)
+- `agent-pro.reset` command (use VS Code's extension reload)
+- `agent-pro.openStorage` command (new storage architecture)
+- Automatic workspace `.github` folder creation
+
+### Architecture
+
+**Before (v1.x):**
+
+- Extension → `~/.github` → Every workspace `.github`
+- Workspace pollution
+- Manual updates required
+- Per-workspace installation
+
+**After (v2.0):**
+
+- Extension → Global Storage → Virtual URIs → Available everywhere
+- Zero workspace pollution
+- Automatic version-based updates
+- Per-user installation
+- Works in any workspace instantly
+- Professional sidebar UI
+- Optional explicit export only
+
+### Benefits
+
+- Follows VS Code extension best practices
+- Matches architecture of professional extensions (Copilot, GitLens, Docker)
+- No workspace contamination
+- Agents available globally across all workspaces
+- Automatic updates on extension version changes
+- Read-only master copies prevent accidental edits
+- Better user experience with TreeView sidebar
+
+### Migration
+
+**For users**: No action required. Extension automatically migrates on first activation.
+
+**Storage locations**:
+
+- Windows: `%APPDATA%\Code\User\globalStorage\mdaashir.agent-pro\resources`
+- macOS: `~/Library/Application Support/Code/User/globalStorage/mdaashir.agent-pro/resources`
+- Linux: `~/.config/Code/User/globalStorage/mdaashir.agent-pro/resources`
+
 ## [1.1.0] - 2026-01-12
 
 ### Changed
