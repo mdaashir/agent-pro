@@ -4,46 +4,28 @@ A comprehensive collection of 22+ expert agents, 5 prompts, and comprehensive sk
 
 Agent Pro provides 34 curated resources to enhance your development workflow with AI-powered assistance across multiple domains including architecture, security, testing, cloud infrastructure, and more.
 
-## Features
+## ✨ Features
 
-- **22 Expert Agents** - Specialized AI assistants for every development domain
+- **22 Expert Agents** - Specialized AI assistants accessible via `@` in Copilot Chat
+- **Copilot Integration** - All agents appear natively in GitHub Copilot's @ menu
 - **5 Reusable Prompts** - Pre-built templates for common tasks
 - **2 Instruction Sets** - Automatic coding standards for Python and TypeScript
 - **5 Comprehensive Skills** - Bundled capabilities with best practices
-- **Automatic Installation** - Agents are automatically offered when you open a workspace
+- **Sidebar Access** - Browse and manage all agents from the TreeView
+- **Global Storage** - Agents available in all your projects
 
-## Installation
+## 🚀 Quick Start
 
-### From GitHub Releases
+1. Install Agent Pro from the VS Code Marketplace
+2. Open GitHub Copilot Chat (`Ctrl+Alt+I` / `Cmd+Option+I`)
+3. Type `@` to see all 22 expert agents
+4. Select an agent (e.g., `@PythonExpert`) and start chatting!
 
-1. Download `agent-pro-1.0.0.vsix` from [Releases](https://github.com/mdaashir/agent-pro/releases)
-2. Open VS Code
-3. Go to Extensions view (`Ctrl+Shift+X` / `Cmd+Shift+X`)
-4. Click the `...` menu → Install from VSIX
-5. Select the downloaded file
+## 💡 Usage
 
-### From Marketplace (Coming Soon)
+### Using Agents in Copilot Chat
 
-Search for "Agent Pro" in the VS Code Extensions Marketplace.
-
-## Usage
-
-### Automatic Setup
-
-When you open a workspace, Agent Pro will prompt you to install the agents:
-
-### Installation
-
-1. Install the extension from the VS Code Marketplace
-2. Reload VS Code
-3. Agents are automatically installed to `~/.github` (your home directory)
-4. Type `@` in Copilot Chat to see all 22 agents
-
-GitHub Copilot automatically discovers agents from `~/.github` - works globally everywhere!
-
-### Commands
-
-Use the Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`):
+Open GitHub Copilot Chat and type `@` to see all available agents:
 
 - **Agent Pro: Update Global Agents** - Update to latest version
 - **Agent Pro: Reset and Reinstall** - Reinstall all agents

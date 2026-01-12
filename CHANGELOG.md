@@ -5,6 +5,29 @@ All notable changes to the "Agent Pro" extension will be documented in this file
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2026-01-13
+
+### Added - GitHub Copilot Chat Integration 🎉
+
+- **Agents in Copilot @ Menu**: All 22 expert agents now appear in GitHub Copilot Chat's @ selector
+- **Direct Agent Access**: Type `@AccessibilityExpert`, `@PythonExpert`, `@SecurityExpert`, etc. in Copilot Chat
+- **Seamless Integration**: Uses VS Code's `chatAgents` contribution point for native Copilot discovery
+- **No Configuration Needed**: Agents automatically available after installation
+
+### How to Use
+
+1. Open GitHub Copilot Chat (Ctrl+Alt+I or Cmd+Option+I)
+2. Type `@` to see all available agents
+3. Select an expert agent (e.g., `@PythonExpert`)
+4. Chat with specialized AI experts for your development needs
+
+### Technical Details
+
+- Added `chatAgents` contribution with 22 agent definitions
+- Each agent configured with name, path, and description
+- Follows Windows AI Studio implementation pattern
+- Zero runtime overhead - pure declarative configuration
+
 ## [2.0.0] - 2026-01-13
 
 ### Major Architectural Overhaul
