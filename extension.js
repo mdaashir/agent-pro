@@ -1,6 +1,7 @@
 const vscode = require('vscode');
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 
 async function ensureGlobalAssets(context) {
   const storagePath = context.globalStorageUri.fsPath;
@@ -19,11 +20,70 @@ async function ensureGlobalAssets(context) {
 
   try {
     copyRecursive(src, dest);
+
+    await installForCopilot(context);
+
     await context.globalState.update(versionKey, currentVersion);
     console.log(`Agent Pro: Resources installed to ${dest}`);
+
+    vscode.window.showInformationMessage(
+      'Agent Pro: Agents installed! Type @ in Copilot Chat to use them.'
+    );
   } catch (error) {
     console.error('Agent Pro: Failed to install resources:', error);
+    vscode.window.showErrorMessage(`Agent Pro: Installation failed - ${error.message}`);
     throw error;
+  }
+}
+
+async function installForCopilot(context) {
+  const homeDir = os.homedir();
+  const copilotGithubPath = path.join(homeDir, '.github');
+  const src = context.asAbsolutePath('resources');
+
+  try {
+    if (!fs.existsSync(copilotGithubPath)) {
+      fs.mkdirSync(copilotGithubPath, { recursive: true });
+    }
+
+    const agentsSource = path.join(src, 'agents');
+    const agentsDest = path.join(copilotGithubPath, 'agents');
+    if (fs.existsSync(agentsSource)) {
+      copyRecursive(agentsSource, agentsDest);
+      console.log(`Agent Pro: Agents copied to ${agentsDest} for Copilot discovery`);
+    }
+
+    const instructionsSource = path.join(src, 'instructions');
+    const instructionsDest = path.join(copilotGithubPath, 'instructions');
+    if (fs.existsSync(instructionsSource)) {
+      copyRecursive(instructionsSource, instructionsDest);
+      console.log(`Agent Pro: Instructions copied to ${instructionsDest}`);
+    }
+
+    const skillsSource = path.join(src, 'skills');
+    const skillsDest = path.join(copilotGithubPath, 'skills');
+    if (fs.existsSync(skillsSource)) {
+      copyRecursive(skillsSource, skillsDest);
+      console.log(`Agent Pro: Skills copied to ${skillsDest}`);
+    }
+
+    const promptsSource = path.join(src, 'prompts');
+    const promptsDest = path.join(copilotGithubPath, 'prompts');
+    if (fs.existsSync(promptsSource)) {
+      copyRecursive(promptsSource, promptsDest);
+      console.log(`Agent Pro: Prompts copied to ${promptsDest}`);
+    }
+
+    const copilotInstructions = path.join(context.asAbsolutePath('.github'), 'copilot-instructions.md');
+    const copilotInstructionsDest = path.join(copilotGithubPath, 'copilot-instructions.md');
+    if (fs.existsSync(copilotInstructions)) {
+      fs.copyFileSync(copilotInstructions, copilotInstructionsDest);
+      console.log(`Agent Pro: copilot-instructions.md copied to ${copilotInstructionsDest}`);
+    }
+
+    console.log(`Agent Pro: GitHub Copilot will discover agents from ${copilotGithubPath}`);
+  } catch (error) {
+    console.error('Agent Pro: Failed to install for Copilot:', error);
   }
 }
 
