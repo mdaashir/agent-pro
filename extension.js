@@ -397,6 +397,10 @@ async function exportAgent(relPath) {
     const text = (await vscode.workspace.openTextDocument(src)).getText();
     const dest = vscode.Uri.joinPath(ws.uri, '.github', relPath);
 
+    // Ensure destination directory exists (e.g., .github/agents, prompts, etc.)
+    const destDir = vscode.Uri.joinPath(ws.uri, '.github', path.dirname(relPath));
+    await vscode.workspace.fs.createDirectory(destDir);
+
     await vscode.workspace.fs.writeFile(dest, Buffer.from(text));
     vscode.window.showInformationMessage(`Agent exported to ${relPath}`);
   } catch (error) {
