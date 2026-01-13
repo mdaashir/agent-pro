@@ -21,13 +21,20 @@ async function ensureGlobalAssets(context) {
   try {
     copyRecursive(src, dest);
 
-    await installForCopilot(context);
+    // Optional: install resources to user's ~/.github for GitHub.com/CLI discovery
+    const config = vscode.workspace.getConfiguration('agentPro');
+    const installToHomeGithub = config.get('installToHomeGithub', false);
+    if (installToHomeGithub) {
+      await installForCopilot(context);
+    }
 
     await context.globalState.update(versionKey, currentVersion);
     console.log(`Agent Pro: Resources installed to ${dest}`);
 
     vscode.window.showInformationMessage(
-      'Agent Pro: Agents installed! Type @ in Copilot Chat to use them.'
+      installToHomeGithub
+        ? 'Agent Pro: Agents installed! Type @ in Copilot Chat to use them.'
+        : 'Agent Pro: Agents installed globally. Type @ in Copilot Chat to use them.'
     );
   } catch (error) {
     console.error('Agent Pro: Failed to install resources:', error);

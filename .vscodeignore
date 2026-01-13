@@ -20,3 +20,4 @@ CONTRIBUTING.md
 .prettierignore
 .prettierrc.json
 MIGRATION_V2.md
+**/.github/**
