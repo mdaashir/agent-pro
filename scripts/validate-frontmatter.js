@@ -212,50 +212,50 @@ function scanSkills(dir) {
 // Main execution
 log('\nValidating Agent Pro Extension Files\n', 'blue');
 
-const githubDir = path.join(process.cwd(), '.github');
+const resourcesDir = path.join(process.cwd(), 'resources');
 
 // Validate agents
-if (fs.existsSync(path.join(githubDir, 'agents'))) {
+if (fs.existsSync(path.join(resourcesDir, 'agents'))) {
   const count = scanDirectory(
-    path.join(githubDir, 'agents'),
+    path.join(resourcesDir, 'agents'),
     '.agent.md',
     validateAgent
   );
   log(`\nValidated ${count} agents\n`);
 } else {
-  error('Missing .github/agents directory');
+  error('Missing resources/agents directory');
 }
 
 // Validate prompts
-if (fs.existsSync(path.join(githubDir, 'prompts'))) {
+if (fs.existsSync(path.join(resourcesDir, 'prompts'))) {
   const count = scanDirectory(
-    path.join(githubDir, 'prompts'),
+    path.join(resourcesDir, 'prompts'),
     '.prompt.md',
     validatePrompt
   );
   log(`\nValidated ${count} prompts\n`);
 } else {
-  error('Missing .github/prompts directory');
+  error('Missing resources/prompts directory');
 }
 
 // Validate instructions
-if (fs.existsSync(path.join(githubDir, 'instructions'))) {
+if (fs.existsSync(path.join(resourcesDir, 'instructions'))) {
   const count = scanDirectory(
-    path.join(githubDir, 'instructions'),
+    path.join(resourcesDir, 'instructions'),
     '.instructions.md',
     validateInstruction
   );
   log(`\nValidated ${count} instructions\n`);
 } else {
-  error('Missing .github/instructions directory');
+  error('Missing resources/instructions directory');
 }
 
 // Validate skills
-if (fs.existsSync(path.join(githubDir, 'skills'))) {
-  const count = scanSkills(path.join(githubDir, 'skills'));
+if (fs.existsSync(path.join(resourcesDir, 'skills'))) {
+  const count = scanSkills(path.join(resourcesDir, 'skills'));
   log(`\nValidated ${count} skills\n`);
 } else {
-  error('Missing .github/skills directory');
+  error('Missing resources/skills directory');
 }
 
 // Summary
