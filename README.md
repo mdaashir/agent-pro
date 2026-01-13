@@ -173,9 +173,9 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Package Contents
 
-- `.github/agents/` - 22 expert agent definitions
-- `.github/prompts/` - 5 reusable prompt templates
-- `.github/instructions/` - 2 automatic instruction sets
-- `.github/skills/` - 5 comprehensive skill bundles
-- `INDEX.md` - Complete reference guide
-- `copilot-instructions.md` - Repository-level instructions
+- `resources/agents/` - 22 expert agent definitions
+- `resources/prompts/` - 5 reusable prompt templates
+- `resources/instructions/` - 2 automatic instruction sets
+- `resources/skills/` - 5 comprehensive skill bundles
+- Global access via Copilot Chat (`@agent-name`)
+- Installed to `~/.config/Code/User/globalStorage/mdaashir.agent-pro/` on activation

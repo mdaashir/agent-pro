@@ -1,43 +1,28 @@
 # How to Use Agent Pro
 
-GitHub Copilot agents from `.github/agents/` folders are **workspace-based**, not extension-based. This means the `.github` folder must be in your active project/workspace.
+Agent Pro provides **22 expert agents** that integrate directly with GitHub Copilot. Agents are installed globally and accessible from any project.
 
 ## Quick Setup
 
-### Option 1: Copy to Your Project (Recommended)
+1. **Install the Extension**
+   - Open VS Code
+   - Go to Extensions (`Ctrl+Shift+X`)
+   - Search for "Agent Pro"
+   - Click Install
 
-1. Copy the `.github` folder from this extension to your project root:
+2. **Agents Activated Automatically**
+   - Extension activates on VS Code startup
+   - Resources copied to global storage
+   - All agents ready to use immediately
 
-   ```bash
-   # Navigate to your project
-   cd /path/to/your/project
-
-   # Copy the .github folder
-   cp -r /path/to/agent-pro/.github ./
-   ```
-
-2. Open your project in VS Code
-3. Open GitHub Copilot Chat (`Ctrl+Shift+I` or `Cmd+Shift+I`)
-4. Type `@` to see all available agents
-
-### Option 2: Global Template
-
-Create a global template you can copy to any project:
-
-```bash
-# Create a templates folder
-mkdir -p ~/templates/agent-pro
-
-# Copy the .github folder there
-cp -r /path/to/agent-pro/.github ~/templates/agent-pro/
-
-# Use in any project
-cp -r ~/templates/agent-pro/.github /path/to/your/project/
-```
+3. **Start Using Agents**
+   - Open GitHub Copilot Chat (`Ctrl+Shift+I` or `Cmd+Shift+I`)
+   - Type `@` to see all available agents
+   - Select an agent to start chatting
 
 ## Available Agents
 
-Once the `.github` folder is in your workspace, you'll have access to:
+Once installed, you have instant access to:
 
 - `@accessibility-expert`
 - `@ai-ml-engineering-expert`
@@ -80,23 +65,24 @@ GitHub Copilot discovers agents from:
 
 This extension provides the agent files for easy distribution. Copy them to your workspace to use them.
 
-## Alternative: Create a VS Code Workspace Template
+## Storage Location
 
-Create a `.code-workspace` file with the `.github` folder included:
+Agent Pro stores resources globally at:
 
-```json
-{
-  "folders": [
-    {
-      "path": "."
-    }
-  ],
-  "settings": {
-    "github.copilot.enable": {
-      "*": true
-    }
-  }
-}
-```
+- **Windows**: `%APPDATA%\Code\User\globalStorage\mdaashir.agent-pro\resources\`
+- **macOS**: `~/Library/Application Support/Code/User/globalStorage/mdaashir.agent-pro/resources/`
+- **Linux**: `~/.config/Code/User/globalStorage/mdaashir.agent-pro/resources/`
 
-Then open projects with "File → Open Workspace" to include the agents automatically.
+This keeps agents available across all projects without needing workspace setup.
+
+## Troubleshooting
+
+**Agents not showing?**
+
+1. Restart VS Code
+2. Confirm GitHub Copilot Chat is installed
+3. Open Extension Details and verify Agent Pro is active
+
+**Need to update agents?**
+
+- Uninstall and reinstall Agent Pro from the marketplace

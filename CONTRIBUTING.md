@@ -33,21 +33,25 @@ npm test
 ```
 agent-pro/
 ├── .github/
-│   ├── workflows/          # GitHub Actions CI/CD
-│   ├── agents/            # 22 agent definitions
-│   ├── prompts/           # 5 reusable prompts
-│   ├── instructions/      # 2 instruction sets
-│   └── skills/            # 5 comprehensive skills
-├── scripts/               # Build and validation scripts
-├── package.json           # Extension manifest
-└── README.md             # Documentation
+│   └── workflows/         # GitHub Actions CI/CD
+├── resources/
+│   ├── agents/           # 22 agent definitions (.agent.md)
+│   ├── prompts/          # 5 reusable prompts (.prompt.md)
+│   ├── instructions/     # 2 instruction sets (.instructions.md)
+│   ├── skills/           # 5 comprehensive skills (SKILL.md)
+│   ├── INDEX.md          # Resource reference
+│   └── copilot-instructions.md
+├── scripts/              # Build and validation scripts
+├── extension.js          # Extension entry point (58 lines)
+├── package.json          # Extension manifest
+└── README.md            # Documentation
 ```
 
 ## Adding New Resources
 
 ### Adding a New Agent
 
-1. Create a new file in `.github/agents/` with the `.agent.md` extension
+1. Create a new file in `resources/agents/` with the `.agent.md` extension
 2. Use kebab-case naming (e.g., `my-expert.agent.md`)
 3. Include required frontmatter:
 
@@ -61,12 +65,13 @@ model: 'Claude Sonnet 4.5'
 ```
 
 4. Add comprehensive content with examples
-5. Update the count in [.github/workflows/ci.yml](.github/workflows/ci.yml)
-6. Update [.github/INDEX.md](.github/INDEX.md)
+5. Update counts in test scripts
+6. Update [resources/INDEX.md](resources/INDEX.md)
+7. Update `package.json` chatAgents section
 
 ### Adding a New Prompt
 
-1. Create file in `.github/prompts/` with `.prompt.md` extension
+1. Create file in `resources/prompts/` with `.prompt.md` extension
 2. Include frontmatter:
 
 ```yaml
@@ -81,7 +86,7 @@ tools: ['codebase', 'terminalCommand']
 
 ### Adding New Instructions
 
-1. Create file in `.github/instructions/` with `.instructions.md` extension
+1. Create file in `resources/instructions/` with `.instructions.md` extension
 2. Include frontmatter with `applyTo` glob pattern:
 
 ```yaml
@@ -93,7 +98,7 @@ applyTo: '**/*.ext'
 
 ### Adding a New Skill
 
-1. Create a folder in `.github/skills/`
+1. Create a folder in `resources/skills/`
 2. Add `SKILL.md` file with frontmatter:
 
 ```yaml
