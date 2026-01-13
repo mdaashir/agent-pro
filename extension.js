@@ -9,46 +9,73 @@ async function activate(context) {
     const storagePath = context.globalStorageUri.fsPath;
     const versionKey = 'agentPro.installedVersion';
     const currentVersion = context.extension.packageJSON.version;
+    const src = context.asAbsolutePath('resources');
 
     if (!fs.existsSync(storagePath)) {
       fs.mkdirSync(storagePath, { recursive: true });
+      console.log(`Created storage directory: ${storagePath}`);
     }
 
+    const resourcesPath = path.join(storagePath, 'resources');
     const installedVersion = context.globalState.get(versionKey);
-    if (installedVersion !== currentVersion) {
-      const src = context.asAbsolutePath('resources');
-      const dest = path.join(storagePath, 'resources');
+    const resourcesExist = fs.existsSync(resourcesPath);
 
-      copyRecursive(src, dest);
+    if (installedVersion !== currentVersion || !resourcesExist) {
+      console.log(`Installing resources (version: ${installedVersion} -> ${currentVersion})`);
+
+      if (fs.existsSync(resourcesPath)) {
+        fs.rmSync(resourcesPath, { recursive: true, force: true });
+        console.log('Cleared old resources');
+      }
+
+      if (!fs.existsSync(src)) {
+        throw new Error(`Extension resources not found at: ${src}`);
+      }
+
+      copyRecursive(src, resourcesPath);
       await context.globalState.update(versionKey, currentVersion);
 
-      console.log(`Agent Pro: Resources installed to ${dest}`);
-      vscode.window.showInformationMessage('Agent Pro: Activated! Type @ in Copilot Chat.');
+      console.log(`Resources installed to ${resourcesPath}`);
+      vscode.window.showInformationMessage(
+        'Agent Pro: Activated! Your 22 expert agents are ready. Open Copilot Chat and type @ to see them.'
+      );
+    } else {
+      console.log(`Resources already installed (version ${currentVersion})`);
     }
 
     console.log('Agent Pro: Ready');
   } catch (error) {
-    console.error('Agent Pro: Activation failed:', error);
+    console.error('Agent Pro: Activation failed:', error.message);
     vscode.window.showErrorMessage(`Agent Pro: ${error.message}`);
   }
 }
 
 function copyRecursive(src, dest) {
   if (!fs.existsSync(src)) {
-    throw new Error(`Source not found: ${src}`);
+    throw new Error(`Source directory not found: ${src}`);
   }
-  if (!fs.existsSync(dest)) {
-    fs.mkdirSync(dest, { recursive: true });
-  }
-  for (const item of fs.readdirSync(src)) {
-    const s = path.join(src, item);
-    const d = path.join(dest, item);
-    const stat = fs.statSync(s);
-    if (stat.isDirectory()) {
-      copyRecursive(s, d);
-    } else {
-      fs.copyFileSync(s, d);
+
+  try {
+    if (!fs.existsSync(dest)) {
+      fs.mkdirSync(dest, { recursive: true });
     }
+
+    const items = fs.readdirSync(src);
+    console.log(`Copying ${items.length} items from ${src}`);
+
+    for (const item of items) {
+      const srcPath = path.join(src, item);
+      const destPath = path.join(dest, item);
+      const stat = fs.statSync(srcPath);
+
+      if (stat.isDirectory()) {
+        copyRecursive(srcPath, destPath);
+      } else {
+        fs.copyFileSync(srcPath, destPath);
+      }
+    }
+  } catch (error) {
+    throw new Error(`Failed to copy resources: ${error.message}`);
   }
 }
 
