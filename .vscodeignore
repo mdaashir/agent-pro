@@ -11,7 +11,7 @@
 **/tsconfig.json
 **/webpack.config.js
 **/.eslintrc*
-**/.prettierrc*
+USAGE.md
 scripts/**
 RD/**
 SETUP_GUIDE.md

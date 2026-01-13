@@ -81,7 +81,10 @@ async function installForCopilot(context) {
       console.log(`Agent Pro: Prompts copied to ${promptsDest}`);
     }
 
-    const copilotInstructions = path.join(context.asAbsolutePath('.github'), 'copilot-instructions.md');
+    const copilotInstructions = path.join(
+      context.asAbsolutePath('.github'),
+      'copilot-instructions.md'
+    );
     const copilotInstructionsDest = path.join(copilotGithubPath, 'copilot-instructions.md');
     if (fs.existsSync(copilotInstructions)) {
       fs.copyFileSync(copilotInstructions, copilotInstructionsDest);
@@ -134,7 +137,7 @@ class AgentProFS {
         size: stat.size,
         ctime: stat.ctimeMs,
         mtime: stat.mtimeMs,
-        permissions: vscode.FilePermission.Readonly
+        permissions: vscode.FilePermission.Readonly,
       };
     } catch (error) {
       if (error.code === 'ENOENT') {
@@ -218,7 +221,7 @@ class AgentTreeItem extends vscode.TreeItem {
       this.command = {
         command: 'agent-pro.open',
         title: 'Open Agent',
-        arguments: [resourcePath]
+        arguments: [resourcePath],
       };
     } else {
       this.iconPath = new vscode.ThemeIcon('folder');
@@ -308,12 +311,7 @@ class AgentTreeProvider {
         } else if (stat.isDirectory()) {
           const resourcePath = `${parentElement.resourcePath}/${file}`;
           items.push(
-            new AgentTreeItem(
-              file,
-              vscode.TreeItemCollapsibleState.Collapsed,
-              resourcePath,
-              false
-            )
+            new AgentTreeItem(file, vscode.TreeItemCollapsibleState.Collapsed, resourcePath, false)
           );
         }
       }
@@ -330,10 +328,9 @@ class AgentTreeProvider {
 
 async function openAgent(relPath) {
   if (!relPath) {
-    const picked = await vscode.window.showQuickPick(
-      getAgentQuickPickItems(),
-      { placeHolder: 'Select an agent to open' }
-    );
+    const picked = await vscode.window.showQuickPick(getAgentQuickPickItems(), {
+      placeHolder: 'Select an agent to open',
+    });
     if (!picked) return;
     relPath = picked.detail;
   }
@@ -355,10 +352,9 @@ async function insertAgent(relPath) {
   }
 
   if (!relPath) {
-    const picked = await vscode.window.showQuickPick(
-      getAgentQuickPickItems(),
-      { placeHolder: 'Select an agent to insert' }
-    );
+    const picked = await vscode.window.showQuickPick(getAgentQuickPickItems(), {
+      placeHolder: 'Select an agent to insert',
+    });
     if (!picked) return;
     relPath = picked.detail;
   }
@@ -367,7 +363,7 @@ async function insertAgent(relPath) {
     const uri = vscode.Uri.parse(`agentpro:/${relPath}`);
     const doc = await vscode.workspace.openTextDocument(uri);
     const text = doc.getText();
-    await editor.edit(editBuilder => {
+    await editor.edit((editBuilder) => {
       editBuilder.insert(editor.selection.active, text);
     });
     vscode.window.showInformationMessage('Agent content inserted successfully');
@@ -389,10 +385,9 @@ async function exportAgent(relPath) {
   }
 
   if (!relPath) {
-    const picked = await vscode.window.showQuickPick(
-      getAgentQuickPickItems(),
-      { placeHolder: 'Select an agent to export' }
-    );
+    const picked = await vscode.window.showQuickPick(getAgentQuickPickItems(), {
+      placeHolder: 'Select an agent to export',
+    });
     if (!picked) return;
     relPath = picked.detail;
   }
@@ -422,12 +417,12 @@ function getAgentQuickPickItems() {
   for (const category of categories) {
     const categoryPath = path.join(resourcePath, category);
     if (fs.statSync(categoryPath).isDirectory()) {
-      const files = fs.readdirSync(categoryPath).filter(f => f.endsWith('.md'));
+      const files = fs.readdirSync(categoryPath).filter((f) => f.endsWith('.md'));
       for (const file of files) {
         items.push({
           label: `[${category}] ${file.replace(/\.md$/, '')}`,
           detail: `${category}/${file}`,
-          description: file
+          description: file,
         });
       }
     }
@@ -446,7 +441,7 @@ async function activate(context) {
     context.subscriptions.push(
       vscode.workspace.registerFileSystemProvider('agentpro', agentFS, {
         isCaseSensitive: true,
-        isReadonly: true
+        isReadonly: true,
       })
     );
 
@@ -454,7 +449,7 @@ async function activate(context) {
     const treeView = vscode.window.createTreeView('agentProView', {
       treeDataProvider: treeProvider,
       canSelectMany: false,
-      showCollapseAll: true
+      showCollapseAll: true,
     });
 
     context.subscriptions.push(treeView);
@@ -480,5 +475,5 @@ function deactivate() {}
 
 module.exports = {
   activate,
-  deactivate
+  deactivate,
 };
