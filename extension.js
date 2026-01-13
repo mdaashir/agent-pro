@@ -1,13 +1,13 @@
-const vscode = require("vscode");
-const fs = require("fs");
-const path = require("path");
+const vscode = require('vscode');
+const fs = require('fs');
+const path = require('path');
 
 async function activate(context) {
-  console.log("Agent Pro: Activating...");
+  console.log('Agent Pro: Activating...');
 
   try {
     const storagePath = context.globalStorageUri.fsPath;
-    const versionKey = "agentPro.installedVersion";
+    const versionKey = 'agentPro.installedVersion';
     const currentVersion = context.extension.packageJSON.version;
 
     if (!fs.existsSync(storagePath)) {
@@ -16,19 +16,19 @@ async function activate(context) {
 
     const installedVersion = context.globalState.get(versionKey);
     if (installedVersion !== currentVersion) {
-      const src = context.asAbsolutePath("resources");
-      const dest = path.join(storagePath, "resources");
+      const src = context.asAbsolutePath('resources');
+      const dest = path.join(storagePath, 'resources');
 
       copyRecursive(src, dest);
       await context.globalState.update(versionKey, currentVersion);
 
       console.log(`Agent Pro: Resources installed to ${dest}`);
-      vscode.window.showInformationMessage("Agent Pro: Activated! Type @ in Copilot Chat.");
+      vscode.window.showInformationMessage('Agent Pro: Activated! Type @ in Copilot Chat.');
     }
 
-    console.log("Agent Pro: Ready");
+    console.log('Agent Pro: Ready');
   } catch (error) {
-    console.error("Agent Pro: Activation failed:", error);
+    console.error('Agent Pro: Activation failed:', error);
     vscode.window.showErrorMessage(`Agent Pro: ${error.message}`);
   }
 }

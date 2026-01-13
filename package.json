@@ -1,173 +1,173 @@
 {
-    "name": "agent-pro",
-    "displayName": "Agent Pro - GitHub Copilot Experts",
-    "description": "22+ expert agents, 5 prompts, and comprehensive skills for GitHub Copilot - Your AI development powerhouse",
-    "version": "2.1.0",
-    "publisher": "mdaashir",
-    "author": {
-        "name": "mdaashir"
-    },
-    "engines": {
-        "vscode": "^1.90.0"
-    },
-    "categories": [
-        "AI",
-        "Other"
-    ],
-    "keywords": [
-        "github copilot",
-        "ai agents",
-        "code assistant",
-        "development tools",
-        "expert systems",
-        "copilot agents",
-        "ai development",
-        "code generation",
-        "productivity"
-    ],
-    "icon": "icon.png",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/mdaashir/agent-pro"
-    },
-    "bugs": {
-        "url": "https://github.com/mdaashir/agent-pro/issues"
-    },
-    "license": "MIT",
-    "main": "./extension.js",
-    "activationEvents": [
-        "onStartupFinished"
-    ],
-    "contributes": {
-        "chatAgents": [
-            {
-                "name": "AccessibilityExpert",
-                "path": "./resources/agents/accessibility-expert.agent.md",
-                "description": "Expert in web accessibility, WCAG compliance, ARIA, and inclusive design"
-            },
-            {
-                "name": "AIMLExpert",
-                "path": "./resources/agents/ai-ml-engineering-expert.agent.md",
-                "description": "Expert in AI/ML engineering, model training, deployment, and MLOps"
-            },
-            {
-                "name": "ArchitectureExpert",
-                "path": "./resources/agents/architecture-expert.agent.md",
-                "description": "Expert in software architecture, system design, and scalability"
-            },
-            {
-                "name": "CloudArchitect",
-                "path": "./resources/agents/cloud-architect.agent.md",
-                "description": "Expert in cloud architecture, AWS, Azure, GCP, and cloud-native patterns"
-            },
-            {
-                "name": "CodeReviewer",
-                "path": "./resources/agents/code-reviewer.agent.md",
-                "description": "Expert code reviewer with focus on quality, security, and best practices"
-            },
-            {
-                "name": "DataEngineeringExpert",
-                "path": "./resources/agents/data-engineering-expert.agent.md",
-                "description": "Expert in data pipelines, ETL, data warehousing, and big data"
-            },
-            {
-                "name": "DesignPatternsExpert",
-                "path": "./resources/agents/design-patterns-expert.agent.md",
-                "description": "Expert in software design patterns and architectural patterns"
-            },
-            {
-                "name": "DesignSystemsExpert",
-                "path": "./resources/agents/design-systems-expert.agent.md",
-                "description": "Expert in design systems, component libraries, and UI consistency"
-            },
-            {
-                "name": "DevOpsExpert",
-                "path": "./resources/agents/devops-expert.agent.md",
-                "description": "Expert in DevOps, CI/CD, automation, and infrastructure as code"
-            },
-            {
-                "name": "DocumentationExpert",
-                "path": "./resources/agents/documentation-expert.agent.md",
-                "description": "Expert in technical documentation, API docs, and knowledge management"
-            },
-            {
-                "name": "FunctionalProgrammingExpert",
-                "path": "./resources/agents/functional-programming-expert.agent.md",
-                "description": "Expert in functional programming paradigms and immutable architectures"
-            },
-            {
-                "name": "GraphQLExpert",
-                "path": "./resources/agents/graphql-expert.agent.md",
-                "description": "Expert in GraphQL APIs, schema design, and performance optimization"
-            },
-            {
-                "name": "MicroservicesExpert",
-                "path": "./resources/agents/microservices-expert.agent.md",
-                "description": "Expert in microservices architecture, distributed systems, and service mesh"
-            },
-            {
-                "name": "MobileDevelopmentExpert",
-                "path": "./resources/agents/mobile-development-expert.agent.md",
-                "description": "Expert in mobile app development for iOS, Android, and cross-platform"
-            },
-            {
-                "name": "ObservabilitySREExpert",
-                "path": "./resources/agents/observability-sre-expert.agent.md",
-                "description": "Expert in observability, monitoring, SRE practices, and incident response"
-            },
-            {
-                "name": "PerformanceExpert",
-                "path": "./resources/agents/performance-expert.agent.md",
-                "description": "Expert in performance optimization, profiling, and scalability"
-            },
-            {
-                "name": "PlatformEngineeringExpert",
-                "path": "./resources/agents/platform-engineering-expert.agent.md",
-                "description": "Expert in platform engineering and developer experience"
-            },
-            {
-                "name": "PythonExpert",
-                "path": "./resources/agents/python-expert.agent.md",
-                "description": "Expert in Python development, best practices, and ecosystem tools"
-            },
-            {
-                "name": "SecurityExpert",
-                "path": "./resources/agents/security-expert.agent.md",
-                "description": "Expert in security, cryptography, and secure coding practices"
-            },
-            {
-                "name": "SystemsProgrammingExpert",
-                "path": "./resources/agents/systems-programming-expert.agent.md",
-                "description": "Expert in systems programming, low-level programming, and performance"
-            },
-            {
-                "name": "TestingSpecialist",
-                "path": "./resources/agents/testing-specialist.agent.md",
-                "description": "Expert in testing strategies, test automation, and quality assurance"
-            },
-            {
-                "name": "TypeScriptExpert",
-                "path": "./resources/agents/typescript-expert.agent.md",
-                "description": "Expert in TypeScript, type systems, and modern JavaScript"
-            }
-        ]
-    },
-    "scripts": {
-        "package": "vsce package",
-        "lint:md": "markdownlint-cli2 '**/*.md' '#node_modules'",
-        "format": "prettier --write '**/*.{md,json,yml,yaml}'",
-        "format:check": "prettier --check '**/*.{md,json,yml,yaml}'",
-        "validate": "node scripts/validate-frontmatter.js",
-        "test": "node scripts/test.js",
-        "prepackage": "npm run validate",
-        "release:patch": "npm version patch && git push --follow-tags",
-        "release:minor": "npm version minor && git push --follow-tags",
-        "release:major": "npm version major && git push --follow-tags"
-    },
-    "devDependencies": {
-        "@vscode/vsce": "^2.22.0",
-        "markdownlint-cli2": "^0.12.1",
-        "prettier": "^3.2.4",
-        "js-yaml": "^4.1.0"
-    }
+  "name": "agent-pro",
+  "displayName": "Agent Pro - GitHub Copilot Experts",
+  "description": "22+ expert agents, 5 prompts, and comprehensive skills for GitHub Copilot - Your AI development powerhouse",
+  "version": "2.1.0",
+  "publisher": "mdaashir",
+  "author": {
+    "name": "mdaashir"
+  },
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "AI",
+    "Other"
+  ],
+  "keywords": [
+    "github copilot",
+    "ai agents",
+    "code assistant",
+    "development tools",
+    "expert systems",
+    "copilot agents",
+    "ai development",
+    "code generation",
+    "productivity"
+  ],
+  "icon": "icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mdaashir/agent-pro"
+  },
+  "bugs": {
+    "url": "https://github.com/mdaashir/agent-pro/issues"
+  },
+  "license": "MIT",
+  "main": "./extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "chatAgents": [
+      {
+        "name": "AccessibilityExpert",
+        "path": "./resources/agents/accessibility-expert.agent.md",
+        "description": "Expert in web accessibility, WCAG compliance, ARIA, and inclusive design"
+      },
+      {
+        "name": "AIMLExpert",
+        "path": "./resources/agents/ai-ml-engineering-expert.agent.md",
+        "description": "Expert in AI/ML engineering, model training, deployment, and MLOps"
+      },
+      {
+        "name": "ArchitectureExpert",
+        "path": "./resources/agents/architecture-expert.agent.md",
+        "description": "Expert in software architecture, system design, and scalability"
+      },
+      {
+        "name": "CloudArchitect",
+        "path": "./resources/agents/cloud-architect.agent.md",
+        "description": "Expert in cloud architecture, AWS, Azure, GCP, and cloud-native patterns"
+      },
+      {
+        "name": "CodeReviewer",
+        "path": "./resources/agents/code-reviewer.agent.md",
+        "description": "Expert code reviewer with focus on quality, security, and best practices"
+      },
+      {
+        "name": "DataEngineeringExpert",
+        "path": "./resources/agents/data-engineering-expert.agent.md",
+        "description": "Expert in data pipelines, ETL, data warehousing, and big data"
+      },
+      {
+        "name": "DesignPatternsExpert",
+        "path": "./resources/agents/design-patterns-expert.agent.md",
+        "description": "Expert in software design patterns and architectural patterns"
+      },
+      {
+        "name": "DesignSystemsExpert",
+        "path": "./resources/agents/design-systems-expert.agent.md",
+        "description": "Expert in design systems, component libraries, and UI consistency"
+      },
+      {
+        "name": "DevOpsExpert",
+        "path": "./resources/agents/devops-expert.agent.md",
+        "description": "Expert in DevOps, CI/CD, automation, and infrastructure as code"
+      },
+      {
+        "name": "DocumentationExpert",
+        "path": "./resources/agents/documentation-expert.agent.md",
+        "description": "Expert in technical documentation, API docs, and knowledge management"
+      },
+      {
+        "name": "FunctionalProgrammingExpert",
+        "path": "./resources/agents/functional-programming-expert.agent.md",
+        "description": "Expert in functional programming paradigms and immutable architectures"
+      },
+      {
+        "name": "GraphQLExpert",
+        "path": "./resources/agents/graphql-expert.agent.md",
+        "description": "Expert in GraphQL APIs, schema design, and performance optimization"
+      },
+      {
+        "name": "MicroservicesExpert",
+        "path": "./resources/agents/microservices-expert.agent.md",
+        "description": "Expert in microservices architecture, distributed systems, and service mesh"
+      },
+      {
+        "name": "MobileDevelopmentExpert",
+        "path": "./resources/agents/mobile-development-expert.agent.md",
+        "description": "Expert in mobile app development for iOS, Android, and cross-platform"
+      },
+      {
+        "name": "ObservabilitySREExpert",
+        "path": "./resources/agents/observability-sre-expert.agent.md",
+        "description": "Expert in observability, monitoring, SRE practices, and incident response"
+      },
+      {
+        "name": "PerformanceExpert",
+        "path": "./resources/agents/performance-expert.agent.md",
+        "description": "Expert in performance optimization, profiling, and scalability"
+      },
+      {
+        "name": "PlatformEngineeringExpert",
+        "path": "./resources/agents/platform-engineering-expert.agent.md",
+        "description": "Expert in platform engineering and developer experience"
+      },
+      {
+        "name": "PythonExpert",
+        "path": "./resources/agents/python-expert.agent.md",
+        "description": "Expert in Python development, best practices, and ecosystem tools"
+      },
+      {
+        "name": "SecurityExpert",
+        "path": "./resources/agents/security-expert.agent.md",
+        "description": "Expert in security, cryptography, and secure coding practices"
+      },
+      {
+        "name": "SystemsProgrammingExpert",
+        "path": "./resources/agents/systems-programming-expert.agent.md",
+        "description": "Expert in systems programming, low-level programming, and performance"
+      },
+      {
+        "name": "TestingSpecialist",
+        "path": "./resources/agents/testing-specialist.agent.md",
+        "description": "Expert in testing strategies, test automation, and quality assurance"
+      },
+      {
+        "name": "TypeScriptExpert",
+        "path": "./resources/agents/typescript-expert.agent.md",
+        "description": "Expert in TypeScript, type systems, and modern JavaScript"
+      }
+    ]
+  },
+  "scripts": {
+    "package": "vsce package",
+    "lint:md": "markdownlint-cli2 '**/*.md' '#node_modules'",
+    "format": "prettier --write '**/*.{md,json,yml,yaml}'",
+    "format:check": "prettier --check '**/*.{md,json,yml,yaml}'",
+    "validate": "node scripts/validate-frontmatter.js",
+    "test": "node scripts/test.js",
+    "prepackage": "npm run validate",
+    "release:patch": "npm version patch && git push --follow-tags",
+    "release:minor": "npm version minor && git push --follow-tags",
+    "release:major": "npm version major && git push --follow-tags"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^2.22.0",
+    "markdownlint-cli2": "^0.12.1",
+    "prettier": "^3.2.4",
+    "js-yaml": "^4.1.0"
+  }
 }
