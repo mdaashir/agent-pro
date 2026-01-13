@@ -72,22 +72,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Verify .github folder structure
+      - name: Verify resources folder structure
         run: |
           echo "Checking required directories..."
-          test -d .github/agents || (echo "Missing .github/agents directory" && exit 1)
-          test -d .github/prompts || (echo "Missing .github/prompts directory" && exit 1)
-          test -d .github/instructions || (echo "Missing .github/instructions directory" && exit 1)
-          test -d .github/skills || (echo "Missing .github/skills directory" && exit 1)
+          test -d resources/agents || (echo "Missing resources/agents directory" && exit 1)
+          test -d resources/prompts || (echo "Missing resources/prompts directory" && exit 1)
+          test -d resources/instructions || (echo "Missing resources/instructions directory" && exit 1)
+          test -d resources/skills || (echo "Missing resources/skills directory" && exit 1)
           echo "✓ All required directories present"
 
       - name: Count resources
         run: |
           echo "Counting resources..."
-          AGENTS=$(find .github/agents -name "*.agent.md" | wc -l)
-          PROMPTS=$(find .github/prompts -name "*.prompt.md" | wc -l)
-          INSTRUCTIONS=$(find .github/instructions -name "*.instructions.md" | wc -l)
-          SKILLS=$(find .github/skills -name "SKILL.md" | wc -l)
+          AGENTS=$(find resources/agents -name "*.agent.md" | wc -l)
+          PROMPTS=$(find resources/prompts -name "*.prompt.md" | wc -l)
+          INSTRUCTIONS=$(find resources/instructions -name "*.instructions.md" | wc -l)
+          SKILLS=$(find resources/skills -name "SKILL.md" | wc -l)
 
           echo "Found: $AGENTS agents, $PROMPTS prompts, $INSTRUCTIONS instructions, $SKILLS skills"
 
