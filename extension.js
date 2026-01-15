@@ -363,7 +363,7 @@ General Recommendations:
           const getMajorVersion = (version) => {
             if (!version) return null;
             // Handle ranges like ^4.0.0, ~4.0.0, >=4.0.0, >4.0.0, 4.x, etc.
-            const match = version.match(/^[~\^>=<]*(\d+)/);
+            const match = version.match(/^[~\\^>=<]*(\d+)/);
             return match ? parseInt(match[1], 10) : null;
           };
 
@@ -371,7 +371,7 @@ General Recommendations:
           if (webpackMajor === 4) {
             findings.push('Webpack 4 detected - consider upgrading to Webpack 5');
           }
-          
+
           const reactMajor = getMajorVersion(deps['react']);
           if (reactMajor === 16) {
             findings.push('React 16 detected - React 18 available with new features');
