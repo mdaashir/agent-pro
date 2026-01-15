@@ -168,7 +168,7 @@ Agent Pro provides 5 SpecKit tools accessible through Copilot Chat:
 
 **Usage Example**:
 ```
-@agent-pro Can you use the specKitSpecTemplate tool to help me create 
+@agent-pro Can you use the specKitSpecTemplate tool to help me create
 a specification for a new security scanning agent?
 ```
 
