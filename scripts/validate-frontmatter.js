@@ -76,7 +76,7 @@ const OUTDATED_PATTERNS = [
 const SECURITY_PATTERNS = [
   { pattern: /MD5/gi, message: 'MD5 is cryptographically broken - use SHA-256 or better', severity: 'warning' },
   { pattern: /SHA-?1(?!\w)/gi, message: 'SHA-1 is deprecated for security - use SHA-256+', severity: 'warning' },
-  { pattern: /eval\(/gi, message: 'eval() usage is a security risk', severity: 'warning' },
+  { pattern: /\beval\s*\(/gi, message: 'eval() usage is a security risk', severity: 'warning' },
   { pattern: /password.*plaintext|plaintext.*password/gi, message: 'Plaintext password references detected', severity: 'error' },
 ];
 
