@@ -5,6 +5,90 @@ All notable changes to the "Agent Pro" extension will be documented in this file
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.0] - 2026-01-15
+
+### Added - Analytics, New Tools & Vertical-Specific Agents 🚀
+
+#### Telemetry & Analytics
+- **TelemetryReporter Class**: Privacy-respecting local-only usage analytics
+- **Tool Usage Tracking**: Tracks invocations, success/failure rates, and performance metrics
+- **VS Code Commands**:
+  - `Agent Pro: Show Usage Statistics` - View tool usage dashboard
+  - `Agent Pro: Reset Usage Statistics` - Clear analytics data
+- **Configuration Option**: `agentPro.telemetry.enabled` (default: true, stored locally only)
+- **Success Rate Monitoring**: Track which tools are most effective
+- **Performance Insights**: Duration tracking for tool operations
+
+#### New Custom Tools (Total: 6)
+- **dependencyAnalyzer**: Scans and analyzes project dependencies
+  - Supports: package.json (Node.js), requirements.txt (Python), go.mod (Go), Cargo.toml (Rust)
+  - Detects outdated packages and provides update recommendations
+  - Security scanning suggestions (Dependabot, Renovate, pip-audit, cargo audit)
+- **apiDesigner**: REST API design and OpenAPI specification generator
+  - OpenAPI 3.1 templates and best practices
+  - HTTP verb mapping, resource naming conventions
+  - API design patterns (pagination, filtering, sorting, HATEOAS)
+  - Security guidelines (OAuth 2.0, JWT, rate limiting)
+  - Framework-specific tool recommendations (FastAPI, Express, SpringDoc)
+
+#### New Vertical-Specific Agents (Total: 24)
+- **FinTechExpert**: Financial technology and compliance specialist
+  - Payment processing (Stripe, PayPal, Square, Adyen)
+  - PCI DSS compliance, tokenization, encryption
+  - Fraud detection, KYC/AML, risk scoring
+  - Double-entry accounting, idempotency patterns
+  - Cryptocurrency and blockchain integration
+  - Regulatory compliance (SOC 2, GDPR, CCPA)
+- **HealthcareExpert**: Healthcare technology and HIPAA compliance specialist
+  - HIPAA Privacy, Security, and Breach Notification rules
+  - Healthcare data standards (HL7 v2, FHIR R4/R5, DICOM, X12 EDI)
+  - EHR integration (Epic, Cerner, Allscripts)
+  - Telemedicine and remote patient monitoring
+  - Medical device software (FDA 21 CFR, IEC 62304)
+  - De-identification techniques (Safe Harbor method)
+
+#### Enhanced Validation & Testing
+- **Framework Version Detection**: Warns about outdated frameworks
+  - React 16, Angular 2-9, Vue 2, Webpack 4, Node.js 10-14, Python <3.7
+  - TypeScript 1-3, TLS 1.0/1.1 security warnings
+- **Security Pattern Detection**: Flags security concerns
+  - MD5/SHA-1 deprecation warnings
+  - eval() usage risks
+  - Plaintext password references
+- **Comprehensive Functional Tests**: 25 test cases covering:
+  - Resource structure validation
+  - Extension activation and tool registration
+  - Package.json integrity
+  - Frontmatter validation
+  - Tool error handling and telemetry
+  - New agent and tool presence
+- **Test Scripts**:
+  - `npm run test:functional` - Run 25 functional tests
+  - `npm run test:all` - Run all tests (structure + functional + validation)
+
+### Changed
+- **Total Tools**: Increased from 4 to 6 custom tools
+- **Total Agents**: Increased from 22 to 24 with vertical specialists
+- **Total Resources**: 40+ curated resources (24 agents + 6 tools + 5 instructions + 5 prompts + 5 skills)
+- **Activation Message**: Updated to reflect "22 expert agents + 6 custom tools"
+- **Description**: Highlights analytics and industry-specific expertise
+- **All Tools**: Integrated telemetry logging for success/failure tracking
+- **Validation Script**: Enhanced with content analysis and security checks
+- **Test Expectations**: Updated agent count from 22 to 24
+
+### Technical Details
+- Telemetry data stored in VS Code global state (local only, never transmitted)
+- Tool usage stats include: total invocations, success/failure counts, first/last used timestamps
+- Framework detection uses regex patterns with severity levels (info, warning, error)
+- Functional tests use Node.js assert module (zero external dependencies)
+- All new agents follow consistent frontmatter schema with tools, model, description
+
+### Migration Notes
+- No breaking changes - fully backward compatible
+- Telemetry is opt-out via configuration: `"agentPro.telemetry.enabled": false`
+- New tools are automatically available to all agents on activation
+- New agents appear immediately in Copilot Chat's @ menu after extension update
+
 ## [2.2.0] - 2026-01-15
 
 ### Added - Custom Tools & Extended Language Support 🚀
