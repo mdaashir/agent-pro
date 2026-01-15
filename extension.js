@@ -3,21 +3,73 @@ const fs = require('fs');
 const path = require('path');
 
 /**
+ * Telemetry reporter for usage analytics
+ * Tracks tool usage and agent interactions while respecting user privacy
+ */
+class TelemetryReporter {
+  constructor(context) {
+    this.context = context;
+    this.enabled = vscode.workspace.getConfiguration('agentPro').get('telemetry.enabled', true);
+  }
+
+  async logToolUsage(toolName, success = true, metadata = {}) {
+    if (!this.enabled) return;
+
+    try {
+      const stats = this.context.globalState.get('agentPro.toolStats', {});
+      const key = toolName;
+      
+      if (!stats[key]) {
+        stats[key] = { total: 0, success: 0, failures: 0, firstUsed: Date.now(), lastUsed: Date.now() };
+      }
+      
+      stats[key].total++;
+      stats[key].lastUsed = Date.now();
+      
+      if (success) {
+        stats[key].success++;
+      } else {
+        stats[key].failures++;
+      }
+      
+      await this.context.globalState.update('agentPro.toolStats', stats);
+    } catch (error) {
+      console.error('Telemetry logging error:', error.message);
+    }
+  }
+
+  async getStats() {
+    const stats = this.context.globalState.get('agentPro.toolStats', {});
+    return stats;
+  }
+
+  async resetStats() {
+    await this.context.globalState.update('agentPro.toolStats', {});
+  }
+}
+
+/**
  * Register custom tools for Copilot Chat agents
  * These tools extend the built-in capabilities with specialized functionality
  */
 function registerCustomTools(context) {
+  const telemetry = new TelemetryReporter(context);
   // Tool 1: Code Analyzer - Analyze code complexity and patterns
   const codeAnalyzer = vscode.lm.registerTool('codeAnalyzer', {
     displayName: 'Code Analyzer',
     description: 'Analyzes code complexity, patterns, and potential improvements',
 
     async invoke(options, token) {
+      const startTime = Date.now();
+      let success = true;
+      
       try {
         const { input } = options;
         const editor = vscode.window.activeTextEditor;
 
         if (!editor) {
+          success = false;
+          await telemetry.logToolUsage('codeAnalyzer', false, { reason: 'no_editor' });
           return new vscode.LanguageModelToolResult([
             new vscode.LanguageModelTextPart('No active editor found')
           ]);
@@ -52,10 +104,18 @@ function registerCustomTools(context) {
 - Average Line Length: ${analysis.averageLineLength} characters
 - Comment Ratio: ${((analysis.commentLines / analysis.codeLines) * 100).toFixed(1)}%`;
 
+        await telemetry.logToolUsage('codeAnalyzer', true, { 
+          language: languageId, 
+          lines: analysis.totalLines,
+          duration: Date.now() - startTime 
+        });
+
         return new vscode.LanguageModelToolResult([
           new vscode.LanguageModelTextPart(result)
         ]);
       } catch (error) {
+        success = false;
+        await telemetry.logToolUsage('codeAnalyzer', false, { error: error.message });
         return new vscode.LanguageModelToolResult([
           new vscode.LanguageModelTextPart(`Error analyzing code: ${error.message}`)
         ]);
@@ -69,10 +129,13 @@ function registerCustomTools(context) {
     description: 'Generates test case suggestions for selected code',
 
     async invoke(options, token) {
+      const startTime = Date.now();
+      
       try {
         const editor = vscode.window.activeTextEditor;
 
         if (!editor) {
+          await telemetry.logToolUsage('testGenerator', false, { reason: 'no_editor' });
           return new vscode.LanguageModelToolResult([
             new vscode.LanguageModelTextPart('No active editor found')
           ]);
@@ -105,10 +168,17 @@ function registerCustomTools(context) {
 
 Selection contains ${selectedText.split('\n').length} lines of code ready for test generation.`;
 
+        await telemetry.logToolUsage('testGenerator', true, { 
+          language: languageId,
+          selectionLength: selectedText.length,
+          duration: Date.now() - startTime 
+        });
+
         return new vscode.LanguageModelToolResult([
           new vscode.LanguageModelTextPart(suggestion)
         ]);
       } catch (error) {
+        await telemetry.logToolUsage('testGenerator', false, { error: error.message });
         return new vscode.LanguageModelToolResult([
           new vscode.LanguageModelTextPart(`Error generating test suggestions: ${error.message}`)
         ]);
@@ -122,10 +192,13 @@ Selection contains ${selectedText.split('\n').length} lines of code ready for te
     description: 'Generates documentation templates and suggestions',
 
     async invoke(options, token) {
+      const startTime = Date.now();
+      
       try {
         const editor = vscode.window.activeTextEditor;
 
         if (!editor) {
+          await telemetry.logToolUsage('documentationBuilder', false, { reason: 'no_editor' });
           return new vscode.LanguageModelToolResult([
             new vscode.LanguageModelTextPart('No active editor found')
           ]);
@@ -157,10 +230,16 @@ Documentation should include:
 - Exceptions/errors thrown
 - Related functions/methods`;
 
+        await telemetry.logToolUsage('documentationBuilder', true, { 
+          language: languageId,
+          duration: Date.now() - startTime 
+        });
+
         return new vscode.LanguageModelToolResult([
           new vscode.LanguageModelTextPart(template)
         ]);
       } catch (error) {
+        await telemetry.logToolUsage('documentationBuilder', false, { error: error.message });
         return new vscode.LanguageModelToolResult([
           new vscode.LanguageModelTextPart(`Error building documentation: ${error.message}`)
         ]);
@@ -174,10 +253,13 @@ Documentation should include:
     description: 'Provides performance insights and optimization suggestions',
 
     async invoke(options, token) {
+      const startTime = Date.now();
+      
       try {
         const editor = vscode.window.activeTextEditor;
 
         if (!editor) {
+          await telemetry.logToolUsage('performanceProfiler', false, { reason: 'no_editor' });
           return new vscode.LanguageModelToolResult([
             new vscode.LanguageModelTextPart('No active editor found')
           ]);
@@ -221,12 +303,224 @@ General Recommendations:
 - Consider caching for expensive operations
 - Minimize I/O operations in hot paths`;
 
+        await telemetry.logToolUsage('performanceProfiler', true, { 
+          language: languageId,
+          issuesFound: checks.length,
+          duration: Date.now() - startTime 
+        });
+
         return new vscode.LanguageModelToolResult([
           new vscode.LanguageModelTextPart(result)
         ]);
       } catch (error) {
+        await telemetry.logToolUsage('performanceProfiler', false, { error: error.message });
         return new vscode.LanguageModelToolResult([
           new vscode.LanguageModelTextPart(`Error profiling performance: ${error.message}`)
+        ]);
+      }
+    }
+  });
+
+  // Tool 5: Dependency Analyzer - Analyze project dependencies
+  const dependencyAnalyzer = vscode.lm.registerTool('dependencyAnalyzer', {
+    displayName: 'Dependency Analyzer',
+    description: 'Analyzes project dependencies for outdated packages, security issues, and optimization opportunities',
+
+    async invoke(options, token) {
+      const startTime = Date.now();
+      
+      try {
+        const workspaceFolders = vscode.workspace.workspaceFolders;
+
+        if (!workspaceFolders || workspaceFolders.length === 0) {
+          await telemetry.logToolUsage('dependencyAnalyzer', false, { reason: 'no_workspace' });
+          return new vscode.LanguageModelToolResult([
+            new vscode.LanguageModelTextPart('No workspace folder found')
+          ]);
+        }
+
+        const rootPath = workspaceFolders[0].uri.fsPath;
+        const findings = [];
+
+        // Check for package.json (Node.js/JavaScript)
+        const packageJsonPath = path.join(rootPath, 'package.json');
+        if (fs.existsSync(packageJsonPath)) {
+          const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+          const deps = { ...packageJson.dependencies, ...packageJson.devDependencies };
+          const depCount = Object.keys(deps).length;
+          
+          findings.push(`📦 Node.js Project`);
+          findings.push(`- Total dependencies: ${depCount}`);
+          findings.push(`- Production: ${Object.keys(packageJson.dependencies || {}).length}`);
+          findings.push(`- Development: ${Object.keys(packageJson.devDependencies || {}).length}`);
+          
+          // Check for common outdated patterns
+          if (deps['webpack'] && deps['webpack'].startsWith('^4')) {
+            findings.push(`⚠️ Webpack 4 detected - consider upgrading to Webpack 5`);
+          }
+          if (deps['react'] && deps['react'].startsWith('^16')) {
+            findings.push(`ℹ️ React 16 detected - React 18 available with new features`);
+          }
+        }
+
+        // Check for requirements.txt (Python)
+        const requirementsTxtPath = path.join(rootPath, 'requirements.txt');
+        if (fs.existsSync(requirementsTxtPath)) {
+          const content = fs.readFileSync(requirementsTxtPath, 'utf8');
+          const deps = content.split('\n').filter(line => line.trim() && !line.startsWith('#'));
+          
+          findings.push(`🐍 Python Project`);
+          findings.push(`- Dependencies in requirements.txt: ${deps.length}`);
+          findings.push(`- Recommendation: Use pip-audit for security scanning`);
+        }
+
+        // Check for go.mod (Go)
+        const goModPath = path.join(rootPath, 'go.mod');
+        if (fs.existsSync(goModPath)) {
+          const content = fs.readFileSync(goModPath, 'utf8');
+          const requireCount = (content.match(/require\s+/g) || []).length;
+          
+          findings.push(`🔷 Go Project`);
+          findings.push(`- Go modules detected`);
+          findings.push(`- Run 'go list -m -u all' to check for updates`);
+        }
+
+        // Check for Cargo.toml (Rust)
+        const cargoTomlPath = path.join(rootPath, 'Cargo.toml');
+        if (fs.existsSync(cargoTomlPath)) {
+          findings.push(`🦀 Rust Project`);
+          findings.push(`- Cargo.toml detected`);
+          findings.push(`- Run 'cargo outdated' to check for updates`);
+          findings.push(`- Run 'cargo audit' for security vulnerabilities`);
+        }
+
+        if (findings.length === 0) {
+          findings.push('No dependency manifests found in workspace root');
+          findings.push('Supported: package.json, requirements.txt, go.mod, Cargo.toml');
+        } else {
+          findings.push('');
+          findings.push('🔒 Security Recommendations:');
+          findings.push('- Regularly update dependencies');
+          findings.push('- Use automated dependency scanning (Dependabot, Renovate)');
+          findings.push('- Monitor for security advisories');
+          findings.push('- Consider using lock files for reproducible builds');
+        }
+
+        await telemetry.logToolUsage('dependencyAnalyzer', true, { 
+          projectTypes: findings.filter(f => f.includes('Project')).length,
+          duration: Date.now() - startTime 
+        });
+
+        return new vscode.LanguageModelToolResult([
+          new vscode.LanguageModelTextPart(findings.join('\n'))
+        ]);
+      } catch (error) {
+        await telemetry.logToolUsage('dependencyAnalyzer', false, { error: error.message });
+        return new vscode.LanguageModelToolResult([
+          new vscode.LanguageModelTextPart(`Error analyzing dependencies: ${error.message}`)
+        ]);
+      }
+    }
+  });
+
+  // Tool 6: API Designer - Generate OpenAPI/REST API specifications
+  const apiDesigner = vscode.lm.registerTool('apiDesigner', {
+    displayName: 'API Designer',
+    description: 'Generates OpenAPI specifications and REST API design suggestions',
+
+    async invoke(options, token) {
+      const startTime = Date.now();
+      
+      try {
+        const editor = vscode.window.activeTextEditor;
+
+        if (!editor) {
+          await telemetry.logToolUsage('apiDesigner', false, { reason: 'no_editor' });
+          return new vscode.LanguageModelToolResult([
+            new vscode.LanguageModelTextPart('No active editor found')
+          ]);
+        }
+
+        const document = editor.document;
+        const languageId = document.languageId;
+
+        const apiGuidelines = `API Design Guidelines:
+
+🎯 REST API Best Practices:
+- Use nouns for resources (GET /users, not GET /getUsers)
+- HTTP verbs map to CRUD: POST (Create), GET (Read), PUT/PATCH (Update), DELETE
+- Use plural nouns: /users/{id}, not /user/{id}
+- Version your API: /v1/users, /v2/users
+- Use HTTP status codes correctly:
+  • 200 OK, 201 Created, 204 No Content
+  • 400 Bad Request, 401 Unauthorized, 403 Forbidden, 404 Not Found
+  • 500 Internal Server Error
+
+📝 OpenAPI 3.1 Structure:
+\`\`\`yaml
+openapi: 3.1.0
+info:
+  title: Your API
+  version: 1.0.0
+paths:
+  /users:
+    get:
+      summary: List users
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id: { type: string }
+        name: { type: string }
+\`\`\`
+
+🔧 Framework-Specific Tools:
+- Node.js: swagger-jsdoc, tsoa (TypeScript)
+- Python: FastAPI (auto-generates OpenAPI), Flask-RESTX
+- Java: SpringDoc OpenAPI, Swagger Core
+- Go: swaggo/swag
+- .NET: Swashbuckle, NSwag
+
+🌐 API Design Patterns:
+- Pagination: offset/limit or cursor-based
+- Filtering: ?status=active&role=admin
+- Sorting: ?sort=createdAt:desc
+- Field selection: ?fields=id,name,email
+- Rate limiting: Use 429 Too Many Requests
+- HATEOAS: Include hypermedia links in responses
+
+🔒 Security:
+- Always use HTTPS in production
+- Implement authentication (OAuth 2.0, JWT)
+- Validate and sanitize all inputs
+- Use API keys for service-to-service
+- Implement rate limiting
+- Document security schemes in OpenAPI
+
+Current File: ${path.basename(document.fileName)} (${languageId})`;
+
+        await telemetry.logToolUsage('apiDesigner', true, { 
+          language: languageId,
+          duration: Date.now() - startTime 
+        });
+
+        return new vscode.LanguageModelToolResult([
+          new vscode.LanguageModelTextPart(apiGuidelines)
+        ]);
+      } catch (error) {
+        await telemetry.logToolUsage('apiDesigner', false, { error: error.message });
+        return new vscode.LanguageModelToolResult([
+          new vscode.LanguageModelTextPart(`Error generating API design: ${error.message}`)
         ]);
       }
     }
@@ -237,10 +531,12 @@ General Recommendations:
     codeAnalyzer,
     testGenerator,
     documentationBuilder,
-    performanceProfiler
+    performanceProfiler,
+    dependencyAnalyzer,
+    apiDesigner
   );
 
-  console.log('Agent Pro: Registered 4 custom tools');
+  console.log('Agent Pro: Registered 6 custom tools');
 }
 
 async function activate(context) {
@@ -249,6 +545,50 @@ async function activate(context) {
   try {
     // Register custom tools first
     registerCustomTools(context);
+
+    // Register commands
+    const telemetry = new TelemetryReporter(context);
+    
+    const showStatsCommand = vscode.commands.registerCommand('agentPro.showStats', async () => {
+      const stats = await telemetry.getStats();
+      const statsArray = Object.entries(stats).map(([tool, data]) => ({
+        tool,
+        ...data
+      }));
+
+      if (statsArray.length === 0) {
+        vscode.window.showInformationMessage('No tool usage statistics yet. Start using Agent Pro tools!');
+        return;
+      }
+
+      statsArray.sort((a, b) => b.total - a.total);
+      
+      const output = statsArray.map(s => {
+        const successRate = ((s.success / s.total) * 100).toFixed(1);
+        const daysSinceFirst = Math.floor((Date.now() - s.firstUsed) / (1000 * 60 * 60 * 24));
+        return `${s.tool}: ${s.total} uses (${successRate}% success, ${daysSinceFirst}d old)`;
+      }).join('\n');
+
+      const totalUses = statsArray.reduce((sum, s) => sum + s.total, 0);
+      const message = `📊 Agent Pro Usage Statistics\n\nTotal tool invocations: ${totalUses}\n\n${output}`;
+
+      vscode.window.showInformationMessage(message, { modal: true });
+    });
+
+    const resetStatsCommand = vscode.commands.registerCommand('agentPro.resetStats', async () => {
+      const confirm = await vscode.window.showWarningMessage(
+        'Reset all usage statistics?',
+        { modal: true },
+        'Reset'
+      );
+
+      if (confirm === 'Reset') {
+        await telemetry.resetStats();
+        vscode.window.showInformationMessage('Usage statistics reset successfully');
+      }
+    });
+
+    context.subscriptions.push(showStatsCommand, resetStatsCommand);
 
     const storagePath = context.globalStorageUri.fsPath;
     const versionKey = 'agentPro.installedVersion';
@@ -281,7 +621,7 @@ async function activate(context) {
 
       console.log(`Resources installed to ${resourcesPath}`);
       vscode.window.showInformationMessage(
-        'Agent Pro: Activated! Your 22 expert agents + 4 custom tools are ready. Open Copilot Chat and type @ to see them.'
+        'Agent Pro: Activated! Your 22 expert agents + 6 custom tools are ready. Open Copilot Chat and type @ to see them.'
       );
     } else {
       console.log(`Resources already installed (version ${currentVersion})`);

@@ -1,8 +1,8 @@
 {
   "name": "agent-pro",
   "displayName": "Agent Pro - GitHub Copilot Experts",
-  "description": "22+ expert agents, 5 instructions, 4 custom tools, 5 prompts, and comprehensive skills for GitHub Copilot - Your AI development powerhouse",
-  "version": "2.2.0",
+  "description": "22+ expert agents, 5 instructions, 6 custom tools, 5 prompts, and comprehensive skills for GitHub Copilot - Your AI development powerhouse with built-in analytics",
+  "version": "2.3.0",
   "publisher": "mdaashir",
   "author": {
     "name": "mdaashir"
@@ -152,7 +152,27 @@
         "path": "./resources/agents/typescript-expert.agent.md",
         "description": "Expert in TypeScript, type systems, and modern JavaScript"
       }
-    ]
+    ],
+    "commands": [
+      {
+        "command": "agentPro.showStats",
+        "title": "Agent Pro: Show Usage Statistics"
+      },
+      {
+        "command": "agentPro.resetStats",
+        "title": "Agent Pro: Reset Usage Statistics"
+      }
+    ],
+    "configuration": {
+      "title": "Agent Pro",
+      "properties": {
+        "agentPro.telemetry.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable telemetry to track tool usage statistics (stored locally only)"
+        }
+      }
+    }
   },
   "scripts": {
     "package": "vsce package",
