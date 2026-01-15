@@ -110,7 +110,7 @@ Skills are comprehensive, self-contained capabilities:
 
 ## 🛠️ Custom Tools
 
-All agents have access to 4 specialized tools:
+All agents have access to 6 specialized tools:
 
 ### 1. Code Analyzer
 
