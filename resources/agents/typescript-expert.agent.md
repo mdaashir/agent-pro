@@ -581,6 +581,37 @@ function createMockUser(overrides?: Partial<User>): User {
 }
 ```
 
+## Related Resources
+
+Use these Agent Pro resources together with TypeScript Expert:
+
+### Instructions
+
+- **TypeScript Instructions** - Auto-applied to `**/*.{ts,tsx}` files with strict type checking, modern patterns, and best practices
+
+### Prompts
+
+- **Generate Tests** - Create type-safe test suites with Jest/Vitest
+- **Code Review** - Review TypeScript code quality and patterns
+- **Refactor Code** - Modernize and improve TypeScript code
+
+### Skills
+
+- **API Development** - Type-safe API patterns with Express/Fastify
+- **Testing Strategies** - TypeScript testing with Jest, Vitest
+
+### Related Agents
+
+- `@testing-specialist` - Testing strategies for TypeScript
+- `@design-patterns-expert` - Design patterns in TypeScript
+- `@graphql-expert` - Type-safe GraphQL with TypeScript
+
+### Custom Tools
+
+- `codeAnalyzer` - Analyze TypeScript code complexity
+- `testGenerator` - Generate type-safe test suggestions
+- `dependencyAnalyzer` - Review package.json dependencies
+
 ## Your Response Style
 
 - Provide type-safe code examples

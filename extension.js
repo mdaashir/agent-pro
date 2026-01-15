@@ -703,6 +703,143 @@ Current File: ${path.basename(document.fileName)} (${languageId})`;
     }
   });
 
+  const resourceDiscovery = vscode.lm.registerTool('resourceDiscovery', {
+    displayName: 'Resource Discovery',
+    description: 'Discovers and lists available Agent Pro resources: agents, prompts, skills, instructions, and templates',
+
+    async invoke(options, token) {
+      const startTime = Date.now();
+
+      try {
+        const resourcesPath = path.join(__dirname, 'resources');
+        const resources = {
+          agents: [],
+          prompts: [],
+          skills: [],
+          instructions: [],
+          templates: []
+        };
+
+        const agentsPath = path.join(resourcesPath, 'agents');
+        if (fs.existsSync(agentsPath)) {
+          const agentFiles = fs.readdirSync(agentsPath).filter(f => f.endsWith('.agent.md'));
+          resources.agents = agentFiles.map(f => {
+            const content = fs.readFileSync(path.join(agentsPath, f), 'utf8');
+            const nameMatch = content.match(/name:\s*['"](.+?)['"]/);
+            const descMatch = content.match(/description:\s*['"](.+?)['"]/);
+            return {
+              file: f,
+              name: nameMatch ? nameMatch[1] : f.replace('.agent.md', ''),
+              description: descMatch ? descMatch[1] : 'No description'
+            };
+          });
+        }
+
+        const promptsPath = path.join(resourcesPath, 'prompts');
+        if (fs.existsSync(promptsPath)) {
+          const promptFiles = fs.readdirSync(promptsPath).filter(f => f.endsWith('.prompt.md'));
+          resources.prompts = promptFiles.map(f => {
+            const content = fs.readFileSync(path.join(promptsPath, f), 'utf8');
+            const descMatch = content.match(/description:\s*['"](.+?)['"]/);
+            const agentMatch = content.match(/agent:\s*['"](.+?)['"]/);
+            return {
+              file: f,
+              description: descMatch ? descMatch[1] : 'No description',
+              linkedAgent: agentMatch ? agentMatch[1] : null
+            };
+          });
+        }
+
+        const skillsPath = path.join(resourcesPath, 'skills');
+        if (fs.existsSync(skillsPath)) {
+          const skillDirs = fs.readdirSync(skillsPath).filter(d => {
+            const skillPath = path.join(skillsPath, d);
+            return fs.statSync(skillPath).isDirectory() && fs.existsSync(path.join(skillPath, 'SKILL.md'));
+          });
+          resources.skills = skillDirs.map(d => {
+            const content = fs.readFileSync(path.join(skillsPath, d, 'SKILL.md'), 'utf8');
+            const descMatch = content.match(/description:\s*['"](.+?)['"]/);
+            return {
+              name: d,
+              description: descMatch ? descMatch[1] : 'No description'
+            };
+          });
+        }
+
+        const instructionsPath = path.join(resourcesPath, 'instructions');
+        if (fs.existsSync(instructionsPath)) {
+          const instrFiles = fs.readdirSync(instructionsPath).filter(f => f.endsWith('.instructions.md'));
+          resources.instructions = instrFiles.map(f => {
+            const content = fs.readFileSync(path.join(instructionsPath, f), 'utf8');
+            const descMatch = content.match(/description:\s*['"](.+?)['"]/);
+            const applyMatch = content.match(/applyTo:\s*['"](.+?)['"]/);
+            return {
+              file: f,
+              description: descMatch ? descMatch[1] : 'No description',
+              appliesTo: applyMatch ? applyMatch[1] : 'Not specified'
+            };
+          });
+        }
+
+        const templatesPath = path.join(resourcesPath, 'templates');
+        if (fs.existsSync(templatesPath)) {
+          const templateFiles = fs.readdirSync(templatesPath).filter(f => f.endsWith('.md') && f !== 'README.md');
+          resources.templates = templateFiles.map(f => ({
+            file: f,
+            type: f.replace('-template.md', '').replace('.md', '')
+          }));
+        }
+
+        let result = `Agent Pro Resources Discovery\n${'='.repeat(40)}\n\n`;
+
+        result += `AGENTS (${resources.agents.length}):\n`;
+        resources.agents.forEach(a => {
+          result += `  - @${a.name.toLowerCase().replace(/\s+/g, '-')}: ${a.description}\n`;
+        });
+
+        result += `\nPROMPTS (${resources.prompts.length}):\n`;
+        resources.prompts.forEach(p => {
+          result += `  - ${p.file}: ${p.description}${p.linkedAgent ? ` [uses: @${p.linkedAgent}]` : ''}\n`;
+        });
+
+        result += `\nSKILLS (${resources.skills.length}):\n`;
+        resources.skills.forEach(s => {
+          result += `  - ${s.name}: ${s.description}\n`;
+        });
+
+        result += `\nINSTRUCTIONS (${resources.instructions.length}):\n`;
+        resources.instructions.forEach(i => {
+          result += `  - ${i.file}: ${i.description} [applies to: ${i.appliesTo}]\n`;
+        });
+
+        result += `\nSDD TEMPLATES (${resources.templates.length}):\n`;
+        resources.templates.forEach(t => {
+          result += `  - ${t.file}: ${t.type} template\n`;
+        });
+
+        result += `\nTOTAL: ${resources.agents.length + resources.prompts.length + resources.skills.length + resources.instructions.length + resources.templates.length} resources`;
+
+        await telemetry.logToolUsage('resourceDiscovery', true, {
+          agents: resources.agents.length,
+          prompts: resources.prompts.length,
+          skills: resources.skills.length,
+          instructions: resources.instructions.length,
+          templates: resources.templates.length,
+          duration: Date.now() - startTime
+        });
+
+        return new vscode.LanguageModelToolResult([
+          new vscode.LanguageModelTextPart(result)
+        ]);
+      } catch (error) {
+        await telemetry.logToolUsage('resourceDiscovery', false, { error: error.message });
+        return new vscode.LanguageModelToolResult([
+          new vscode.LanguageModelTextPart(`Error discovering resources: ${error.message}`)
+        ]);
+      }
+    }
+  });
+
   context.subscriptions.push(
     codeAnalyzer,
     testGenerator,
@@ -714,10 +851,11 @@ Current File: ${path.basename(document.fileName)} (${languageId})`;
     specKitSpecTemplate,
     specKitPlanTemplate,
     specKitTasksTemplate,
-    specKitChecklist
+    specKitChecklist,
+    resourceDiscovery
   );
 
-  console.log('Agent Pro: Registered 11 custom tools (6 core + 5 SpecKit SDD tools)');
+  console.log('Agent Pro: Registered 12 custom tools (6 core + 5 SpecKit SDD + 1 discovery)');
 }
 
 async function activate(context) {

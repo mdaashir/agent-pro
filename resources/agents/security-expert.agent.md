@@ -585,3 +585,36 @@ When reviewing code for security:
 4. **Provide Fix**: Show secure implementation
 5. **Recommend Tools**: Suggest security scanning tools
 6. **Best Practices**: Share relevant security guidelines
+
+## Related Resources
+
+Use these Agent Pro resources together with Security Expert:
+
+### Instructions
+
+- **TypeScript Instructions** - Type safety for security
+- **Python Instructions** - Secure Python patterns
+- **Rust Instructions** - Memory safety patterns
+- **Go Instructions** - Secure Go practices
+
+### Prompts
+
+- **Code Review** - Security-focused code review
+- **Refactor Code** - Refactor for security improvements
+
+### Skills
+
+- **API Development** - API security patterns (auth, rate limiting)
+- **Database Design** - SQL injection prevention, data encryption
+
+### Related Agents
+
+- `@code-reviewer` - General code quality with security focus
+- `@devops-expert` - Secure CI/CD pipeline configuration
+- `@cloud-architect` - Cloud security architecture
+
+### Custom Tools
+
+- `dependencyAnalyzer` - Check for vulnerable dependencies
+- `codeAnalyzer` - Identify complex code prone to vulnerabilities
+- `resourceDiscovery` - Find all security resources

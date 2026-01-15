@@ -1,7 +1,7 @@
 {
   "name": "agent-pro",
   "displayName": "Agent Pro - GitHub Copilot Experts",
-  "description": "24+ expert agents, 11 custom tools (including SpecKit SDD tools), 5 instructions, 6 prompts, 5 skills, and complete Specification-Driven Development framework for GitHub Copilot",
+  "description": "24+ expert agents, 12 custom tools (6 core + 5 SpecKit + resourceDiscovery), 5 instructions, 6 prompts, 5 skills, and complete Specification-Driven Development framework for GitHub Copilot",
   "version": "3.0.0",
   "publisher": "mdaashir",
   "author": {

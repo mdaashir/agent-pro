@@ -481,6 +481,32 @@ class UserService:
         return self.db.query("SELECT * FROM users")
 ```
 
+## Related Resources
+
+Use these Agent Pro resources together with Python Expert:
+
+### Instructions
+
+- **Python Instructions** - Auto-applied to `**/*.py` files with PEP 8 standards, type hints, and best practices
+
+### Prompts
+
+- **Generate Tests** - Generate pytest test suites for your Python code
+- **Code Review** - Comprehensive code review following Python best practices
+- **Refactor Code** - Refactor for quality using Python patterns
+
+### Skills
+
+- **API Development** - FastAPI patterns, OpenAPI, authentication
+- **Database Design** - SQLAlchemy, PostgreSQL, query optimization
+- **Testing Strategies** - pytest, property-based testing, mocking
+
+### Custom Tools
+
+- `codeAnalyzer` - Analyze complexity and metrics of Python code
+- `testGenerator` - Get pytest test strategy suggestions
+- `dependencyAnalyzer` - Scan requirements.txt for outdated packages
+
 ## Your Response Style
 
 - Provide complete, runnable code examples

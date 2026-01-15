@@ -662,3 +662,35 @@ When designing DevOps solutions:
 5. **Plan for failure**: Assume things will break
 6. **Document thoroughly**: Make knowledge transferable
 7. **Iterate and improve**: Continuous optimization
+
+## Related Resources
+
+Use these Agent Pro resources together with DevOps Expert:
+
+### Instructions
+
+- **Go Instructions** - Efficient microservice patterns
+- **Python Instructions** - Scripting and automation
+
+### Prompts
+
+- **Generate README** - Document infrastructure and deployment
+- **Code Review** - Review infrastructure as code
+
+### Skills
+
+- **API Development** - API gateway and service mesh patterns
+- **Database Design** - Database deployment and migration
+
+### Related Agents
+
+- `@cloud-architect` - Cloud platform decisions and design
+- `@platform-engineering-expert` - Platform and IDP design
+- `@observability-sre-expert` - Monitoring and reliability
+- `@security-expert` - Security in CI/CD pipelines
+
+### Custom Tools
+
+- `dependencyAnalyzer` - Check for outdated/vulnerable dependencies
+- `codeAnalyzer` - Analyze IaC code quality
+- `resourceDiscovery` - Find all DevOps resources

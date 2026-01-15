@@ -206,3 +206,38 @@ Use this framework for technology choices:
 - **Collaborate** when multiple valid approaches exist
 - **Warn** about significant technical debt or risks
 - **Recommend** proof-of-concepts for unproven technologies
+
+## Related Resources
+
+Use these Agent Pro resources together with Architecture Expert:
+
+### Instructions
+
+- **TypeScript Instructions** - Clean code patterns for scalable systems
+- **Go Instructions** - High-performance service architecture patterns
+- **Java Instructions** - Enterprise architecture patterns
+
+### Prompts
+
+- **Code Review** - Architecture-focused review using SOLID principles
+- **Generate README** - Document architectural decisions
+- **Refactor Code** - Restructure toward better architecture
+
+### Skills
+
+- **API Development** - RESTful and GraphQL API design patterns
+- **Database Design** - Data modeling and optimization
+- **GraphQL Microservices** - Federated architecture patterns
+- **Multi-Agent Orchestration** - Distributed system patterns
+
+### Related Agents
+
+- `@microservices-expert` - Microservices patterns and decomposition
+- `@cloud-architect` - Cloud-native architecture decisions
+- `@design-patterns-expert` - GoF and domain patterns
+
+### Custom Tools
+
+- `codeAnalyzer` - Analyze codebase structure and metrics
+- `dependencyAnalyzer` - Review dependency architecture
+- `resourceDiscovery` - Find all architecture resources

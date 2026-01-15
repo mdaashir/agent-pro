@@ -1,24 +1,70 @@
-# Repository Copilot Instructions
+# Agent Pro - Copilot Instructions
 
 ## Project Overview
 
-This repository contains comprehensive GitHub Copilot customizations including agents, prompts, instructions, and skills designed to enhance AI-assisted development workflows.
+Agent Pro is a comprehensive GitHub Copilot extension providing 24+ expert agents, 11 custom tools, 5 language instructions, 5 prompts, 5 skills, and a complete **Specification-Driven Development (SDD)** framework.
+
+## Specification-Driven Development
+
+Agent Pro follows SDD methodology where specifications are the source of truth:
+
+### Core Workflow
+
+```
+SPECIFY -> VALIDATE -> PLAN -> TASKS -> IMPLEMENT
+```
+
+1. **SPECIFY**: Define WHAT (spec-template.md)
+2. **VALIDATE**: Check completeness (checklist-template.md)
+3. **PLAN**: Define HOW (plan-template.md)
+4. **TASKS**: Break down work (tasks-template.md)
+5. **IMPLEMENT**: Execute tasks
+
+### Constitutional Framework
+
+All development follows 8 constitutional articles:
+
+1. **Specification-First Development** - No code without spec
+2. **Agent Isolation Principle** - Agents are independent
+3. **Custom Tool Integration Mandate** - Tools available to all agents
+4. **Test-First Imperative** - Tests with implementation
+5. **Copilot-Native Integration** - Follow VS Code Chat API
+6. **Privacy-First Telemetry** - Local-only analytics
+7. **Simplicity and Clarity** - Favor simple over clever
+8. **Versioned Evolution** - Semantic versioning
+
+### Using SDD Tools
+
+Agents have access to these SpecKit tools:
+- `specKitConstitution` - Get constitutional framework
+- `specKitSpecTemplate` - Get specification template
+- `specKitPlanTemplate` - Get implementation plan template
+- `specKitTasksTemplate` - Get task breakdown template
+- `specKitChecklist` - Get quality validation checklist
 
 ## Repository Structure
 
-- **agents/** - Custom AI agents with specialized capabilities
-- **prompts/** - Reusable prompts for specific development tasks
-- **instructions/** - Context-aware coding standards and best practices
-- **skills/** - Self-contained capabilities with bundled resources
+```
+agent-pro/
+├── resources/
+│   ├── agents/           # 24 expert agents
+│   ├── prompts/          # 5 reusable prompts
+│   ├── instructions/     # 5 language instructions
+│   ├── skills/           # 5 comprehensive skills
+│   ├── templates/        # SDD templates
+│   └── constitution.md   # Constitutional framework
+├── specs/                # Feature specifications
+├── scripts/              # Validation scripts
+└── extension.js          # Extension entry point
+```
 
 ## How Agents Work
 
-When working with this repository:
-
-1. **Explore First** - Use semantic search and file navigation to understand project structure
-2. **Follow Patterns** - Maintain consistency with existing file formats and naming conventions
-3. **Test Thoroughly** - Validate all frontmatter, file patterns, and examples
-4. **Document Changes** - Keep README files and documentation current
+Agents are Markdown files with YAML frontmatter registered in package.json. They:
+- Appear in Copilot Chat @-mention menu
+- Have access to all custom tools
+- Are copied to global storage on activation
+- Reference related prompts, skills, and instructions inline
 
 ## File Naming Conventions
 
@@ -26,8 +72,9 @@ When working with this repository:
 - **Prompts**: `*.prompt.md` (e.g., `generate-readme.prompt.md`)
 - **Instructions**: `*.instructions.md` (e.g., `typescript.instructions.md`)
 - **Skills**: Folders with `SKILL.md` file inside
+- **Specs**: `specs/###-feature-name/spec.md`
 
-All filenames should use lowercase with hyphens (kebab-case).
+All filenames use lowercase with hyphens (kebab-case).
 
 ## Required Frontmatter
 
@@ -37,7 +84,7 @@ All filenames should use lowercase with hyphens (kebab-case).
 ---
 description: 'Clear description of agent purpose and capabilities'
 name: 'Display Name'
-tools: ['read', 'edit', 'search']
+tools: ['read', 'edit', 'search', 'codebase', 'terminalCommand']
 model: 'Claude Sonnet 4.5'
 ---
 ```
@@ -47,7 +94,7 @@ model: 'Claude Sonnet 4.5'
 ```yaml
 ---
 description: 'What this prompt does'
-agent: 'agent'
+agent: 'agent-name'
 tools: ['codebase', 'terminalCommand']
 ---
 ```
@@ -70,20 +117,100 @@ description: 'What this skill does and when to use it'
 ---
 ```
 
+## Agent Development Guidelines
+
+### When Creating New Agents
+
+1. First create specification in `specs/###-agent-name/spec.md`
+2. Validate spec with checklist template
+3. Create agent file in `resources/agents/`
+4. Register in `package.json` contributes.chatAgents
+5. Test in Copilot Chat
+
+### Agent Structure
+
+```markdown
+---
+description: 'Concise description'
+name: 'Agent Name'
+tools: ['read', 'edit', 'search', 'codebase', 'terminalCommand']
+---
+
+# Agent Name - Tagline
+
+Brief overview paragraph.
+
+## Your Expertise Areas
+
+### 1. Primary Domain
+- Capability 1
+- Capability 2
+
+### 2. Secondary Domain
+- Capability 1
+- Capability 2
+
+## Code Examples
+
+### Example 1: Common Use Case
+
+```language
+// Code with comments
+```
+
+## Best Practices
+
+- Practice 1
+- Practice 2
+
+## Related Resources
+
+- **Prompt**: [Related Prompt](../prompts/related.prompt.md)
+- **Skill**: [Related Skill](../skills/related/SKILL.md)
+- **Instruction**: [Related Instruction](../instructions/related.instructions.md)
+```
+
+## Custom Tools
+
+### Core Tools (6)
+- `codeAnalyzer` - Code complexity and metrics
+- `testGenerator` - Test strategy suggestions
+- `documentationBuilder` - Documentation templates
+- `performanceProfiler` - Performance anti-patterns
+- `dependencyAnalyzer` - Dependency scanning
+- `apiDesigner` - OpenAPI specifications
+
+### SpecKit Tools (5)
+- `specKitConstitution` - Constitutional framework
+- `specKitSpecTemplate` - Specification template
+- `specKitPlanTemplate` - Implementation plan template
+- `specKitTasksTemplate` - Task breakdown template
+- `specKitChecklist` - Quality checklist
+
 ## Quality Standards
 
 - **Clarity**: Instructions should be specific and actionable
 - **Examples**: Include concrete code examples with comments
 - **Completeness**: Cover common scenarios and edge cases
 - **Validation**: Test all examples to ensure they work correctly
+- **Constitutional Compliance**: Follow the 8 articles
 
 ## Build and Validation
 
-- Run validation scripts before committing
-- Update README tables when adding new resources
-- Ensure all file patterns are correct and functional
-- Test agents/prompts in actual development scenarios
+```bash
+# Validate all specifications
+node scripts/validate-spec.js
+
+# Check constitutional compliance
+node scripts/constitutional-check.js constitution
+
+# Validate frontmatter
+node scripts/validate-frontmatter.js
+
+# Run all tests
+npm run test:all
+```
 
 ## Trust These Instructions
 
-The information in this file is accurate and should be your primary reference. Only search for additional information if you find gaps or inconsistencies.
+This file is the primary reference for Agent Pro development. Follow SDD methodology and constitutional principles for all changes.

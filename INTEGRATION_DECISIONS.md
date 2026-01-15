@@ -12,7 +12,7 @@ Agent Pro v3.0 successfully integrates the Specification-Driven Development (SDD
 
 **Question**: Should we migrate all 24 existing agents to SDD immediately, or introduce SDD for new agents first?
 
-**Decision**: Introduce SDD framework with sample specifications for key features (3 samples created: accessibility expert agent, code analyzer tool, API development skill). 
+**Decision**: Introduce SDD framework with sample specifications for key features (3 samples created: accessibility expert agent, code analyzer tool, API development skill).
 
 **Rationale**:
 - Demonstrates SDD structure without overwhelming the codebase

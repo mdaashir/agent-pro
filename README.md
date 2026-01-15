@@ -1,13 +1,13 @@
 # Agent Pro - GitHub Copilot Experts
 
-A comprehensive collection of **24+ expert agents** (including FinTech & Healthcare specialists), **11 custom tools** with built-in analytics, **5 language instructions**, **5 prompts**, and **5 comprehensive skills** for GitHub Copilot, now powered by **Specification-Driven Development (SDD)**.
+A comprehensive collection of **24+ expert agents** (including FinTech & Healthcare specialists), **12 custom tools** with built-in analytics and resource discovery, **5 language instructions**, **5 prompts**, and **5 comprehensive skills** for GitHub Copilot, now powered by **Specification-Driven Development (SDD)**.
 
-Agent Pro provides **40+ curated resources** plus **SDD methodology framework** to enhance your development workflow with AI-powered assistance across multiple domains including architecture, security, testing, cloud infrastructure, regulated industries (finance, healthcare), and systematic feature development.
+Agent Pro provides **40+ curated resources** plus **SDD methodology framework** to enhance your development workflow with AI-powered assistance across multiple domains including architecture, security, testing, cloud infrastructure, regulated industries (finance, healthcare), and systematic feature development. All resources are interconnected via the **Related Resources** feature.
 
 ## Features
 
 - **24 Expert Agents** - Specialized AI assistants accessible via `@` in Copilot Chat
-- **11 Custom Tools** - Code analysis, test generation, documentation, performance profiling, dependency analysis, API design, plus 5 SpecKit SDD tools
+- **12 Custom Tools** - Code analysis, test generation, documentation, performance profiling, dependency analysis, API design, 5 SpecKit SDD tools, plus resourceDiscovery
 - **Specification-Driven Development** - Complete SDD framework with constitutional governance, templates, and validation
 - **Built-in Analytics** - Track tool usage, success rates, and performance (privacy-respecting, local only)
 - **Copilot Integration** - All agents appear natively in GitHub Copilot's @ menu
@@ -112,7 +112,7 @@ Skills are comprehensive, self-contained capabilities:
 
 ## 🛠️ Custom Tools
 
-All agents have access to 6 specialized tools:
+All agents have access to **7 specialized tools** (plus 5 SpecKit tools):
 
 ### 1. Code Analyzer
 
@@ -164,6 +164,14 @@ REST API design and OpenAPI specification generator:
 - API design patterns (pagination, filtering, sorting, HATEOAS)
 - Security guidelines (OAuth 2.0, JWT, rate limiting)
 - Framework-specific tool recommendations (FastAPI, Express, SpringDoc)
+
+### 7. Resource Discovery
+
+Discover all available Agent Pro resources:
+
+- Lists all agents, prompts, skills, instructions, and templates
+- Helps find the right resource for your task
+- Shows relationships between resources
 
 ## 🎓 Quick Start Workflows
 
@@ -223,7 +231,11 @@ REST API design and OpenAPI specification generator:
 - **specKitTasksTemplate** - Task breakdown template
 - **specKitChecklist** - Quality validation checklist
 
-Total: **11 custom tools** (6 core + 5 SpecKit)
+### Resource & Discovery Tools
+
+- **resourceDiscovery** - List all available agents, prompts, skills, instructions, and templates
+
+Total: **12 custom tools** (6 core + 5 SpecKit + 1 discovery)
 
 ### Documentation Enhancements
 

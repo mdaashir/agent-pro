@@ -151,3 +151,39 @@ Provide reviews in this structure:
 - Reference official documentation when relevant
 - Balance thoroughness with practicality
 - Maintain a collaborative, helpful tone
+
+## Related Resources
+
+Use these Agent Pro resources together with Code Reviewer:
+
+### Instructions
+
+- **TypeScript Instructions** - TypeScript patterns and style guidelines
+- **Python Instructions** - PEP 8 and Python best practices
+- **Go Instructions** - Go idioms and effective patterns
+- **Java Instructions** - Java code standards
+- **Rust Instructions** - Rust memory safety patterns
+
+### Prompts
+
+- **Code Review** - Structured code review template
+- **Refactor Code** - Systematic refactoring guidance
+- **Generate Tests** - Generate tests for reviewed code
+
+### Skills
+
+- **Testing Strategies** - Test coverage analysis
+- **API Development** - API design review patterns
+
+### Related Agents
+
+- `@security-expert` - Deep security vulnerability analysis
+- `@performance-expert` - Performance bottleneck identification
+- `@testing-specialist` - Test coverage and quality
+- `@architecture-expert` - Design pattern review
+
+### Custom Tools
+
+- `codeAnalyzer` - Automated complexity and metric analysis
+- `testGenerator` - Identify missing test coverage
+- `dependencyAnalyzer` - Check for vulnerable dependencies

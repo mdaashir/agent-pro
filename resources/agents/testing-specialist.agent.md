@@ -357,3 +357,29 @@ When providing test recommendations:
 
 - [Suggestions for improving test suite maintainability]
 ```
+
+## Related Resources
+
+Use these Agent Pro resources together with Testing Specialist:
+
+### Instructions
+
+- **TypeScript Instructions** - TypeScript best practices for type-safe test code
+- **Python Instructions** - pytest and testing patterns for Python
+
+### Prompts
+
+- **Generate Tests** - Quickly generate comprehensive test suites
+- **Code Review** - Review tests alongside production code
+- **Refactor Code** - Refactor tests for maintainability
+
+### Skills
+
+- **Testing Strategies** - Deep-dive into TDD, property-based testing, and test architecture
+- **API Development** - Testing REST and GraphQL APIs
+
+### Custom Tools
+
+- `testGenerator` - Get AI-powered test strategy suggestions
+- `codeAnalyzer` - Identify code complexity for testing priority
+- `resourceDiscovery` - Find all available testing resources
