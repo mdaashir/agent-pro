@@ -58,7 +58,7 @@ extension-root/
 ### For Agent Development
 
 ```
-resources/agents/[agent-name]/
+resources/agents-collection/[agent-name].agent.md
 ├── [agent-name].agent.md    # Agent definition
 ├── spec.md                   # Specification
 ├── plan.md                   # This implementation plan

@@ -123,7 +123,7 @@ description: 'What this skill does and when to use it'
 
 1. First create specification in `specs/###-agent-name/spec.md`
 2. Validate spec with checklist template
-3. Create agent file in `resources/agents/`
+3. Create agent file in `resources/agents-collection/`
 4. Register in `package.json` contributes.chatAgents
 5. Test in Copilot Chat
 

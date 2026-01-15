@@ -718,7 +718,7 @@ Current File: ${path.basename(document.fileName)} (${languageId})`;
           templates: []
         };
 
-        const agentsPath = path.join(resourcesPath, 'agents');
+        const agentsPath = path.join(resourcesPath, 'agents-collection');
         if (fs.existsSync(agentsPath)) {
           const agentFiles = fs.readdirSync(agentsPath).filter(f => f.endsWith('.agent.md'));
           resources.agents = agentFiles.map(f => {
@@ -733,7 +733,7 @@ Current File: ${path.basename(document.fileName)} (${languageId})`;
           });
         }
 
-        const promptsPath = path.join(resourcesPath, 'prompts');
+        const promptsPath = path.join(resourcesPath, 'prompts-collection');
         if (fs.existsSync(promptsPath)) {
           const promptFiles = fs.readdirSync(promptsPath).filter(f => f.endsWith('.prompt.md'));
           resources.prompts = promptFiles.map(f => {
@@ -748,7 +748,7 @@ Current File: ${path.basename(document.fileName)} (${languageId})`;
           });
         }
 
-        const skillsPath = path.join(resourcesPath, 'skills');
+        const skillsPath = path.join(resourcesPath, 'skills-collection');
         if (fs.existsSync(skillsPath)) {
           const skillDirs = fs.readdirSync(skillsPath).filter(d => {
             const skillPath = path.join(skillsPath, d);

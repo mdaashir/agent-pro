@@ -92,7 +92,7 @@ Features progress through these states:
 
 ## Related Documentation
 
-- [Constitutional Framework](../resources/constitution.md)
-- [Templates](../resources/templates/)
+- [Constitutional Framework](../constitution.md)
+- [Templates](../templates/)
 - [SPEC_DRIVEN.md](../SPEC_DRIVEN.md)
-- [CONTRIBUTING.md](../CONTRIBUTING.md)
+- [AGENTS.md](../AGENTS.md)

@@ -297,7 +297,7 @@ Total: **12 custom tools** (6 core + 5 SpecKit + 1 discovery)
 
 ## Documentation
 
-For detailed documentation on each agent, prompt, and skill, see the [INDEX.md](.github/INDEX.md) file.
+For detailed documentation on each agent, prompt, and skill, see the [INDEX.md](resources/INDEX.md) file.
 
 ## Building from Source
 
@@ -335,9 +335,9 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Package Contents
 
-- `resources/agents/` - 22 expert agent definitions
-- `resources/prompts/` - 5 reusable prompt templates
-- `resources/instructions/` - 2 automatic instruction sets
-- `resources/skills/` - 5 comprehensive skill bundles
+- `resources/agents-collection/` - 24 expert agent definitions
+- `resources/prompts-collection/` - 5 reusable prompt templates
+- `resources/instructions/` - 5 automatic instruction sets
+- `resources/skills-collection/` - 5 comprehensive skill bundles
 - Global access via Copilot Chat (`@agent-name`)
 - Installed to `~/.config/Code/User/globalStorage/mdaashir.agent-pro/` on activation

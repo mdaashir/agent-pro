@@ -109,7 +109,7 @@ And includes validation error details
 API Development Skill:
   - name: "api-development"
   - type: "Copilot Skill"
-  - path: "./resources/skills/api-development/SKILL.md"
+  - path: "./resources/skills-collection/api-development/SKILL.md"
 
 Components:
   - URL Design (RESTful patterns)

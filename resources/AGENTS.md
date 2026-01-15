@@ -39,7 +39,7 @@ Use this checklist when adding a new agent:
 
 ### 3. Implementation Phase
 
-- [ ] Create agent file: `resources/agents/[agent-name].agent.md`
+- [ ] Create agent file: `resources/agents-collection/[agent-name].agent.md`
 - [ ] Add YAML frontmatter with required fields
 - [ ] Document expertise areas comprehensively
 - [ ] Provide code examples for common scenarios
@@ -272,7 +272,7 @@ Add agent to `contributes.chatAgents` array:
 ```json
 {
   "name": "AgentDisplayName",
-  "path": "./resources/agents/agent-file-name.agent.md",
+  "path": "./resources/agents-collection/agent-file-name.agent.md",
   "description": "Agent description matching frontmatter"
 }
 ```
@@ -395,7 +395,7 @@ And suggests parameterized query alternatives
 
 ### 2. Implement Agent
 
-Create `resources/agents/security-scanner.agent.md`:
+Create `resources/agents-collection/security-scanner.agent.md`:
 ```markdown
 ---
 description: 'Security vulnerability scanning and secure coding practices'
@@ -420,7 +420,7 @@ Specialized in detecting vulnerabilities and secure coding.
 ```json
 {
   "name": "SecurityScanner",
-  "path": "./resources/agents/security-scanner.agent.md",
+  "path": "./resources/agents-collection/security-scanner.agent.md",
   "description": "Security vulnerability scanning and secure coding practices"
 }
 ```
@@ -450,5 +450,5 @@ Update README.md:
 For questions or issues:
 - Review [SPEC_DRIVEN.md](SPEC_DRIVEN.md) for SDD workflow
 - Check [Constitutional Framework](resources/constitution.md)
-- See existing agents in `resources/agents/` for examples
+- See existing agents in `resources/agents-collection/` for examples
 - Open issue on GitHub repository

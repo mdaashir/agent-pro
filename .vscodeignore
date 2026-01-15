@@ -11,10 +11,7 @@
 **/tsconfig.json
 **/webpack.config.js
 **/.eslintrc*
-USAGE.md
 scripts/**
-SETUP_GUIDE.md
-CONTRIBUTING.md
 .markdownlint.json
 .prettierignore
 .prettierrc.json

@@ -122,7 +122,7 @@ And provides remediation steps
 ```
 AccessibilityExpert:
   - name: "accessibility-expert"
-  - path: "./resources/agents/accessibility-expert.agent.md"
+  - path: "./resources/agents-collection/accessibility-expert.agent.md"
   - description: "Expert in web accessibility..."
 
 Knowledge Domains:

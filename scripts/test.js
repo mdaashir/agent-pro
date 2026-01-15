@@ -19,10 +19,10 @@ log('\nRunning Agent Pro Tests\n', 'blue');
 // Test 1: Directory structure
 log('Test 1: Checking directory structure...', 'blue');
 const requiredDirs = [
-  'resources/agents',
-  'resources/prompts',
+  'resources/agents-collection',
+  'resources/prompts-collection',
   'resources/instructions',
-  'resources/skills',
+  'resources/skills-collection',
 ];
 
 let allDirsExist = true;
@@ -40,13 +40,13 @@ if (allDirsExist) {
 // Test 2: File counts
 log('\nTest 2: Verifying resource counts...', 'blue');
 
-const agentCount = fs.readdirSync('resources/agents')
+const agentCount = fs.readdirSync('resources/agents-collection')
   .filter(f => f.endsWith('.agent.md')).length;
-const promptCount = fs.readdirSync('resources/prompts')
+const promptCount = fs.readdirSync('resources/prompts-collection')
   .filter(f => f.endsWith('.prompt.md')).length;
 const instructionCount = fs.readdirSync('resources/instructions')
   .filter(f => f.endsWith('.instructions.md')).length;
-const skillCount = fs.readdirSync('resources/skills', { withFileTypes: true })
+const skillCount = fs.readdirSync('resources/skills-collection', { withFileTypes: true })
   .filter(d => d.isDirectory()).length;
 
 log(`  Agents: ${agentCount}`, agentCount === 24 ? 'green' : 'reset');

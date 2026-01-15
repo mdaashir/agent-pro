@@ -51,7 +51,7 @@ agent-pro/
 
 ### Adding a New Agent
 
-1. Create a new file in `resources/agents/` with the `.agent.md` extension
+1. Create a new file in `resources/agents-collection/` with the `.agent.md` extension
 2. Use kebab-case naming (e.g., `my-expert.agent.md`)
 3. Include required frontmatter:
 
@@ -71,7 +71,7 @@ model: 'Claude Sonnet 4.5'
 
 ### Adding a New Prompt
 
-1. Create file in `resources/prompts/` with `.prompt.md` extension
+1. Create file in `resources/prompts-collection/` with `.prompt.md` extension
 2. Include frontmatter:
 
 ```yaml
@@ -86,7 +86,7 @@ tools: ['codebase', 'terminalCommand']
 
 ### Adding New Instructions
 
-1. Create file in `resources/instructions/` with `.instructions.md` extension
+1. Create file in `resources/instructions/` with `.instructions.md` extension (use kebab-case: `[language]-language.instructions.md`)
 2. Include frontmatter with `applyTo` glob pattern:
 
 ```yaml
@@ -98,7 +98,7 @@ applyTo: '**/*.ext'
 
 ### Adding a New Skill
 
-1. Create a folder in `resources/skills/`
+1. Create a folder in `resources/skills-collection/`
 2. Add `SKILL.md` file with frontmatter:
 
 ```yaml

@@ -58,16 +58,16 @@ test('resources directory exists', () => {
 });
 
 test('agents directory exists with .agent.md files', () => {
-  const agentsDir = path.join(RESOURCES_DIR, 'agents');
-  assert(fs.existsSync(agentsDir), 'agents directory not found');
+  const agentsDir = path.join(RESOURCES_DIR, 'agents-collection');
+  assert(fs.existsSync(agentsDir), 'agents-collection directory not found');
 
   const agents = fs.readdirSync(agentsDir).filter(f => f.endsWith('.agent.md'));
   assert(agents.length >= 24, `Expected at least 24 agents, found ${agents.length}`);
 });
 
 test('prompts directory exists with .prompt.md files', () => {
-  const promptsDir = path.join(RESOURCES_DIR, 'prompts');
-  assert(fs.existsSync(promptsDir), 'prompts directory not found');
+  const promptsDir = path.join(RESOURCES_DIR, 'prompts-collection');
+  assert(fs.existsSync(promptsDir), 'prompts-collection directory not found');
 
   const prompts = fs.readdirSync(promptsDir).filter(f => f.endsWith('.prompt.md'));
   assert(prompts.length >= 5, `Expected at least 5 prompts, found ${prompts.length}`);
@@ -82,8 +82,8 @@ test('instructions directory exists with .instructions.md files', () => {
 });
 
 test('skills directory exists with SKILL.md files', () => {
-  const skillsDir = path.join(RESOURCES_DIR, 'skills');
-  assert(fs.existsSync(skillsDir), 'skills directory not found');
+  const skillsDir = path.join(RESOURCES_DIR, 'skills-collection');
+  assert(fs.existsSync(skillsDir), 'skills-collection directory not found');
 
   const skillDirs = fs.readdirSync(skillsDir, { withFileTypes: true })
     .filter(dirent => dirent.isDirectory());
@@ -250,7 +250,7 @@ test('package.json version is 3.0.0 or higher', () => {
 // ============================================================================
 
 test('all agents have valid frontmatter', () => {
-  const agentsDir = path.join(RESOURCES_DIR, 'agents');
+  const agentsDir = path.join(RESOURCES_DIR, 'agents-collection');
   const agentFiles = fs.readdirSync(agentsDir).filter(f => f.endsWith('.agent.md'));
 
   for (const file of agentFiles) {
@@ -271,7 +271,7 @@ test('all agents have valid frontmatter', () => {
 });
 
 test('new vertical agents (FinTech, Healthcare) exist', () => {
-  const agentsDir = path.join(RESOURCES_DIR, 'agents');
+  const agentsDir = path.join(RESOURCES_DIR, 'agents-collection');
 
   const fintechPath = path.join(agentsDir, 'fintech-expert.agent.md');
   assert(fs.existsSync(fintechPath), 'FinTech Expert agent not found');
@@ -482,7 +482,7 @@ test('SDD templates directory exists with all templates', () => {
 });
 
 test('specs directory exists with specifications', () => {
-  const specsDir = path.join(__dirname, '..', 'specs');
+  const specsDir = path.join(RESOURCES_DIR, 'specs');
   assert(fs.existsSync(specsDir), 'specs directory not found');
 
   const specDirs = fs.readdirSync(specsDir, { withFileTypes: true })
@@ -492,7 +492,7 @@ test('specs directory exists with specifications', () => {
 });
 
 test('all spec directories follow numbering convention', () => {
-  const specsDir = path.join(__dirname, '..', 'specs');
+  const specsDir = path.join(RESOURCES_DIR, 'specs');
   const specDirs = fs.readdirSync(specsDir, { withFileTypes: true })
     .filter(d => d.isDirectory())
     .map(d => d.name);
@@ -506,7 +506,7 @@ test('all spec directories follow numbering convention', () => {
 });
 
 test('all spec directories contain spec.md file', () => {
-  const specsDir = path.join(__dirname, '..', 'specs');
+  const specsDir = path.join(RESOURCES_DIR, 'specs');
   const specDirs = fs.readdirSync(specsDir, { withFileTypes: true })
     .filter(d => d.isDirectory());
 
@@ -517,7 +517,7 @@ test('all spec directories contain spec.md file', () => {
 });
 
 test('specifications have required sections', () => {
-  const specsDir = path.join(__dirname, '..', 'specs');
+  const specsDir = path.join(RESOURCES_DIR, 'specs');
   const specDirs = fs.readdirSync(specsDir, { withFileTypes: true })
     .filter(d => d.isDirectory());
 
@@ -533,7 +533,7 @@ test('specifications have required sections', () => {
 });
 
 test('specifications have Feature ID in frontmatter', () => {
-  const specsDir = path.join(__dirname, '..', 'specs');
+  const specsDir = path.join(RESOURCES_DIR, 'specs');
   const specDirs = fs.readdirSync(specsDir, { withFileTypes: true })
     .filter(d => d.isDirectory());
 
@@ -549,7 +549,7 @@ test('specifications have Feature ID in frontmatter', () => {
 });
 
 test('tool specifications exist (025-030)', () => {
-  const specsDir = path.join(__dirname, '..', 'specs');
+  const specsDir = path.join(RESOURCES_DIR, 'specs');
 
   const toolSpecs = ['025', '026', '027', '028', '029', '030'];
 
@@ -560,7 +560,7 @@ test('tool specifications exist (025-030)', () => {
 });
 
 test('skill specifications exist (031-035)', () => {
-  const specsDir = path.join(__dirname, '..', 'specs');
+  const specsDir = path.join(RESOURCES_DIR, 'specs');
 
   const skillSpecs = ['031', '032', '033', '034', '035'];
 
@@ -602,7 +602,7 @@ test('resourceDiscovery tool is registered', () => {
 });
 
 test('agents have Related Resources sections', () => {
-  const agentsDir = path.join(RESOURCES_DIR, 'agents');
+  const agentsDir = path.join(RESOURCES_DIR, 'agents-collection');
 
   // Check key agents that should have Related Resources
   const keyAgents = [
@@ -636,7 +636,7 @@ test('copilot-instructions.md includes SDD guidance', () => {
 // ============================================================================
 
 test('typescript-expert has embedded TypeScript standards', () => {
-  const agentPath = path.join(RESOURCES_DIR, 'agents', 'typescript-expert.agent.md');
+  const agentPath = path.join(RESOURCES_DIR, 'agents-collection', 'typescript-expert.agent.md');
   const content = fs.readFileSync(agentPath, 'utf8');
 
   assert(
@@ -650,7 +650,7 @@ test('typescript-expert has embedded TypeScript standards', () => {
 });
 
 test('python-expert has embedded PEP 8 standards', () => {
-  const agentPath = path.join(RESOURCES_DIR, 'agents', 'python-expert.agent.md');
+  const agentPath = path.join(RESOURCES_DIR, 'agents-collection', 'python-expert.agent.md');
   const content = fs.readFileSync(agentPath, 'utf8');
 
   assert(
@@ -664,7 +664,7 @@ test('python-expert has embedded PEP 8 standards', () => {
 });
 
 test('code-reviewer has embedded review checklist', () => {
-  const agentPath = path.join(RESOURCES_DIR, 'agents', 'code-reviewer.agent.md');
+  const agentPath = path.join(RESOURCES_DIR, 'agents-collection', 'code-reviewer.agent.md');
   const content = fs.readFileSync(agentPath, 'utf8');
 
   assert(
@@ -678,7 +678,7 @@ test('code-reviewer has embedded review checklist', () => {
 });
 
 test('testing-specialist has embedded TDD methodology', () => {
-  const agentPath = path.join(RESOURCES_DIR, 'agents', 'testing-specialist.agent.md');
+  const agentPath = path.join(RESOURCES_DIR, 'agents-collection', 'testing-specialist.agent.md');
   const content = fs.readFileSync(agentPath, 'utf8');
 
   assert(
@@ -692,7 +692,7 @@ test('testing-specialist has embedded TDD methodology', () => {
 });
 
 test('devops-expert has embedded commit conventions', () => {
-  const agentPath = path.join(RESOURCES_DIR, 'agents', 'devops-expert.agent.md');
+  const agentPath = path.join(RESOURCES_DIR, 'agents-collection', 'devops-expert.agent.md');
   const content = fs.readFileSync(agentPath, 'utf8');
 
   assert(
@@ -706,7 +706,7 @@ test('devops-expert has embedded commit conventions', () => {
 });
 
 test('security-expert has embedded OWASP checklist', () => {
-  const agentPath = path.join(RESOURCES_DIR, 'agents', 'security-expert.agent.md');
+  const agentPath = path.join(RESOURCES_DIR, 'agents-collection', 'security-expert.agent.md');
   const content = fs.readFileSync(agentPath, 'utf8');
 
   assert(
