@@ -92,9 +92,9 @@ jobs:
           echo "Found: $AGENTS agents, $PROMPTS prompts, $INSTRUCTIONS instructions, $SKILLS skills"
 
           # Verify expected counts
-          test $AGENTS -eq 22 || (echo "Expected 22 agents, found $AGENTS" && exit 1)
+          test $AGENTS -eq 24 || (echo "Expected 24 agents, found $AGENTS" && exit 1)
           test $PROMPTS -eq 5 || (echo "Expected 5 prompts, found $PROMPTS" && exit 1)
-          test $INSTRUCTIONS -eq 2 || (echo "Expected 2 instructions, found $INSTRUCTIONS" && exit 1)
+          test $INSTRUCTIONS -eq 5 || (echo "Expected 5 instructions, found $INSTRUCTIONS" && exit 1)
           test $SKILLS -eq 5 || (echo "Expected 5 skills, found $SKILLS" && exit 1)
 
           echo "✓ Resource counts match expectations"
