@@ -6,13 +6,7 @@
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
-
-// Utility: Extract major version from various semver formats
-function getMajorVersion(version) {
-  if (!version) return null;
-  const match = version.match(/^[~^>=<]*(\d+)/);
-  return match ? parseInt(match[1], 10) : null;
-}
+const { getMajorVersion } = require('./utils');
 
 // Test configuration
 const RESOURCES_DIR = path.join(__dirname, '..', 'resources');
@@ -143,12 +137,24 @@ test('extension.js registers all 12 custom tools', () => {
 
   const allTools = [...coreTools, ...specKitTools, ...discoveryTools];
 
+  // Validate exact count
+  assert.strictEqual(allTools.length, 12, `Expected exactly 12 tools, but found ${allTools.length}`);
+
+  // Validate each tool is registered
   for (const tool of allTools) {
     assert(
       content.includes(`vscode.lm.registerTool('${tool}'`),
       `Tool '${tool}' not registered`
     );
   }
+
+  // Count actual registrations in the file to ensure no extra tools
+  const registrations = content.match(/vscode\.lm\.registerTool\(/g) || [];
+  assert.strictEqual(
+    registrations.length,
+    12,
+    `Expected exactly 12 tool registrations in extension.js, but found ${registrations.length}`
+  );
 });
 
 test('extension.js includes TelemetryReporter class', () => {

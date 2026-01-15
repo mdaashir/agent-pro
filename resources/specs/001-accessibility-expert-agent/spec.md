@@ -1,4 +1,4 @@
-o# Feature Specification: Accessibility Expert Agent
+# Feature Specification: Accessibility Expert Agent
 
 **Feature ID**: 001-accessibility-expert-agent
 **Status**: Completed
