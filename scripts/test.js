@@ -51,13 +51,13 @@ const skillCount = fs.readdirSync('resources/skills', { withFileTypes: true })
 
 log(`  Agents: ${agentCount}`, agentCount === 22 ? 'green' : 'reset');
 log(`  Prompts: ${promptCount}`, promptCount === 5 ? 'green' : 'reset');
-log(`  Instructions: ${instructionCount}`, instructionCount === 2 ? 'green' : 'reset');
+log(`  Instructions: ${instructionCount}`, instructionCount === 5 ? 'green' : 'reset');
 log(`  Skills: ${skillCount}`, skillCount === 5 ? 'green' : 'reset');
 
 const expectedCounts = {
   agents: 22,
   prompts: 5,
-  instructions: 2,
+  instructions: 5,
   skills: 5,
 };
 
