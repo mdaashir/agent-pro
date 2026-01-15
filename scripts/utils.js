@@ -1,5 +1,5 @@
 /**
- * Shared utility functions for the Agent Pro extension
+ * Shared utility functions for the extension
  */
 
 /**
