@@ -1,8 +1,8 @@
 {
   "name": "agent-pro",
   "displayName": "Agent Pro - GitHub Copilot Experts",
-  "description": "24+ expert agents (now with FinTech & Healthcare), 5 instructions, 6 custom tools, 5 prompts, and comprehensive skills for GitHub Copilot - Your AI development powerhouse with built-in analytics",
-  "version": "2.3.0",
+  "description": "24+ expert agents, 12 custom tools (6 core + 5 SpecKit + resourceDiscovery), 5 instructions, 6 prompts, 5 skills, and complete Specification-Driven Development framework for GitHub Copilot",
+  "version": "3.1.0",
   "publisher": "mdaashir",
   "author": {
     "name": "mdaashir"
@@ -44,122 +44,122 @@
     "chatAgents": [
       {
         "name": "AccessibilityExpert",
-        "path": "./resources/agents/accessibility-expert.agent.md",
+        "path": "./resources/agents-collection/accessibility-expert.agent.md",
         "description": "Expert in web accessibility, WCAG compliance, ARIA, and inclusive design"
       },
       {
         "name": "AIMLExpert",
-        "path": "./resources/agents/ai-ml-engineering-expert.agent.md",
+        "path": "./resources/agents-collection/ai-ml-engineering-expert.agent.md",
         "description": "Expert in AI/ML engineering, model training, deployment, and MLOps"
       },
       {
         "name": "ArchitectureExpert",
-        "path": "./resources/agents/architecture-expert.agent.md",
+        "path": "./resources/agents-collection/architecture-expert.agent.md",
         "description": "Expert in software architecture, system design, and scalability"
       },
       {
         "name": "CloudArchitect",
-        "path": "./resources/agents/cloud-architect.agent.md",
+        "path": "./resources/agents-collection/cloud-architect.agent.md",
         "description": "Expert in cloud architecture, AWS, Azure, GCP, and cloud-native patterns"
       },
       {
         "name": "CodeReviewer",
-        "path": "./resources/agents/code-reviewer.agent.md",
+        "path": "./resources/agents-collection/code-reviewer.agent.md",
         "description": "Expert code reviewer with focus on quality, security, and best practices"
       },
       {
         "name": "DataEngineeringExpert",
-        "path": "./resources/agents/data-engineering-expert.agent.md",
+        "path": "./resources/agents-collection/data-engineering-expert.agent.md",
         "description": "Expert in data pipelines, ETL, data warehousing, and big data"
       },
       {
         "name": "DesignPatternsExpert",
-        "path": "./resources/agents/design-patterns-expert.agent.md",
+        "path": "./resources/agents-collection/design-patterns-expert.agent.md",
         "description": "Expert in software design patterns and architectural patterns"
       },
       {
         "name": "DesignSystemsExpert",
-        "path": "./resources/agents/design-systems-expert.agent.md",
+        "path": "./resources/agents-collection/design-systems-expert.agent.md",
         "description": "Expert in design systems, component libraries, and UI consistency"
       },
       {
         "name": "DevOpsExpert",
-        "path": "./resources/agents/devops-expert.agent.md",
+        "path": "./resources/agents-collection/devops-expert.agent.md",
         "description": "Expert in DevOps, CI/CD, automation, and infrastructure as code"
       },
       {
         "name": "DocumentationExpert",
-        "path": "./resources/agents/documentation-expert.agent.md",
+        "path": "./resources/agents-collection/documentation-expert.agent.md",
         "description": "Expert in technical documentation, API docs, and knowledge management"
       },
       {
         "name": "FunctionalProgrammingExpert",
-        "path": "./resources/agents/functional-programming-expert.agent.md",
+        "path": "./resources/agents-collection/functional-programming-expert.agent.md",
         "description": "Expert in functional programming paradigms and immutable architectures"
       },
       {
         "name": "FinTechExpert",
-        "path": "./resources/agents/fintech-expert.agent.md",
+        "path": "./resources/agents-collection/fintech-expert.agent.md",
         "description": "Expert in financial technology, payment systems, PCI DSS compliance, and fintech security"
       },
       {
         "name": "HealthcareExpert",
-        "path": "./resources/agents/healthcare-expert.agent.md",
+        "path": "./resources/agents-collection/healthcare-expert.agent.md",
         "description": "Expert in healthcare technology, HIPAA compliance, HL7/FHIR standards, and medical data security"
       },
       {
         "name": "GraphQLExpert",
-        "path": "./resources/agents/graphql-expert.agent.md",
+        "path": "./resources/agents-collection/graphql-expert.agent.md",
         "description": "Expert in GraphQL APIs, schema design, and performance optimization"
       },
       {
         "name": "MicroservicesExpert",
-        "path": "./resources/agents/microservices-expert.agent.md",
+        "path": "./resources/agents-collection/microservices-expert.agent.md",
         "description": "Expert in microservices architecture, distributed systems, and service mesh"
       },
       {
         "name": "MobileDevelopmentExpert",
-        "path": "./resources/agents/mobile-development-expert.agent.md",
+        "path": "./resources/agents-collection/mobile-development-expert.agent.md",
         "description": "Expert in mobile app development for iOS, Android, and cross-platform"
       },
       {
         "name": "ObservabilitySREExpert",
-        "path": "./resources/agents/observability-sre-expert.agent.md",
+        "path": "./resources/agents-collection/observability-sre-expert.agent.md",
         "description": "Expert in observability, monitoring, SRE practices, and incident response"
       },
       {
         "name": "PerformanceExpert",
-        "path": "./resources/agents/performance-expert.agent.md",
+        "path": "./resources/agents-collection/performance-expert.agent.md",
         "description": "Expert in performance optimization, profiling, and scalability"
       },
       {
         "name": "PlatformEngineeringExpert",
-        "path": "./resources/agents/platform-engineering-expert.agent.md",
+        "path": "./resources/agents-collection/platform-engineering-expert.agent.md",
         "description": "Expert in platform engineering and developer experience"
       },
       {
         "name": "PythonExpert",
-        "path": "./resources/agents/python-expert.agent.md",
+        "path": "./resources/agents-collection/python-expert.agent.md",
         "description": "Expert in Python development, best practices, and ecosystem tools"
       },
       {
         "name": "SecurityExpert",
-        "path": "./resources/agents/security-expert.agent.md",
+        "path": "./resources/agents-collection/security-expert.agent.md",
         "description": "Expert in security, cryptography, and secure coding practices"
       },
       {
         "name": "SystemsProgrammingExpert",
-        "path": "./resources/agents/systems-programming-expert.agent.md",
+        "path": "./resources/agents-collection/systems-programming-expert.agent.md",
         "description": "Expert in systems programming, low-level programming, and performance"
       },
       {
         "name": "TestingSpecialist",
-        "path": "./resources/agents/testing-specialist.agent.md",
+        "path": "./resources/agents-collection/testing-specialist.agent.md",
         "description": "Expert in testing strategies, test automation, and quality assurance"
       },
       {
         "name": "TypeScriptExpert",
-        "path": "./resources/agents/typescript-expert.agent.md",
+        "path": "./resources/agents-collection/typescript-expert.agent.md",
         "description": "Expert in TypeScript, type systems, and modern JavaScript"
       }
     ],
@@ -171,6 +171,10 @@
       {
         "command": "agentPro.resetStats",
         "title": "Agent Pro: Reset Usage Statistics"
+      },
+      {
+        "command": "agentPro.showAgentReference",
+        "title": "Agent Pro: Show Agent Quick Reference"
       }
     ],
     "configuration": {

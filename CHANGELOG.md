@@ -5,6 +5,123 @@ All notable changes to the "Agent Pro" extension will be documented in this file
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.0] - 2026-01-15
+
+### Added - Embedded Resources & Enhanced Agents
+
+#### Embedded Resources in Agents
+
+Agents now have critical content embedded inline for self-contained operation:
+
+- **TypeScript Expert**: Embedded TypeScript Instructions
+  - tsconfig.json strict mode requirements
+  - Naming convention rules (PascalCase, camelCase, UPPER_SNAKE_CASE)
+  - Anti-patterns to flag (`any` type, non-null assertions)
+  - Import organization order
+
+- **Python Expert**: Embedded Python Instructions (PEP 8)
+  - Indentation and line length rules
+  - Naming conventions (snake_case, PascalCase, constants)
+  - Type hints requirements for public APIs
+  - Import order enforcement
+
+- **Code Reviewer**: Embedded Code Review Checklist
+  - Security checklist (SQL injection, XSS, CSRF, etc.)
+  - Code quality checklist (SOLID, DRY, error handling)
+  - Performance checklist (N+1 queries, memory leaks)
+  - Review severity classification table
+
+- **Testing Specialist**: Embedded Testing Methodology
+  - Testing Trophy vs Pyramid comparison
+  - TDD Red-Green-Refactor cycle
+  - Coverage targets table
+  - Test naming convention patterns
+
+- **DevOps Expert**: Embedded Conventional Commits
+  - Commit types with version bump effects
+  - CI/CD-specific examples
+  - Automated commit validation workflow
+
+- **Security Expert**: Embedded OWASP Checklist
+  - Critical security checks table
+  - OWASP Top 10 quick reference
+  - Required security headers
+
+#### New Resources
+
+- **agent-quickref.md**: Quick reference guide for all 24 agents
+  - Embedded resources summary per agent
+  - Custom tools reference table
+  - Quick commands cheatsheet
+
+#### New Command
+
+- `Agent Pro: Show Agent Quick Reference` - View embedded resources for key agents
+
+#### Enhanced Tests
+
+- 8 new functional tests for embedded resources
+- Total: 53 functional tests (was 45)
+
+### Changed
+
+- Updated package.json with new command
+- Enhanced extension.js with `getAgentQuickReference` helper
+- Version bumped to 3.1.0
+
+## [3.0.0] - 2026-01-15
+
+### Added
+
+#### Specification-Driven Development (SDD)
+
+- Complete SDD methodology framework for systematic feature development
+- Constitutional framework with 8 immutable architectural principles
+- 4 SDD templates: specification, implementation plan, tasks, and quality checklist
+- Numbered feature specifications directory structure (001-024: agents, 025-030: tools, 031-035: skills)
+- Sample specifications for accessibility expert agent, code analyzer tool, and API development skill
+
+#### SpecKit Tools
+
+- `specKitConstitution` - Access constitutional framework through Copilot Chat
+- `specKitSpecTemplate` - Get specification template for feature definitions
+- `specKitPlanTemplate` - Get implementation plan template
+- `specKitTasksTemplate` - Get task breakdown template
+- `specKitChecklist` - Get quality validation checklist
+- Total: **11 custom tools** (6 core + 5 SpecKit)
+
+#### Documentation
+
+- `spec-driven.md` - Comprehensive SDD methodology guide
+- `agents.md` - Agent integration checklist and guidelines
+- `resources/constitution.md` - Constitutional framework document
+- `resources/templates/` - SDD template directory with usage guide
+- `specs/` - Feature specifications directory
+
+#### Validation & Quality
+
+- `scripts/validate-frontmatter.js` - Frontmatter and resource validation
+- Automated validation for agents, prompts, instructions, and skills
+
+### Changed
+
+- Extension description updated to reflect SDD capabilities
+- README.md enhanced with SDD overview and SpecKit tools documentation
+- Version bumped to 3.0.0 (major: breaking changes with SDD introduction)
+- Tool registration message updated (6 → 11 tools)
+
+### Governance
+
+- Established 8 constitutional articles:
+  1. Specification-First Development
+  2. Agent Isolation Principle
+  3. Custom Tool Integration Mandate
+  4. Test-First Imperative
+  5. Copilot-Native Integration
+  6. Privacy-First Telemetry
+  7. Simplicity and Clarity
+  8. Versioned Evolution
+
 ## [2.3.0] - 2026-01-15
 
 ### Added - Analytics, New Tools & Vertical-Specific Agents

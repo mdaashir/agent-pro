@@ -3,6 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const yaml = require('js-yaml');
+const { getMajorVersion } = require('./utils');
 
 // ANSI color codes
 const colors = {
@@ -356,27 +357,27 @@ log('\nValidating Agent Pro Extension Files\n', 'blue');
 const resourcesDir = path.join(process.cwd(), 'resources');
 
 // Validate agents
-if (fs.existsSync(path.join(resourcesDir, 'agents'))) {
+if (fs.existsSync(path.join(resourcesDir, 'agents-collection'))) {
   const count = scanDirectory(
-    path.join(resourcesDir, 'agents'),
+    path.join(resourcesDir, 'agents-collection'),
     '.agent.md',
     validateAgent
   );
   log(`\nValidated ${count} agents\n`);
 } else {
-  error('Missing resources/agents directory');
+  error('Missing resources/agents-collection directory');
 }
 
 // Validate prompts
-if (fs.existsSync(path.join(resourcesDir, 'prompts'))) {
+if (fs.existsSync(path.join(resourcesDir, 'prompts-collection'))) {
   const count = scanDirectory(
-    path.join(resourcesDir, 'prompts'),
+    path.join(resourcesDir, 'prompts-collection'),
     '.prompt.md',
     validatePrompt
   );
   log(`\nValidated ${count} prompts\n`);
 } else {
-  error('Missing resources/prompts directory');
+  error('Missing resources/prompts-collection directory');
 }
 
 // Validate instructions
@@ -392,11 +393,11 @@ if (fs.existsSync(path.join(resourcesDir, 'instructions'))) {
 }
 
 // Validate skills
-if (fs.existsSync(path.join(resourcesDir, 'skills'))) {
-  const count = scanSkills(path.join(resourcesDir, 'skills'));
+if (fs.existsSync(path.join(resourcesDir, 'skills-collection'))) {
+  const count = scanSkills(path.join(resourcesDir, 'skills-collection'));
   log(`\nValidated ${count} skills\n`);
 } else {
-  error('Missing resources/skills directory');
+  error('Missing resources/skills-collection directory');
 }
 
 // Summary

@@ -75,19 +75,19 @@ jobs:
       - name: Verify resources folder structure
         run: |
           echo "Checking required directories..."
-          test -d resources/agents || (echo "Missing resources/agents directory" && exit 1)
-          test -d resources/prompts || (echo "Missing resources/prompts directory" && exit 1)
+          test -d resources/agents-collection || (echo "Missing resources/agents-collection directory" && exit 1)
+          test -d resources/prompts-collection || (echo "Missing resources/prompts-collection directory" && exit 1)
           test -d resources/instructions || (echo "Missing resources/instructions directory" && exit 1)
-          test -d resources/skills || (echo "Missing resources/skills directory" && exit 1)
+          test -d resources/skills-collection || (echo "Missing resources/skills-collection directory" && exit 1)
           echo "✓ All required directories present"
 
       - name: Count resources
         run: |
           echo "Counting resources..."
-          AGENTS=$(find resources/agents -name "*.agent.md" | wc -l)
-          PROMPTS=$(find resources/prompts -name "*.prompt.md" | wc -l)
+          AGENTS=$(find resources/agents-collection -name "*.agent.md" | wc -l)
+          PROMPTS=$(find resources/prompts-collection -name "*.prompt.md" | wc -l)
           INSTRUCTIONS=$(find resources/instructions -name "*.instructions.md" | wc -l)
-          SKILLS=$(find resources/skills -name "SKILL.md" | wc -l)
+          SKILLS=$(find resources/skills-collection -name "SKILL.md" | wc -l)
 
           echo "Found: $AGENTS agents, $PROMPTS prompts, $INSTRUCTIONS instructions, $SKILLS skills"
 

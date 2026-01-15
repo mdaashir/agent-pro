@@ -1,20 +1,22 @@
 # Agent Pro - GitHub Copilot Experts
 
-A comprehensive collection of **24+ expert agents** (including FinTech & Healthcare specialists), **6 custom tools** with built-in analytics, **5 language instructions**, **5 prompts**, and **5 comprehensive skills** for GitHub Copilot.
+A comprehensive collection of **24+ expert agents** (including FinTech & Healthcare specialists), **12 custom tools** with built-in analytics and resource discovery, **5 language instructions**, **5 prompts**, and **5 comprehensive skills** for GitHub Copilot, now powered by **Specification-Driven Development (SDD)**.
 
-Agent Pro provides **40+ curated resources** to enhance your development workflow with AI-powered assistance across multiple domains including architecture, security, testing, cloud infrastructure, regulated industries (finance, healthcare), and more.
+Agent Pro provides **40+ curated resources** plus **SDD methodology framework** to enhance your development workflow with AI-powered assistance across multiple domains including architecture, security, testing, cloud infrastructure, regulated industries (finance, healthcare), and systematic feature development. All resources are interconnected via the **Related Resources** feature.
 
 ## Features
 
 - **24 Expert Agents** - Specialized AI assistants accessible via `@` in Copilot Chat
-- **6 Custom Tools** - Code analysis, test generation, documentation, performance profiling, dependency analysis, and API design
+- **12 Custom Tools** - Code analysis, test generation, documentation, performance profiling, dependency analysis, API design, 5 SpecKit SDD tools, plus resourceDiscovery
+- **Specification-Driven Development** - Complete SDD framework with constitutional governance, templates, and validation
 - **Built-in Analytics** - Track tool usage, success rates, and performance (privacy-respecting, local only)
 - **Copilot Integration** - All agents appear natively in GitHub Copilot's @ menu
 - **5 Language Instructions** - Auto-applied coding standards for Python, TypeScript, Go, Rust, Java
 - **5 Reusable Prompts** - Pre-built templates for common tasks
 - **5 Comprehensive Skills** - Bundled capabilities with best practices
+- **Constitutional Framework** - 8 architectural principles governing all development
 - **Enhanced Validation** - Production-ready validation with framework version checks and security pattern detection
-- **Comprehensive Testing** - 25 functional tests ensure production quality
+- **Comprehensive Testing** - 53 functional tests ensure production quality
 - **Global Storage** - Agents available in all your projects
 
 ## Quick Start
@@ -110,7 +112,7 @@ Skills are comprehensive, self-contained capabilities:
 
 ## 🛠️ Custom Tools
 
-All agents have access to 6 specialized tools:
+All agents have access to **7 specialized tools** (plus 5 SpecKit tools):
 
 ### 1. Code Analyzer
 
@@ -163,6 +165,14 @@ REST API design and OpenAPI specification generator:
 - Security guidelines (OAuth 2.0, JWT, rate limiting)
 - Framework-specific tool recommendations (FastAPI, Express, SpringDoc)
 
+### 7. Resource Discovery
+
+Discover all available Agent Pro resources:
+
+- Lists all agents, prompts, skills, instructions, and templates
+- Helps find the right resource for your task
+- Shows relationships between resources
+
 ## 🎓 Quick Start Workflows
 
 ### Building a Web API
@@ -202,6 +212,68 @@ REST API design and OpenAPI specification generator:
 4. @observability-sre-expert add model monitoring
 ```
 
+## 📚 What's New in v3.1.0
+
+### Embedded Resources for Self-Contained Agents
+
+Key agents now have critical content embedded inline for consistent, self-contained operation:
+
+- **TypeScript Expert**: Embedded strict tsconfig requirements, naming conventions, anti-patterns to flag
+- **Python Expert**: Embedded PEP 8 rules, type hint requirements, import ordering
+- **Code Reviewer**: Embedded security/quality/performance checklists, severity classification
+- **Testing Specialist**: Embedded TDD methodology, testing trophy, coverage targets
+- **DevOps Expert**: Embedded conventional commits format, commit types, CI/CD examples
+- **Security Expert**: Embedded OWASP Top 10 checklist, security headers, critical checks
+
+### Quick Reference Guide
+
+- New **[agent-quickref.md](resources/agent-quickref.md)** - Quick reference for all 24 agents
+- Shows embedded resources summary per agent
+- Custom tools reference table
+- Quick commands cheatsheet
+
+### New Command
+
+- `Agent Pro: Show Agent Quick Reference` - View embedded resources for key agents via quick pick
+
+### Enhanced Testing
+
+- 53 functional tests (up from 45)
+- Tests verify embedded content in all enhanced agents
+
+## 📚 What's New in v3.0.0
+
+### Specification-Driven Development (SDD)
+
+- Complete SDD methodology framework
+- Constitutional governance with 8 architectural principles
+- 4 SDD templates: spec, plan, tasks, checklist
+- 5 SpecKit tools accessible through Copilot Chat
+- Numbered feature specifications for all agents, tools, and skills
+- Integration guide for systematic agent development
+
+### SpecKit Tools
+
+- **specKitConstitution** - Access constitutional framework
+- **specKitSpecTemplate** - Feature specification template
+- **specKitPlanTemplate** - Implementation planning template
+- **specKitTasksTemplate** - Task breakdown template
+- **specKitChecklist** - Quality validation checklist
+
+### Resource & Discovery Tools
+
+- **resourceDiscovery** - List all available agents, prompts, skills, instructions, and templates
+
+Total: **12 custom tools** (6 core + 5 SpecKit + 1 discovery)
+
+### Documentation Enhancements
+
+- **[spec-driven.md](spec-driven.md)** - Complete SDD guide
+- **[agents.md](agents.md)** - Agent integration checklist
+- **[Constitutional Framework](resources/constitution.md)** - Governance principles
+- **[Templates](resources/templates/)** - SDD templates with usage guide
+- **[Specifications](specs/)** - Feature specs directory
+
 ## 📚 What's New in v2.3.0
 
 ### Custom Tools (Phase 2)
@@ -225,7 +297,7 @@ REST API design and OpenAPI specification generator:
 
 ## Documentation
 
-For detailed documentation on each agent, prompt, and skill, see the [INDEX.md](.github/INDEX.md) file.
+For detailed documentation on each agent, prompt, and skill, see the [index.md](resources/index.md) file.
 
 ## Building from Source
 
@@ -263,9 +335,9 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Package Contents
 
-- `resources/agents/` - 22 expert agent definitions
-- `resources/prompts/` - 5 reusable prompt templates
-- `resources/instructions/` - 2 automatic instruction sets
-- `resources/skills/` - 5 comprehensive skill bundles
+- `resources/agents-collection/` - 24 expert agent definitions
+- `resources/prompts-collection/` - 5 reusable prompt templates
+- `resources/instructions/` - 5 automatic instruction sets
+- `resources/skills-collection/` - 5 comprehensive skill bundles
 - Global access via Copilot Chat (`@agent-name`)
 - Installed to `~/.config/Code/User/globalStorage/mdaashir.agent-pro/` on activation

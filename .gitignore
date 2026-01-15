@@ -3,6 +3,7 @@ node_modules/
 
 # Build outputs
 *.vsix
+*.vsix.sig
 dist/
 out/
 
