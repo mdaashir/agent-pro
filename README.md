@@ -1,29 +1,32 @@
 # Agent Pro - GitHub Copilot Experts
 
-A comprehensive collection of 22+ expert agents, 4 custom tools, 5 language instructions, 5 prompts, and 5 comprehensive skills for GitHub Copilot.
+A comprehensive collection of **24+ expert agents** (including FinTech & Healthcare specialists), **6 custom tools** with built-in analytics, **5 language instructions**, **5 prompts**, and **5 comprehensive skills** for GitHub Copilot.
 
-Agent Pro provides 38+ curated resources to enhance your development workflow with AI-powered assistance across multiple domains including architecture, security, testing, cloud infrastructure, and more.
+Agent Pro provides **40+ curated resources** to enhance your development workflow with AI-powered assistance across multiple domains including architecture, security, testing, cloud infrastructure, regulated industries (finance, healthcare), and more.
 
-## ✨ Features
+## Features
 
-- **22 Expert Agents** - Specialized AI assistants accessible via `@` in Copilot Chat
-- **4 Custom Tools** - Code analysis, test generation, documentation, and performance profiling
+- **24 Expert Agents** - Specialized AI assistants accessible via `@` in Copilot Chat
+- **6 Custom Tools** - Code analysis, test generation, documentation, performance profiling, dependency analysis, and API design
+- **Built-in Analytics** - Track tool usage, success rates, and performance (privacy-respecting, local only)
 - **Copilot Integration** - All agents appear natively in GitHub Copilot's @ menu
 - **5 Language Instructions** - Auto-applied coding standards for Python, TypeScript, Go, Rust, Java
 - **5 Reusable Prompts** - Pre-built templates for common tasks
 - **5 Comprehensive Skills** - Bundled capabilities with best practices
-- **Enhanced Validation** - Production-ready validation with helpful error messages
+- **Enhanced Validation** - Production-ready validation with framework version checks and security pattern detection
+- **Comprehensive Testing** - 25 functional tests ensure production quality
 - **Global Storage** - Agents available in all your projects
 
-## 🚀 Quick Start
+## Quick Start
 
 1. Install Agent Pro from the VS Code Marketplace
 2. Open GitHub Copilot Chat (`Ctrl+Alt+I` / `Cmd+Option+I`)
-3. Type `@` to see all 22 expert agents
-4. Select an agent (e.g., `@PythonExpert`) and start chatting!
-5. Agents automatically have access to 4 custom tools for enhanced capabilities
+3. Type `@` to see all 24 expert agents
+4. Select an agent (e.g., `@PythonExpert` or `@FinTechExpert`) and start chatting!
+5. Agents automatically have access to 6 custom tools for enhanced capabilities
+6. View usage statistics: `Ctrl+Shift+P` → "Agent Pro: Show Usage Statistics"
 
-## 💡 Usage
+## Usage
 
 ### Using Agents in Copilot Chat with Custom Tools
 
@@ -33,12 +36,17 @@ Open GitHub Copilot Chat and type `@` to see all available agents. All agents no
 - **testGenerator** - Suggests test strategies for your code
 - **documentationBuilder** - Generates documentation templates
 - **performanceProfiler** - Detects performance anti-patterns
+- **dependencyAnalyzer** - Scans project dependencies (package.json, requirements.txt, go.mod, Cargo.toml)
+- **apiDesigner** - Provides OpenAPI 3.1 specifications and REST API best practices
 
 Example:
+
 ```
 @python-expert analyze this code for complexity
 @testing-specialist suggest tests for this function
 @performance-expert profile this algorithm
+@fintech-expert review this payment processing code for PCI DSS compliance
+@healthcare-expert validate this FHIR resource
 ```
 
 ### Available Agents
@@ -55,8 +63,10 @@ Example:
 | **@design-systems-expert**         | Figma Variables, Design Tokens         | Design systems          |
 | **@devops-expert**                 | Docker, Kubernetes, CI/CD              | DevOps workflows        |
 | **@documentation-expert**          | Technical writing, API docs            | Documentation           |
+| **@fintech-expert**                | PCI DSS, payments, fraud, KYC/AML      | Financial applications  |
 | **@functional-programming-expert** | FRP, RxJS, monads                      | Functional code         |
 | **@graphql-expert**                | Apollo Federation 2.10                 | GraphQL APIs            |
+| **@healthcare-expert**             | HIPAA, HL7/FHIR, EHR integration       | Healthcare applications |
 | **@microservices-expert**          | SAGA, Circuit Breaker, CQRS            | Microservices           |
 | **@mobile-development-expert**     | React Native, Flutter, iOS, Android    | Mobile apps             |
 | **@observability-sre-expert**      | OpenTelemetry, SLOs                    | Monitoring & SRE        |
@@ -100,32 +110,58 @@ Skills are comprehensive, self-contained capabilities:
 
 ## 🛠️ Custom Tools
 
-All agents have access to 4 specialized tools:
+All agents have access to 6 specialized tools:
 
 ### 1. Code Analyzer
+
 Analyzes code complexity, metrics, and patterns:
+
 - Total lines, code lines, comment lines
 - Average line length and comment ratio
 - Language-specific insights
 
 ### 2. Test Generator
+
 Suggests test strategies and frameworks:
+
 - Recommends appropriate testing framework (Jest, pytest, JUnit, etc.)
 - Identifies test types needed (unit, integration, edge cases)
 - Analyzes code structure for testability
 
 ### 3. Documentation Builder
+
 Generates documentation templates:
+
 - Language-specific doc formats (JSDoc, TSDoc, docstring, JavaDoc, etc.)
 - Function/method documentation structure
 - Usage examples and best practices
 
 ### 4. Performance Profiler
+
 Detects performance anti-patterns:
+
 - Array operations in loops
 - Inefficient chaining (map+filter)
 - Deep clone anti-patterns
 - Framework-specific optimizations
+
+### 5. Dependency Analyzer
+
+Scans and analyzes project dependencies:
+
+- Supports: package.json (Node.js), requirements.txt (Python), go.mod (Go), Cargo.toml (Rust)
+- Detects outdated packages and provides update recommendations
+- Security scanning suggestions (Dependabot, Renovate, pip-audit, cargo audit)
+
+### 6. API Designer
+
+REST API design and OpenAPI specification generator:
+
+- OpenAPI 3.1 templates and best practices
+- HTTP verb mapping and resource naming conventions
+- API design patterns (pagination, filtering, sorting, HATEOAS)
+- Security guidelines (OAuth 2.0, JWT, rate limiting)
+- Framework-specific tool recommendations (FastAPI, Express, SpringDoc)
 
 ## 🎓 Quick Start Workflows
 
@@ -166,19 +202,22 @@ Detects performance anti-patterns:
 4. @observability-sre-expert add model monitoring
 ```
 
-## 📚 What's New in v2.2.0
+## 📚 What's New in v2.3.0
 
 ### Custom Tools (Phase 2)
-- 4 VSCode native tools for all agents
-- Code analysis, test generation, documentation, performance profiling
+
+- 6 VSCode native tools for all agents
+- Code analysis, test generation, documentation, performance profiling, dependency analysis, and API design
 - Production-ready error handling
 
 ### Extended Language Support (Phase 1)
+
 - 3 new instruction sets: Go, Rust, Java
 - Comprehensive best practices for each language
 - Auto-applied based on file type
 
 ### Enhanced Validation
+
 - Tool reference validation
 - Improved error messages with suggestions
 - Performance warnings for tool count

@@ -1,8 +1,8 @@
 {
   "name": "agent-pro",
   "displayName": "Agent Pro - GitHub Copilot Experts",
-  "description": "22+ expert agents, 5 instructions, 4 custom tools, 5 prompts, and comprehensive skills for GitHub Copilot - Your AI development powerhouse",
-  "version": "2.2.0",
+  "description": "24+ expert agents (now with FinTech & Healthcare), 5 instructions, 6 custom tools, 5 prompts, and comprehensive skills for GitHub Copilot - Your AI development powerhouse with built-in analytics",
+  "version": "2.3.0",
   "publisher": "mdaashir",
   "author": {
     "name": "mdaashir"
@@ -98,6 +98,16 @@
         "description": "Expert in functional programming paradigms and immutable architectures"
       },
       {
+        "name": "FinTechExpert",
+        "path": "./resources/agents/fintech-expert.agent.md",
+        "description": "Expert in financial technology, payment systems, PCI DSS compliance, and fintech security"
+      },
+      {
+        "name": "HealthcareExpert",
+        "path": "./resources/agents/healthcare-expert.agent.md",
+        "description": "Expert in healthcare technology, HIPAA compliance, HL7/FHIR standards, and medical data security"
+      },
+      {
         "name": "GraphQLExpert",
         "path": "./resources/agents/graphql-expert.agent.md",
         "description": "Expert in GraphQL APIs, schema design, and performance optimization"
@@ -152,7 +162,27 @@
         "path": "./resources/agents/typescript-expert.agent.md",
         "description": "Expert in TypeScript, type systems, and modern JavaScript"
       }
-    ]
+    ],
+    "commands": [
+      {
+        "command": "agentPro.showStats",
+        "title": "Agent Pro: Show Usage Statistics"
+      },
+      {
+        "command": "agentPro.resetStats",
+        "title": "Agent Pro: Reset Usage Statistics"
+      }
+    ],
+    "configuration": {
+      "title": "Agent Pro",
+      "properties": {
+        "agentPro.telemetry.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable telemetry to track tool usage statistics (stored locally only)"
+        }
+      }
+    }
   },
   "scripts": {
     "package": "vsce package",
@@ -161,6 +191,8 @@
     "format:check": "prettier --check '**/*.{md,json,yml,yaml}'",
     "validate": "node scripts/validate-frontmatter.js",
     "test": "node scripts/test.js",
+    "test:functional": "node scripts/functional-tests.js",
+    "test:all": "npm run test && npm run test:functional && npm run validate",
     "prepackage": "npm run validate",
     "release:patch": "npm version patch && git push --follow-tags",
     "release:minor": "npm version minor && git push --follow-tags",
