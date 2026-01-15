@@ -5,6 +5,42 @@ All notable changes to the "Agent Pro" extension will be documented in this file
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.2.0] - 2026-01-15
+
+### Added
+
+- **Renamed resource files to kebab-case** for consistency
+  - `AGENT_QUICKREF.md` → `agent-quickref.md`
+  - `AGENTS.md` → `agents.md`
+  - `INDEX.md` → `index.md`
+  - `SPEC_DRIVEN.md` → `spec-driven.md`
+
+### Changed
+
+- **Updated folder naming conventions** across entire project
+  - `resources/agents/` → `resources/agents-collection/`
+  - `resources/prompts/` → `resources/prompts-collection/`
+  - `resources/skills/` → `resources/skills-collection/`
+  - All skill folders now use `-skill` suffix
+  - All instruction files renamed to `[language]-language.instructions.md` format
+
+- **Updated CI/CD workflow** to use new collection folder names
+- **Updated all cross-references** in documentation files (7+ files)
+- **Formatted all files** with Prettier (67 files)
+
+### Removed
+
+- Deleted redundant `copilot-instructions.md` (content duplicated in other docs)
+- Removed `USAGE.md` (merged into README.md)
+- Removed `SETUP_GUIDE.md` (outdated CI/CD guide)
+
+### Fixed
+
+- Fixed broken paths in `resources/specs/README.md`
+- Fixed INDEX.md path references in README.md
+- Updated all agent, prompt, skill paths in package.json
+- Updated test scripts to use new collection paths
+
 ## [3.1.0] - 2026-01-15
 
 ### Added - Embedded Resources & Enhanced Agents
