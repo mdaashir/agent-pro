@@ -123,10 +123,10 @@ struct Parser<'input> {
 fn load_config(path: &str) -> Result<Config, ConfigError> {
     let content = fs::read_to_string(path)
         .map_err(|e| ConfigError::IoError(path.to_string(), e))?;
-    
+
     let config: Config = serde_json::from_str(&content)
         .map_err(ConfigError::ParseError)?;
-    
+
     Ok(config)
 }
 
@@ -344,7 +344,7 @@ struct Config {
 trait Repository {
     type Item;
     type Error;
-    
+
     fn find(&self, id: &str) -> Result<Self::Item, Self::Error>;
 }
 
@@ -366,7 +366,7 @@ trait Converter<T, U> {
 async fn fetch_user(id: &str) -> Result<User, Error> {
     let response = reqwest::get(&format!("https://api.example.com/users/{}", id))
         .await?;
-    
+
     let user: User = response.json().await?;
     Ok(user)
 }
@@ -380,7 +380,7 @@ async fn load_dashboard() -> Result<Dashboard, Error> {
         fetch_posts("123"),
         fetch_comments("123")
     )?;
-    
+
     Ok(Dashboard { user, posts, comments })
 }
 ```
@@ -467,7 +467,7 @@ fn test_user_creation() {
 #[cfg(test)]
 mod test_utils {
     use super::*;
-    
+
     pub fn create_test_user() -> User {
         User {
             id: "test-123".to_string(),

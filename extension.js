@@ -11,12 +11,12 @@ function registerCustomTools(context) {
   const codeAnalyzer = vscode.lm.registerTool('codeAnalyzer', {
     displayName: 'Code Analyzer',
     description: 'Analyzes code complexity, patterns, and potential improvements',
-    
+
     async invoke(options, token) {
       try {
         const { input } = options;
         const editor = vscode.window.activeTextEditor;
-        
+
         if (!editor) {
           return new vscode.LanguageModelToolResult([
             new vscode.LanguageModelTextPart('No active editor found')
@@ -26,7 +26,7 @@ function registerCustomTools(context) {
         const document = editor.document;
         const text = document.getText();
         const languageId = document.languageId;
-        
+
         // Analyze code metrics
         const lines = text.split('\n');
         const nonEmptyLines = lines.filter(line => line.trim().length > 0);
@@ -34,7 +34,7 @@ function registerCustomTools(context) {
           const trimmed = line.trim();
           return trimmed.startsWith('//') || trimmed.startsWith('#') || trimmed.startsWith('/*');
         });
-        
+
         const analysis = {
           language: languageId,
           totalLines: lines.length,
@@ -43,7 +43,7 @@ function registerCustomTools(context) {
           averageLineLength: Math.round(text.length / lines.length),
           fileName: path.basename(document.fileName)
         };
-        
+
         const result = `Code Analysis for ${analysis.fileName}:
 - Language: ${analysis.language}
 - Total Lines: ${analysis.totalLines}
@@ -51,7 +51,7 @@ function registerCustomTools(context) {
 - Comment Lines: ${analysis.commentLines}
 - Average Line Length: ${analysis.averageLineLength} characters
 - Comment Ratio: ${((analysis.commentLines / analysis.codeLines) * 100).toFixed(1)}%`;
-        
+
         return new vscode.LanguageModelToolResult([
           new vscode.LanguageModelTextPart(result)
         ]);
@@ -67,11 +67,11 @@ function registerCustomTools(context) {
   const testGenerator = vscode.lm.registerTool('testGenerator', {
     displayName: 'Test Generator',
     description: 'Generates test case suggestions for selected code',
-    
+
     async invoke(options, token) {
       try {
         const editor = vscode.window.activeTextEditor;
-        
+
         if (!editor) {
           return new vscode.LanguageModelToolResult([
             new vscode.LanguageModelTextPart('No active editor found')
@@ -82,7 +82,7 @@ function registerCustomTools(context) {
         const selection = editor.selection;
         const selectedText = document.getText(selection);
         const languageId = document.languageId;
-        
+
         const testFrameworks = {
           javascript: 'Jest',
           typescript: 'Jest',
@@ -91,9 +91,9 @@ function registerCustomTools(context) {
           go: 'testing',
           rust: 'built-in testing'
         };
-        
+
         const framework = testFrameworks[languageId] || 'appropriate testing framework';
-        
+
         const suggestion = `Test Strategy for ${languageId} code:
 - Recommended framework: ${framework}
 - Code length: ${selectedText.length} characters
@@ -104,7 +104,7 @@ function registerCustomTools(context) {
   • Error handling tests
 
 Selection contains ${selectedText.split('\n').length} lines of code ready for test generation.`;
-        
+
         return new vscode.LanguageModelToolResult([
           new vscode.LanguageModelTextPart(suggestion)
         ]);
@@ -120,11 +120,11 @@ Selection contains ${selectedText.split('\n').length} lines of code ready for te
   const documentationBuilder = vscode.lm.registerTool('documentationBuilder', {
     displayName: 'Documentation Builder',
     description: 'Generates documentation templates and suggestions',
-    
+
     async invoke(options, token) {
       try {
         const editor = vscode.window.activeTextEditor;
-        
+
         if (!editor) {
           return new vscode.LanguageModelToolResult([
             new vscode.LanguageModelTextPart('No active editor found')
@@ -133,7 +133,7 @@ Selection contains ${selectedText.split('\n').length} lines of code ready for te
 
         const document = editor.document;
         const languageId = document.languageId;
-        
+
         const docFormats = {
           javascript: 'JSDoc',
           typescript: 'TSDoc',
@@ -142,9 +142,9 @@ Selection contains ${selectedText.split('\n').length} lines of code ready for te
           go: 'GoDoc',
           rust: 'RustDoc'
         };
-        
+
         const format = docFormats[languageId] || 'inline comments';
-        
+
         const template = `Documentation Guide for ${languageId}:
 - Recommended format: ${format}
 - File: ${path.basename(document.fileName)}
@@ -156,7 +156,7 @@ Documentation should include:
 - Usage examples
 - Exceptions/errors thrown
 - Related functions/methods`;
-        
+
         return new vscode.LanguageModelToolResult([
           new vscode.LanguageModelTextPart(template)
         ]);
@@ -172,11 +172,11 @@ Documentation should include:
   const performanceProfiler = vscode.lm.registerTool('performanceProfiler', {
     displayName: 'Performance Profiler',
     description: 'Provides performance insights and optimization suggestions',
-    
+
     async invoke(options, token) {
       try {
         const editor = vscode.window.activeTextEditor;
-        
+
         if (!editor) {
           return new vscode.LanguageModelToolResult([
             new vscode.LanguageModelTextPart('No active editor found')
@@ -186,29 +186,29 @@ Documentation should include:
         const document = editor.document;
         const text = document.getText();
         const languageId = document.languageId;
-        
+
         // Basic performance checks
         const checks = [];
-        
+
         // Check for common performance anti-patterns
         if (text.includes('for (') && text.includes('.push(')) {
           checks.push('⚠️ Detected array push in loop - consider pre-allocation');
         }
-        
+
         if (text.match(/\.map\(.*\)\.filter\(.*\)/)) {
           checks.push('⚠️ Chained map+filter detected - consider single reduce for performance');
         }
-        
+
         if (languageId === 'javascript' || languageId === 'typescript') {
           if (text.includes('JSON.parse(JSON.stringify(')) {
             checks.push('⚠️ Deep clone via JSON detected - consider structured clone or library');
           }
         }
-        
+
         if (languageId === 'python' && text.includes('pandas')) {
           checks.push('ℹ️ Pandas detected - ensure vectorized operations over loops');
         }
-        
+
         const result = `Performance Analysis:
 File: ${path.basename(document.fileName)}
 Language: ${languageId}
@@ -220,7 +220,7 @@ General Recommendations:
 - Focus on algorithmic improvements first
 - Consider caching for expensive operations
 - Minimize I/O operations in hot paths`;
-        
+
         return new vscode.LanguageModelToolResult([
           new vscode.LanguageModelTextPart(result)
         ]);

@@ -107,12 +107,12 @@ function validateAgent(filePath, content) {
           `  Valid tools are: ${ALL_VALID_TOOLS.join(', ')}`
         );
       }
-      
+
       // Warn if tool list is empty
       if (frontmatter.tools.length === 0) {
         warning(`${filePath}: Agent has no tools assigned`);
       }
-      
+
       // Warn if excessive tools (performance concern)
       if (frontmatter.tools.length > 10) {
         warning(

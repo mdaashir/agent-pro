@@ -189,7 +189,7 @@ func processUser(user *User) error {
     if !user.IsActive {
         return errors.New("user is not active")
     }
-    
+
     // Main logic here
     return user.Save()
 }
@@ -440,7 +440,7 @@ func BenchmarkCalculateTotal(b *testing.B) {
     for i := range items {
         items[i] = Item{Price: float64(i)}
     }
-    
+
     b.ResetTimer()
     for i := 0; i < b.N; i++ {
         CalculateTotal(items)

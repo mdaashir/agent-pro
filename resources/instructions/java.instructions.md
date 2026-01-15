@@ -20,11 +20,11 @@ Follow these Java coding standards and best practices for all Java files.
 // ✅ Good
 public class UserService {
     private final UserRepository repository;
-    
+
     public UserService(UserRepository repository) {
         this.repository = repository;
     }
-    
+
     public User findUser(String id) {
         return repository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
@@ -291,7 +291,7 @@ public class UserNotFoundException extends RuntimeException {
     public UserNotFoundException(String userId) {
         super("User not found: " + userId);
     }
-    
+
     public UserNotFoundException(String userId, Throwable cause) {
         super("User not found: " + userId, cause);
     }
@@ -440,7 +440,7 @@ public class UserValidator {
 // ✅ Good - Dependency Inversion
 public class UserService {
     private final UserRepository repository;
-    
+
     public UserService(UserRepository repository) {
         this.repository = repository;
     }
@@ -454,7 +454,7 @@ public class UserService {
 public class UserService {
     private final UserRepository repository;
     private final EmailService emailService;
-    
+
     public UserService(UserRepository repository, EmailService emailService) {
         this.repository = repository;
         this.emailService = emailService;
@@ -481,7 +481,7 @@ public class JpaUserRepository implements UserRepository {
     public Optional<User> findById(String id) {
         // Implementation
     }
-    
+
     @Override
     public void save(User user) {
         // Implementation
@@ -512,7 +512,7 @@ public User getUser(String id) {
 // ✅ Good
 public CompletableFuture<User> findUserAsync(String id) {
     return CompletableFuture.supplyAsync(() -> repository.findById(id))
-            .thenApply(optional -> optional.orElseThrow(() -> 
+            .thenApply(optional -> optional.orElseThrow(() ->
                     new UserNotFoundException(id)));
 }
 
@@ -544,7 +544,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("User Service Tests")
 class UserServiceTest {
-    
+
     @Test
     @DisplayName("Should find user by ID when user exists")
     void shouldFindUserById() {
@@ -552,21 +552,21 @@ class UserServiceTest {
         String userId = "123";
         User expected = new User(userId, "John", "john@example.com");
         when(repository.findById(userId)).thenReturn(Optional.of(expected));
-        
+
         // When
         User actual = userService.findUser(userId);
-        
+
         // Then
         assertEquals(expected, actual);
     }
-    
+
     @Test
     @DisplayName("Should throw exception when user not found")
     void shouldThrowWhenUserNotFound() {
         // Given
         String userId = "nonexistent";
         when(repository.findById(userId)).thenReturn(Optional.empty());
-        
+
         // When & Then
         assertThrows(UserNotFoundException.class, () -> {
             userService.findUser(userId);
@@ -649,44 +649,44 @@ public class User {
     private final String name;
     private final String email;
     private final boolean active;
-    
+
     private User(Builder builder) {
         this.id = builder.id;
         this.name = builder.name;
         this.email = builder.email;
         this.active = builder.active;
     }
-    
+
     public static Builder builder() {
         return new Builder();
     }
-    
+
     public static class Builder {
         private String id;
         private String name;
         private String email;
         private boolean active = true;
-        
+
         public Builder id(String id) {
             this.id = id;
             return this;
         }
-        
+
         public Builder name(String name) {
             this.name = name;
             return this;
         }
-        
+
         public Builder email(String email) {
             this.email = email;
             return this;
         }
-        
+
         public Builder active(boolean active) {
             this.active = active;
             return this;
         }
-        
+
         public User build() {
             return new User(this);
         }
