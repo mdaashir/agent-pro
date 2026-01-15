@@ -3,10 +3,6 @@ const fs = require('fs');
 const path = require('path');
 const { getMajorVersion } = require('./scripts/utils');
 
-/**
- * Telemetry reporter for usage analytics
- * Tracks tool usage and agent interactions while respecting user privacy
- */
 class TelemetryReporter {
   constructor(context) {
     this.context = context;
@@ -49,10 +45,6 @@ class TelemetryReporter {
   }
 }
 
-/**
- * Register custom tools for Copilot Chat agents
- * These tools extend the built-in capabilities with specialized functionality
- */
 function registerCustomTools(context, telemetry) {
 
   const codeAnalyzer = vscode.lm.registerTool('codeAnalyzer', {
@@ -858,9 +850,6 @@ Current File: ${path.basename(document.fileName)} (${languageId})`;
   console.log('Agent Pro: Registered 12 custom tools (6 core + 5 SpecKit SDD + 1 discovery)');
 }
 
-/**
- * Get a quick reference card for an agent showing embedded resources
- */
 function getAgentQuickReference(agentName) {
   const agentReferences = {
     'typescript-expert': {
