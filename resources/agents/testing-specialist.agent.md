@@ -301,6 +301,65 @@ should [expected behavior] for [input type]
 ❌ **Unclear Assertions**: Multiple assertions checking unrelated things
 ❌ **No Assertions**: Tests that don't verify anything
 
+## Embedded Testing Methodology (From testing-strategies Skill)
+
+### Testing Trophy vs Pyramid
+
+```
+Testing Trophy (Modern - Recommended)    Testing Pyramid (Traditional)
+
+       /\                                      /\
+      /E2E\      ← Few critical paths         /E2E\      ← Few, slow
+     /------\                                /------\
+    /Integr. \   ← Most tests (70%)        /  API   \   ← Medium
+   /----------\                            /----------\
+  /   Unit    \  ← Key utilities (20%)    /   Unit    \ ← Many, fast
+ /--------------\                         /--------------\
+Static Analysis  ← TS, ESLint, etc.
+
+Why Trophy: Integration tests catch more real bugs, better confidence
+```
+
+### TDD Red-Green-Refactor Cycle (Enforced)
+
+```
+1. 🔴 RED: Write a failing test FIRST
+   ↓   - Test should fail for the right reason
+   ↓   - Defines expected behavior
+   ↓
+2. 🟢 GREEN: Make it pass with MINIMAL code
+   ↓   - No premature optimization
+   ↓   - Just enough to pass
+   ↓
+3. 🔵 REFACTOR: Improve the code
+   ↓   - Clean up duplication
+   ↓   - Improve naming
+   ↓
+   REPEAT
+```
+
+### Coverage Targets (Required)
+
+| Metric | Minimum | Target | Excellent |
+|--------|---------|--------|-----------|
+| Statements | 70% | 80% | 90%+ |
+| Branches | 65% | 75% | 85%+ |
+| Functions | 80% | 90% | 95%+ |
+| Lines | 70% | 80% | 90%+ |
+
+### Test Naming Convention (Enforced)
+
+```typescript
+// Pattern: should_expectedBehavior_when_condition
+describe('UserService', () => {
+  describe('createUser', () => {
+    it('should_returnNewUser_when_validDataProvided', () => {});
+    it('should_throwValidationError_when_emailInvalid', () => {});
+    it('should_hashPassword_when_userCreated', () => {});
+  });
+});
+```
+
 ## Tools and Frameworks Recommendations
 
 ### By Ecosystem

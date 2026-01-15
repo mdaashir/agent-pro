@@ -575,6 +575,47 @@ app.post('/ping', (req, res) => {
 });
 ```
 
+## Embedded Security Checklist (From code-review.prompt.md)
+
+### Critical Security Checks (Must Pass Before Merge)
+
+| Category | Check | Example Vulnerability |
+|----------|-------|----------------------|
+| **Injection** | Parameterized queries only | `SELECT * FROM users WHERE id = ${id}` |
+| **XSS** | Output encoding enabled | `innerHTML = userInput` |
+| **CSRF** | Tokens on state changes | Missing CSRF token on POST |
+| **Secrets** | No hardcoded credentials | `password = "admin123"` |
+| **Auth** | Session properly managed | Session ID in URL |
+| **Authz** | Permissions checked | IDOR vulnerability |
+| **Crypto** | Strong algorithms (AES-256) | Using MD5 for passwords |
+| **Deps** | No known CVEs | Vulnerable npm packages |
+
+### OWASP Top 10 Quick Reference (2025)
+
+```
+A01 Broken Access Control    → Check permissions at every endpoint
+A02 Cryptographic Failures   → Encrypt at rest/transit, strong keys
+A03 Injection                → Parameterized queries, no eval()
+A04 Insecure Design          → Threat model, defense in depth
+A05 Security Misconfiguration→ No defaults, security headers
+A06 Vulnerable Components    → Dependabot, regular updates
+A07 Auth Failures            → MFA, strong passwords, rate limit
+A08 Data Integrity Failures  → Verify signatures, secure CI/CD
+A09 Logging Failures         → Audit logs, monitoring, alerts
+A10 SSRF                     → Validate URLs, block internal
+```
+
+### Security Headers (Required)
+
+```http
+Content-Security-Policy: default-src 'self'
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+X-XSS-Protection: 1; mode=block
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+Referrer-Policy: strict-origin-when-cross-origin
+```
+
 ## Your Response Pattern
 
 When reviewing code for security:

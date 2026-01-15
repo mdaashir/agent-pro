@@ -626,6 +626,117 @@ test('copilot-instructions.md includes SDD guidance', () => {
 });
 
 // ============================================================================
+// Embedded Resources Tests
+// ============================================================================
+
+test('typescript-expert has embedded TypeScript standards', () => {
+  const agentPath = path.join(RESOURCES_DIR, 'agents', 'typescript-expert.agent.md');
+  const content = fs.readFileSync(agentPath, 'utf8');
+
+  assert(
+    content.includes('Enforced TypeScript Standards'),
+    'typescript-expert missing embedded standards section'
+  );
+  assert(
+    content.includes('Naming Convention Rules'),
+    'typescript-expert missing naming convention rules'
+  );
+});
+
+test('python-expert has embedded PEP 8 standards', () => {
+  const agentPath = path.join(RESOURCES_DIR, 'agents', 'python-expert.agent.md');
+  const content = fs.readFileSync(agentPath, 'utf8');
+
+  assert(
+    content.includes('Enforced Python Standards'),
+    'python-expert missing embedded standards section'
+  );
+  assert(
+    content.includes('PEP 8'),
+    'python-expert missing PEP 8 reference'
+  );
+});
+
+test('code-reviewer has embedded review checklist', () => {
+  const agentPath = path.join(RESOURCES_DIR, 'agents', 'code-reviewer.agent.md');
+  const content = fs.readFileSync(agentPath, 'utf8');
+
+  assert(
+    content.includes('Embedded Review Checklist'),
+    'code-reviewer missing embedded checklist'
+  );
+  assert(
+    content.includes('Security Checklist'),
+    'code-reviewer missing security checklist'
+  );
+});
+
+test('testing-specialist has embedded TDD methodology', () => {
+  const agentPath = path.join(RESOURCES_DIR, 'agents', 'testing-specialist.agent.md');
+  const content = fs.readFileSync(agentPath, 'utf8');
+
+  assert(
+    content.includes('Embedded Testing Methodology'),
+    'testing-specialist missing embedded methodology'
+  );
+  assert(
+    content.includes('Red-Green-Refactor'),
+    'testing-specialist missing TDD cycle'
+  );
+});
+
+test('devops-expert has embedded commit conventions', () => {
+  const agentPath = path.join(RESOURCES_DIR, 'agents', 'devops-expert.agent.md');
+  const content = fs.readFileSync(agentPath, 'utf8');
+
+  assert(
+    content.includes('Conventional Commits'),
+    'devops-expert missing commit conventions'
+  );
+  assert(
+    content.includes('feat') && content.includes('fix'),
+    'devops-expert missing commit types'
+  );
+});
+
+test('security-expert has embedded OWASP checklist', () => {
+  const agentPath = path.join(RESOURCES_DIR, 'agents', 'security-expert.agent.md');
+  const content = fs.readFileSync(agentPath, 'utf8');
+
+  assert(
+    content.includes('Embedded Security Checklist'),
+    'security-expert missing embedded checklist'
+  );
+  assert(
+    content.includes('OWASP Top 10'),
+    'security-expert missing OWASP reference'
+  );
+});
+
+test('AGENT_QUICKREF.md exists and has agent summaries', () => {
+  const quickRefPath = path.join(RESOURCES_DIR, 'AGENT_QUICKREF.md');
+  assert(fs.existsSync(quickRefPath), 'AGENT_QUICKREF.md not found');
+
+  const content = fs.readFileSync(quickRefPath, 'utf8');
+  assert(content.includes('@typescript-expert'), 'Quick ref missing typescript-expert');
+  assert(content.includes('@python-expert'), 'Quick ref missing python-expert');
+  assert(content.includes('Custom Tools'), 'Quick ref missing tools section');
+});
+
+test('extension.js has showAgentReference command', () => {
+  const content = fs.readFileSync(EXTENSION_JS, 'utf8');
+
+  assert(
+    content.includes('agentPro.showAgentReference'),
+    'showAgentReference command not registered'
+  );
+  assert(
+    content.includes('getAgentQuickReference'),
+    'getAgentQuickReference function missing'
+  );
+});
+
+// ============================================================================
 // Print Summary
 // ============================================================================
 

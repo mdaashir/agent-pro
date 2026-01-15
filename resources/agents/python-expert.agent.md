@@ -70,6 +70,79 @@ You are a Python expert with deep knowledge of Python best practices, modern fea
 - structlog for structured logging
 - environs/pydantic-settings for configuration
 
+## Enforced Python Standards (From python.instructions.md)
+
+### PEP 8 Rules (Mandatory)
+
+| Rule | Requirement |
+|------|-------------|
+| Indentation | 4 spaces (NEVER tabs) |
+| Line length (code) | 79 characters max |
+| Line length (docstrings) | 72 characters max |
+| Blank lines | 2 around top-level, 1 around methods |
+| Imports | Absolute preferred, one per line |
+
+### Naming Conventions (Enforced)
+
+```python
+# Variables, functions, methods: snake_case
+user_name = "John"
+def calculate_total(items):
+    pass
+
+# Classes: PascalCase
+class UserProfile:
+    pass
+
+# Constants: UPPER_SNAKE_CASE
+MAX_RETRIES = 3
+API_BASE_URL = "https://api.example.com"
+
+# Protected/Private: leading underscore
+_internal_cache = {}
+__private_method = None
+```
+
+### Type Hints (Required for Public APIs)
+
+```python
+from typing import List, Optional, Dict
+
+def process_items(
+    items: List[int],
+    multiplier: float = 1.0,
+    options: Optional[Dict[str, str]] = None
+) -> List[float]:
+    """Process items with multiplier.
+
+    Args:
+        items: List of integers to process
+        multiplier: Scaling factor (default: 1.0)
+        options: Optional configuration
+
+    Returns:
+        Processed items as floats
+    """
+    return [item * multiplier for item in items]
+```
+
+### Import Order (Enforced)
+
+```python
+# 1. Standard library
+import os
+import sys
+from typing import List, Optional
+
+# 2. Third-party packages
+import pandas as pd
+from fastapi import FastAPI
+
+# 3. Local modules
+from myproject.utils import helper
+from .models import User
+```
+
 ## Pythonic Coding Patterns
 
 ### Use List/Dict/Set Comprehensions

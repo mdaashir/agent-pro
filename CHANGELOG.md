@@ -4,6 +4,66 @@ All notable changes to the "Agent Pro" extension will be documented in this file
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [3.1.0] - 2026-01-15
+
+### Added - Embedded Resources & Enhanced Agents
+
+#### Embedded Resources in Agents
+Agents now have critical content embedded inline for self-contained operation:
+
+- **TypeScript Expert**: Embedded TypeScript Instructions
+  - tsconfig.json strict mode requirements
+  - Naming convention rules (PascalCase, camelCase, UPPER_SNAKE_CASE)
+  - Anti-patterns to flag (`any` type, non-null assertions)
+  - Import organization order
+
+- **Python Expert**: Embedded Python Instructions (PEP 8)
+  - Indentation and line length rules
+  - Naming conventions (snake_case, PascalCase, constants)
+  - Type hints requirements for public APIs
+  - Import order enforcement
+
+- **Code Reviewer**: Embedded Code Review Checklist
+  - Security checklist (SQL injection, XSS, CSRF, etc.)
+  - Code quality checklist (SOLID, DRY, error handling)
+  - Performance checklist (N+1 queries, memory leaks)
+  - Review severity classification table
+
+- **Testing Specialist**: Embedded Testing Methodology
+  - Testing Trophy vs Pyramid comparison
+  - TDD Red-Green-Refactor cycle
+  - Coverage targets table
+  - Test naming convention patterns
+
+- **DevOps Expert**: Embedded Conventional Commits
+  - Commit types with version bump effects
+  - CI/CD-specific examples
+  - Automated commit validation workflow
+
+- **Security Expert**: Embedded OWASP Checklist
+  - Critical security checks table
+  - OWASP Top 10 quick reference
+  - Required security headers
+
+#### New Resources
+- **AGENT_QUICKREF.md**: Quick reference guide for all 24 agents
+  - Embedded resources summary per agent
+  - Custom tools reference table
+  - Quick commands cheatsheet
+
+#### New Command
+- `Agent Pro: Show Agent Quick Reference` - View embedded resources for key agents
+
+#### Enhanced Tests
+- 8 new functional tests for embedded resources
+- Total: 53 functional tests (was 45)
+
+### Changed
+- Updated package.json with new command
+- Enhanced extension.js with `getAgentQuickReference` helper
+- Version bumped to 3.1.0
+
 ## [3.0.0] - 2026-01-15
 
 ### Added

@@ -613,6 +613,67 @@ spec:
   replicas: 1 # 10% of traffic
 ```
 
+## Embedded Conventional Commits Standard (From conventional-commit.prompt.md)
+
+### Commit Message Format (Enforced)
+
+```
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+### Commit Types (Required)
+
+| Type | Description | Triggers |
+|------|-------------|----------|
+| `feat` | New feature | Minor version bump |
+| `fix` | Bug fix | Patch version bump |
+| `docs` | Documentation only | No version bump |
+| `style` | Formatting, no code change | No version bump |
+| `refactor` | Code restructure | No version bump |
+| `perf` | Performance improvement | Patch version bump |
+| `test` | Add/correct tests | No version bump |
+| `build` | Build system changes | No version bump |
+| `ci` | CI configuration | No version bump |
+| `chore` | Other maintenance | No version bump |
+
+### Examples for CI/CD Work
+
+```bash
+# New pipeline feature
+feat(ci): add automated security scanning to pipeline
+
+# Fix deployment issue
+fix(deploy): resolve k8s rolling update timeout
+
+# Infrastructure change
+feat(infra): add auto-scaling policy for EKS cluster
+
+BREAKING CHANGE: minimum node count increased to 3
+
+# Docs update
+docs(readme): add deployment prerequisites section
+```
+
+### Automated Commit Validation
+
+```yaml
+# .github/workflows/commit-lint.yml
+name: Commit Lint
+on: [push, pull_request]
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: wagoid/commitlint-github-action@v5
+```
+
 ## DevOps Checklist
 
 ### CI/CD

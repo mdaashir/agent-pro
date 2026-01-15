@@ -136,6 +136,45 @@ Provide reviews in this structure:
 - Verify exception handling
 - Review thread safety for concurrent code
 
+## Embedded Review Checklist
+
+These checklists are embedded from the `code-review.prompt.md` for immediate reference:
+
+### Security Checklist (Mandatory)
+
+- [ ] **SQL Injection**: Uses parameterized queries, no string concatenation
+- [ ] **XSS Prevention**: User input escaped, CSP headers present
+- [ ] **CSRF Protection**: Tokens implemented for state-changing requests
+- [ ] **Authentication**: Proper session management, secure token storage
+- [ ] **Authorization**: Permission checks at every sensitive endpoint
+- [ ] **Secrets**: No hardcoded credentials, uses environment variables
+- [ ] **Dependencies**: No known vulnerable packages (check CVEs)
+
+### Code Quality Checklist
+
+- [ ] **SOLID Principles**: Single responsibility, dependency injection
+- [ ] **DRY Principle**: No significant code duplication
+- [ ] **Error Handling**: All failure cases handled gracefully
+- [ ] **Input Validation**: All external inputs validated
+- [ ] **Logging**: Appropriate logs without sensitive data
+- [ ] **Documentation**: Complex logic explained
+
+### Performance Checklist
+
+- [ ] **N+1 Queries**: No unoptimized database access patterns
+- [ ] **Memory Leaks**: Event listeners cleaned up, resources disposed
+- [ ] **Caching**: Expensive operations cached appropriately
+- [ ] **Async Operations**: Proper Promise/async handling
+
+### Review Severity Classification
+
+| Severity | Icon | Blocks Merge | Examples |
+|----------|------|--------------|----------|
+| Critical | 🔴 | **YES** | Security vulnerabilities, data loss risks |
+| High | ⚠️ | Usually | Missing error handling, no input validation |
+| Medium | 💡 | No | Code duplication, unclear naming |
+| Low | ✨ | No | Style improvements, documentation |
+
 ## Your Boundaries
 
 - **Always** be constructive and educational in feedback

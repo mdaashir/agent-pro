@@ -858,6 +858,61 @@ Current File: ${path.basename(document.fileName)} (${languageId})`;
   console.log('Agent Pro: Registered 12 custom tools (6 core + 5 SpecKit SDD + 1 discovery)');
 }
 
+/**
+ * Get a quick reference card for an agent showing embedded resources
+ */
+function getAgentQuickReference(agentName) {
+  const agentReferences = {
+    'typescript-expert': {
+      instructions: 'TypeScript Instructions (auto-applied to *.ts, *.tsx)',
+      keyRules: [
+        'strict: true in tsconfig.json',
+        'PascalCase for types/interfaces',
+        'camelCase for variables/functions',
+        'Avoid any, use unknown with type guards'
+      ]
+    },
+    'python-expert': {
+      instructions: 'Python Instructions (auto-applied to *.py)',
+      keyRules: [
+        'PEP 8: 4 spaces, 79 char lines',
+        'snake_case for variables/functions',
+        'Type hints required for public APIs',
+        'Docstrings with Args/Returns'
+      ]
+    },
+    'code-reviewer': {
+      instructions: 'Code Review Prompt',
+      keyRules: [
+        'Critical: Security vulnerabilities, data loss',
+        'High: Missing error handling, no validation',
+        'Medium: Code duplication, unclear naming',
+        'Low: Style improvements'
+      ]
+    },
+    'testing-specialist': {
+      instructions: 'Testing Strategies Skill',
+      keyRules: [
+        'Testing Trophy: 70% Integration, 20% Unit',
+        'TDD: Red → Green → Refactor',
+        'Coverage: 80% statements, 75% branches',
+        'AAA Pattern: Arrange-Act-Assert'
+      ]
+    },
+    'devops-expert': {
+      instructions: 'Conventional Commits Prompt',
+      keyRules: [
+        'feat: → minor version bump',
+        'fix: → patch version bump',
+        'BREAKING CHANGE: in footer',
+        'Scope: (api), (ci), (infra)'
+      ]
+    }
+  };
+
+  return agentReferences[agentName] || null;
+}
+
 async function activate(context) {
   console.log('Agent Pro: Activating...');
 
@@ -904,7 +959,31 @@ async function activate(context) {
       }
     });
 
-    context.subscriptions.push(showStatsCommand, resetStatsCommand);
+    // New command: Show agent quick reference
+    const showAgentRefCommand = vscode.commands.registerCommand('agentPro.showAgentReference', async () => {
+      const agents = [
+        { label: '@typescript-expert', description: 'TypeScript coding standards' },
+        { label: '@python-expert', description: 'Python PEP 8 standards' },
+        { label: '@code-reviewer', description: 'Code review severity guide' },
+        { label: '@testing-specialist', description: 'Testing methodology guide' },
+        { label: '@devops-expert', description: 'Conventional commits guide' }
+      ];
+
+      const selected = await vscode.window.showQuickPick(agents, {
+        placeHolder: 'Select an agent to view quick reference'
+      });
+
+      if (selected) {
+        const agentName = selected.label.replace('@', '');
+        const ref = getAgentQuickReference(agentName);
+        if (ref) {
+          const message = `${selected.label} Quick Reference\n\nEmbedded: ${ref.instructions}\n\nKey Rules:\n${ref.keyRules.map(r => '• ' + r).join('\n')}`;
+          vscode.window.showInformationMessage(message, { modal: true });
+        }
+      }
+    });
+
+    context.subscriptions.push(showStatsCommand, resetStatsCommand, showAgentRefCommand);
 
     const storagePath = context.globalStorageUri.fsPath;
     const versionKey = 'agentPro.installedVersion';
