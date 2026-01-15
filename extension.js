@@ -359,10 +359,21 @@ General Recommendations:
           findings.push(`- Production: ${Object.keys(packageJson.dependencies || {}).length}`);
           findings.push(`- Development: ${Object.keys(packageJson.devDependencies || {}).length}`);
 
-          if (deps['webpack'] && deps['webpack'].startsWith('^4')) {
+          // Helper function to extract major version from various semver formats
+          const getMajorVersion = (version) => {
+            if (!version) return null;
+            // Handle ranges like ^4.0.0, ~4.0.0, >=4.0.0, >4.0.0, 4.x, etc.
+            const match = version.match(/^[~^>=<]*(\d+)/);
+            return match ? parseInt(match[1], 10) : null;
+          };
+
+          const webpackMajor = getMajorVersion(deps['webpack']);
+          if (webpackMajor === 4) {
             findings.push('Webpack 4 detected - consider upgrading to Webpack 5');
           }
-          if (deps['react'] && deps['react'].startsWith('^16')) {
+
+          const reactMajor = getMajorVersion(deps['react']);
+          if (reactMajor === 16) {
             findings.push('React 16 detected - React 18 available with new features');
           }
         }
@@ -379,8 +390,6 @@ General Recommendations:
 
         const goModPath = path.join(rootPath, 'go.mod');
         if (fs.existsSync(goModPath)) {
-          const content = fs.readFileSync(goModPath, 'utf8');
-
           findings.push('Go Project');
           findings.push('- Go modules detected');
           findings.push('- Run \'go list -m -u all\' to check for updates');
