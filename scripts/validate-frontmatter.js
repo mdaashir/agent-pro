@@ -52,10 +52,65 @@ const CUSTOM_TOOLS = [
   'codeAnalyzer',
   'testGenerator',
   'documentationBuilder',
-  'performanceProfiler'
+  'performanceProfiler',
+  'dependencyAnalyzer',
+  'apiDesigner'
 ];
 
 const ALL_VALID_TOOLS = [...VALID_TOOLS, ...CUSTOM_TOOLS];
+
+// Potentially outdated framework versions to warn about
+const OUTDATED_PATTERNS = [
+  { pattern: /React\s+16/gi, message: 'React 16 is outdated - consider React 18+', severity: 'info' },
+  { pattern: /Angular\s+[2-9](?!\d)/gi, message: 'Angular 2-9 is outdated - consider Angular 17+', severity: 'info' },
+  { pattern: /Vue\s+2/gi, message: 'Vue 2 is outdated - consider Vue 3+', severity: 'info' },
+  { pattern: /Webpack\s+4/gi, message: 'Webpack 4 is outdated - consider Webpack 5 or Vite', severity: 'info' },
+  { pattern: /Node\.?js\s+1[0-4]/gi, message: 'Node.js 10-14 is EOL - recommend Node.js 20 LTS', severity: 'warning' },
+  { pattern: /Python\s+[2-3]\.[0-6]/gi, message: 'Python version is outdated - recommend Python 3.11+', severity: 'warning' },
+  { pattern: /TypeScript\s+[1-3]\./gi, message: 'TypeScript 1-3 is outdated - recommend TypeScript 5.x', severity: 'info' },
+  { pattern: /\bTLS\s+1\.[01]\b/gi, message: 'TLS 1.0/1.1 is deprecated - require TLS 1.2+ for security', severity: 'warning' },
+  { pattern: /jQuery(?!\s+\d)/gi, message: 'jQuery usage detected - modern frameworks (React/Vue) recommended', severity: 'info' },
+];
+
+// Security-related patterns to flag
+const SECURITY_PATTERNS = [
+  { pattern: /MD5/gi, message: 'MD5 is cryptographically broken - use SHA-256 or better', severity: 'warning' },
+  { pattern: /SHA-?1(?!\w)/gi, message: 'SHA-1 is deprecated for security - use SHA-256+', severity: 'warning' },
+  { pattern: /eval\(/gi, message: 'eval() usage is a security risk', severity: 'warning' },
+  { pattern: /password.*plaintext|plaintext.*password/gi, message: 'Plaintext password references detected', severity: 'error' },
+];
+
+function checkContentForIssues(filePath, content) {
+  let issuesFound = false;
+
+  // Check for outdated frameworks
+  for (const { pattern, message, severity } of OUTDATED_PATTERNS) {
+    if (pattern.test(content)) {
+      if (severity === 'warning') {
+        warning(`${path.basename(filePath)}: ${message}`);
+      } else {
+        info(`${path.basename(filePath)}: ${message}`);
+      }
+      issuesFound = true;
+      pattern.lastIndex = 0; // Reset regex
+    }
+  }
+
+  // Check for security concerns
+  for (const { pattern, message, severity } of SECURITY_PATTERNS) {
+    if (pattern.test(content)) {
+      if (severity === 'error') {
+        error(`${path.basename(filePath)}: ${message}`);
+      } else {
+        warning(`${path.basename(filePath)}: ${message}`);
+      }
+      issuesFound = true;
+      pattern.lastIndex = 0; // Reset regex
+    }
+  }
+
+  return issuesFound;
+}
 
 function extractFrontmatter(content) {
   // Remove code fence if present (e.g., ```chatagent, ```prompt)
@@ -141,6 +196,9 @@ function validateAgent(filePath, content) {
   if (frontmatter.description && frontmatter.description.length < 10) {
     warning(`${filePath}: Description is too short (recommended: 10+ characters for clarity)`);
   }
+
+  // Check agent content for outdated frameworks and security issues
+  checkContentForIssues(filePath, content);
 
   if (!hasErrors) {
     success(`${path.basename(filePath)} is valid`);

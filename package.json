@@ -191,6 +191,8 @@
     "format:check": "prettier --check '**/*.{md,json,yml,yaml}'",
     "validate": "node scripts/validate-frontmatter.js",
     "test": "node scripts/test.js",
+    "test:functional": "node scripts/functional-tests.js",
+    "test:all": "npm run test && npm run test:functional && npm run validate",
     "prepackage": "npm run validate",
     "release:patch": "npm version patch && git push --follow-tags",
     "release:minor": "npm version minor && git push --follow-tags",
