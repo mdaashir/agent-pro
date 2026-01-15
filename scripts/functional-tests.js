@@ -110,10 +110,11 @@ test('extension.js exports activate and deactivate', () => {
   assert(content.includes('module.exports'), 'Missing module.exports');
 });
 
-test('extension.js registers all 6 custom tools', () => {
+test('extension.js registers all 12 custom tools', () => {
   const content = fs.readFileSync(EXTENSION_JS, 'utf8');
 
-  const expectedTools = [
+  // Core tools
+  const coreTools = [
     'codeAnalyzer',
     'testGenerator',
     'documentationBuilder',
@@ -122,7 +123,21 @@ test('extension.js registers all 6 custom tools', () => {
     'apiDesigner'
   ];
 
-  for (const tool of expectedTools) {
+  // SpecKit tools
+  const specKitTools = [
+    'specKitConstitution',
+    'specKitSpecTemplate',
+    'specKitPlanTemplate',
+    'specKitTasksTemplate',
+    'specKitChecklist'
+  ];
+
+  // Discovery tool
+  const discoveryTools = ['resourceDiscovery'];
+
+  const allTools = [...coreTools, ...specKitTools, ...discoveryTools];
+
+  for (const tool of allTools) {
     assert(
       content.includes(`vscode.lm.registerTool('${tool}'`),
       `Tool '${tool}' not registered`
@@ -213,14 +228,14 @@ test('package.json declares configuration', () => {
   );
 });
 
-test('package.json version is 2.3.0 or higher', () => {
+test('package.json version is 3.0.0 or higher', () => {
   const packageData = JSON.parse(fs.readFileSync(PACKAGE_JSON, 'utf8'));
   const version = packageData.version;
 
-  const [major, minor] = version.split('.').map(Number);
+  const [major] = version.split('.').map(Number);
   assert(
-    major >= 2 && minor >= 3,
-    `Version ${version} is lower than required 2.3.0`
+    major >= 3,
+    `Version ${version} is lower than required 3.0.0`
   );
 });
 
@@ -418,6 +433,195 @@ test('apiDesigner mentions REST best practices', () => {
   assert(
     content.includes('REST') && content.includes('apiDesigner'),
     'apiDesigner missing REST best practices'
+  );
+});
+
+// ============================================================================
+// SDD Framework Tests
+// ============================================================================
+
+test('constitutional framework exists', () => {
+  const constitutionPath = path.join(RESOURCES_DIR, 'constitution.md');
+  assert(fs.existsSync(constitutionPath), 'constitution.md not found');
+
+  const content = fs.readFileSync(constitutionPath, 'utf8');
+  assert(content.includes('Article I'), 'Missing Article I');
+  assert(content.includes('Article VIII'), 'Missing Article VIII');
+});
+
+test('constitutional framework has 8 articles', () => {
+  const constitutionPath = path.join(RESOURCES_DIR, 'constitution.md');
+  const content = fs.readFileSync(constitutionPath, 'utf8');
+
+  const articleCount = (content.match(/## Article [IVX]+:/g) || []).length;
+  assert(articleCount === 8, `Expected 8 articles, found ${articleCount}`);
+});
+
+test('SDD templates directory exists with all templates', () => {
+  const templatesDir = path.join(RESOURCES_DIR, 'templates');
+  assert(fs.existsSync(templatesDir), 'templates directory not found');
+
+  const requiredTemplates = [
+    'spec-template.md',
+    'plan-template.md',
+    'tasks-template.md',
+    'checklist-template.md',
+    'README.md'
+  ];
+
+  for (const template of requiredTemplates) {
+    const templatePath = path.join(templatesDir, template);
+    assert(fs.existsSync(templatePath), `Template '${template}' not found`);
+  }
+});
+
+test('specs directory exists with specifications', () => {
+  const specsDir = path.join(__dirname, '..', 'specs');
+  assert(fs.existsSync(specsDir), 'specs directory not found');
+
+  const specDirs = fs.readdirSync(specsDir, { withFileTypes: true })
+    .filter(d => d.isDirectory());
+
+  assert(specDirs.length >= 3, `Expected at least 3 spec directories, found ${specDirs.length}`);
+});
+
+test('all spec directories follow numbering convention', () => {
+  const specsDir = path.join(__dirname, '..', 'specs');
+  const specDirs = fs.readdirSync(specsDir, { withFileTypes: true })
+    .filter(d => d.isDirectory())
+    .map(d => d.name);
+
+  for (const dir of specDirs) {
+    assert(
+      /^\d{3}-/.test(dir),
+      `Spec directory '${dir}' does not follow ###-name convention`
+    );
+  }
+});
+
+test('all spec directories contain spec.md file', () => {
+  const specsDir = path.join(__dirname, '..', 'specs');
+  const specDirs = fs.readdirSync(specsDir, { withFileTypes: true })
+    .filter(d => d.isDirectory());
+
+  for (const dir of specDirs) {
+    const specPath = path.join(specsDir, dir.name, 'spec.md');
+    assert(fs.existsSync(specPath), `spec.md not found in ${dir.name}`);
+  }
+});
+
+test('specifications have required sections', () => {
+  const specsDir = path.join(__dirname, '..', 'specs');
+  const specDirs = fs.readdirSync(specsDir, { withFileTypes: true })
+    .filter(d => d.isDirectory());
+
+  for (const dir of specDirs) {
+    const specPath = path.join(specsDir, dir.name, 'spec.md');
+    const content = fs.readFileSync(specPath, 'utf8');
+
+    // Check required sections
+    assert(content.includes('## Overview'), `${dir.name}: Missing Overview section`);
+    assert(content.includes('## Requirements'), `${dir.name}: Missing Requirements section`);
+    assert(content.includes('## Success Criteria'), `${dir.name}: Missing Success Criteria section`);
+  }
+});
+
+test('specifications have Feature ID in frontmatter', () => {
+  const specsDir = path.join(__dirname, '..', 'specs');
+  const specDirs = fs.readdirSync(specsDir, { withFileTypes: true })
+    .filter(d => d.isDirectory());
+
+  for (const dir of specDirs) {
+    const specPath = path.join(specsDir, dir.name, 'spec.md');
+    const content = fs.readFileSync(specPath, 'utf8');
+
+    assert(
+      content.includes('**Feature ID**:'),
+      `${dir.name}: Missing Feature ID`
+    );
+  }
+});
+
+test('tool specifications exist (025-030)', () => {
+  const specsDir = path.join(__dirname, '..', 'specs');
+
+  const toolSpecs = ['025', '026', '027', '028', '029', '030'];
+
+  for (const id of toolSpecs) {
+    const specDirs = fs.readdirSync(specsDir).filter(d => d.startsWith(id));
+    assert(specDirs.length > 0, `Tool spec ${id} not found`);
+  }
+});
+
+test('skill specifications exist (031-035)', () => {
+  const specsDir = path.join(__dirname, '..', 'specs');
+
+  const skillSpecs = ['031', '032', '033', '034', '035'];
+
+  for (const id of skillSpecs) {
+    const specDirs = fs.readdirSync(specsDir).filter(d => d.startsWith(id));
+    assert(specDirs.length > 0, `Skill spec ${id} not found`);
+  }
+});
+
+test('SpecKit tools reference correct templates', () => {
+  const content = fs.readFileSync(EXTENSION_JS, 'utf8');
+
+  // Check specKitSpecTemplate references spec-template.md
+  assert(
+    content.includes('spec-template.md'),
+    'specKitSpecTemplate missing template reference'
+  );
+
+  // Check specKitPlanTemplate references plan-template.md
+  assert(
+    content.includes('plan-template.md'),
+    'specKitPlanTemplate missing template reference'
+  );
+});
+
+test('resourceDiscovery tool is registered', () => {
+  const content = fs.readFileSync(EXTENSION_JS, 'utf8');
+
+  assert(
+    content.includes("registerTool('resourceDiscovery'"),
+    'resourceDiscovery tool not registered'
+  );
+
+  // Check it lists resource types
+  assert(
+    content.includes('agents') && content.includes('prompts') && content.includes('skills'),
+    'resourceDiscovery missing resource types'
+  );
+});
+
+test('agents have Related Resources sections', () => {
+  const agentsDir = path.join(RESOURCES_DIR, 'agents');
+
+  // Check key agents that should have Related Resources
+  const keyAgents = [
+    'python-expert.agent.md',
+    'typescript-expert.agent.md',
+    'testing-specialist.agent.md',
+    'architecture-expert.agent.md'
+  ];
+
+  for (const agentFile of keyAgents) {
+    const content = fs.readFileSync(path.join(agentsDir, agentFile), 'utf8');
+    assert(
+      content.includes('## Related Resources'),
+      `${agentFile}: Missing Related Resources section`
+    );
+  }
+});
+
+test('copilot-instructions.md includes SDD guidance', () => {
+  const instructionsPath = path.join(RESOURCES_DIR, 'copilot-instructions.md');
+  const content = fs.readFileSync(instructionsPath, 'utf8');
+
+  assert(
+    content.includes('Specification-Driven Development') || content.includes('SDD'),
+    'copilot-instructions.md missing SDD guidance'
   );
 });
 

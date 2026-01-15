@@ -1,0 +1,174 @@
+name: Specification Validation
+
+on:
+  push:
+    branches: [main, develop, 'feature/**']
+    paths:
+      - 'specs/**'
+      - 'resources/constitution.md'
+      - 'resources/templates/**'
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - 'specs/**'
+      - 'resources/constitution.md'
+      - 'resources/templates/**'
+  workflow_dispatch:
+
+jobs:
+  validate-specs:
+    name: Validate Specifications
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Count specifications
+        id: count_specs
+        run: |
+          SPEC_COUNT=$(find specs -name "spec.md" | wc -l)
+          echo "SPEC_COUNT=$SPEC_COUNT" >> $GITHUB_OUTPUT
+          echo "Found $SPEC_COUNT specifications"
+
+      - name: Validate all specifications
+        run: node scripts/validate-spec.js
+
+      - name: Check constitutional compliance
+        run: node scripts/constitutional-check.js
+
+      - name: Verify spec numbering convention
+        run: |
+          echo "Checking spec directory naming..."
+
+          # Check all spec directories follow numbering convention
+          for dir in specs/*/; do
+            dirname=$(basename "$dir")
+            if [[ ! $dirname =~ ^[0-9]{3}- ]]; then
+              if [[ $dirname != "README.md" ]]; then
+                echo "Error: Directory '$dirname' does not follow ###-name convention"
+                exit 1
+              fi
+            fi
+          done
+
+          echo "✓ All spec directories follow numbering convention"
+
+      - name: Check for duplicate spec numbers
+        run: |
+          echo "Checking for duplicate spec numbers..."
+
+          NUMBERS=$(ls -d specs/*/ 2>/dev/null | xargs -n1 basename | grep -oE '^[0-9]{3}' | sort)
+          UNIQUE=$(echo "$NUMBERS" | uniq)
+
+          if [ "$NUMBERS" != "$UNIQUE" ]; then
+            echo "Error: Duplicate spec numbers found"
+            echo "$NUMBERS" | uniq -d
+            exit 1
+          fi
+
+          echo "✓ No duplicate spec numbers"
+
+      - name: Generate spec summary
+        run: |
+          echo "## Specification Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| ID | Name | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|---|---|---|" >> $GITHUB_STEP_SUMMARY
+
+          for spec in specs/*/spec.md; do
+            DIR=$(dirname "$spec")
+            NAME=$(basename "$DIR")
+            STATUS=$(grep -oP '(?<=\*\*Status\*\*: ).*' "$spec" | head -1 || echo "Unknown")
+            echo "| ${NAME:0:3} | ${NAME:4} | $STATUS |" >> $GITHUB_STEP_SUMMARY
+          done
+
+  validate-constitution:
+    name: Validate Constitutional Framework
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check constitution exists
+        run: |
+          if [ ! -f "resources/constitution.md" ]; then
+            echo "Error: Constitutional framework not found"
+            exit 1
+          fi
+          echo "✓ Constitutional framework exists"
+
+      - name: Verify 8 articles present
+        run: |
+          ARTICLE_COUNT=$(grep -c "^## Article" resources/constitution.md)
+          if [ "$ARTICLE_COUNT" -ne 8 ]; then
+            echo "Error: Expected 8 constitutional articles, found $ARTICLE_COUNT"
+            exit 1
+          fi
+          echo "✓ All 8 constitutional articles present"
+
+      - name: Check article format
+        run: |
+          echo "Verifying article format..."
+
+          # Check each article has required sections
+          for i in {1..8}; do
+            ROMAN=$(echo "I II III IV V VI VII VIII" | cut -d' ' -f$i)
+            if ! grep -q "## Article $ROMAN:" resources/constitution.md; then
+              echo "Error: Article $ROMAN not found or improperly formatted"
+              exit 1
+            fi
+          done
+
+          echo "✓ All articles properly formatted"
+
+  validate-templates:
+    name: Validate SDD Templates
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check all templates exist
+        run: |
+          TEMPLATES=(
+            "resources/templates/spec-template.md"
+            "resources/templates/plan-template.md"
+            "resources/templates/tasks-template.md"
+            "resources/templates/checklist-template.md"
+            "resources/templates/README.md"
+          )
+
+          for template in "${TEMPLATES[@]}"; do
+            if [ ! -f "$template" ]; then
+              echo "Error: Template not found: $template"
+              exit 1
+            fi
+          done
+
+          echo "✓ All SDD templates present"
+
+      - name: Verify template structure
+        run: |
+          echo "Checking template required sections..."
+
+          # Spec template must have these sections
+          SPEC_SECTIONS=("Overview" "User Scenarios" "Requirements" "Success Criteria")
+          for section in "${SPEC_SECTIONS[@]}"; do
+            if ! grep -q "## $section" resources/templates/spec-template.md; then
+              echo "Warning: Spec template missing section: $section"
+            fi
+          done
+
+          echo "✓ Templates validated"

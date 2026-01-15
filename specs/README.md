@@ -2,6 +2,25 @@
 
 This directory contains all feature specifications for Agent Pro, organized using Specification-Driven Development (SDD) methodology.
 
+## Current Specifications
+
+| ID | Feature | Type | Status |
+|----|---------|------|--------|
+| 001 | accessibility-expert-agent | Agent | Completed |
+| 025 | code-analyzer-tool | Tool | Completed |
+| 026 | test-generator-tool | Tool | Completed |
+| 027 | documentation-builder-tool | Tool | Completed |
+| 028 | performance-profiler-tool | Tool | Completed |
+| 029 | dependency-analyzer-tool | Tool | Completed |
+| 030 | api-designer-tool | Tool | Completed |
+| 031 | api-development-skill | Skill | Completed |
+| 032 | database-design-skill | Skill | Completed |
+| 033 | graphql-microservices-skill | Skill | Completed |
+| 034 | multi-agent-orchestration-skill | Skill | Completed |
+| 035 | testing-strategies-skill | Skill | Completed |
+
+**Total: 12 specifications**
+
 ## Structure
 
 Each feature is assigned a unique number and directory:
@@ -9,11 +28,17 @@ Each feature is assigned a unique number and directory:
 ```
 specs/
 ├── 001-accessibility-expert-agent/
-├── 002-ai-ml-engineering-expert-agent/
-├── 003-architecture-expert-agent/
-...
 ├── 025-code-analyzer-tool/
 ├── 026-test-generator-tool/
+├── 027-documentation-builder-tool/
+├── 028-performance-profiler-tool/
+├── 029-dependency-analyzer-tool/
+├── 030-api-designer-tool/
+├── 031-api-development-skill/
+├── 032-database-design-skill/
+├── 033-graphql-microservices-skill/
+├── 034-multi-agent-orchestration-skill/
+├── 035-testing-strategies-skill/
 └── README.md (this file)
 ```
 

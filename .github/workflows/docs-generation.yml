@@ -1,0 +1,145 @@
+name: Documentation Generation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'resources/**'
+      - 'specs/**'
+      - 'README.md'
+      - 'CHANGELOG.md'
+  workflow_dispatch:
+
+jobs:
+  generate-docs:
+    name: Generate Documentation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate resource index
+        run: |
+          echo "# Agent Pro Resource Index" > docs/RESOURCE_INDEX.md
+          echo "" >> docs/RESOURCE_INDEX.md
+          echo "Auto-generated documentation of all resources." >> docs/RESOURCE_INDEX.md
+          echo "" >> docs/RESOURCE_INDEX.md
+          echo "Generated: $(date -u +"%Y-%m-%d %H:%M:%S UTC")" >> docs/RESOURCE_INDEX.md
+          echo "" >> docs/RESOURCE_INDEX.md
+
+          # Agents section
+          echo "## Agents ($(ls resources/agents/*.agent.md | wc -l))" >> docs/RESOURCE_INDEX.md
+          echo "" >> docs/RESOURCE_INDEX.md
+          for agent in resources/agents/*.agent.md; do
+            NAME=$(basename "$agent" .agent.md)
+            DESC=$(grep -oP "(?<=description: ').*(?=')" "$agent" | head -1 || echo "No description")
+            echo "- **$NAME**: $DESC" >> docs/RESOURCE_INDEX.md
+          done
+          echo "" >> docs/RESOURCE_INDEX.md
+
+          # Tools section
+          echo "## Custom Tools (12)" >> docs/RESOURCE_INDEX.md
+          echo "" >> docs/RESOURCE_INDEX.md
+          echo "### Core Tools (6)" >> docs/RESOURCE_INDEX.md
+          echo "- codeAnalyzer - Code complexity and metrics analysis" >> docs/RESOURCE_INDEX.md
+          echo "- testGenerator - Test strategy recommendations" >> docs/RESOURCE_INDEX.md
+          echo "- documentationBuilder - Documentation template generation" >> docs/RESOURCE_INDEX.md
+          echo "- performanceProfiler - Performance anti-pattern detection" >> docs/RESOURCE_INDEX.md
+          echo "- dependencyAnalyzer - Dependency scanning and updates" >> docs/RESOURCE_INDEX.md
+          echo "- apiDesigner - REST API and OpenAPI design" >> docs/RESOURCE_INDEX.md
+          echo "" >> docs/RESOURCE_INDEX.md
+          echo "### SpecKit Tools (5)" >> docs/RESOURCE_INDEX.md
+          echo "- specKitConstitution - Constitutional framework access" >> docs/RESOURCE_INDEX.md
+          echo "- specKitSpecTemplate - Specification template" >> docs/RESOURCE_INDEX.md
+          echo "- specKitPlanTemplate - Planning template" >> docs/RESOURCE_INDEX.md
+          echo "- specKitTasksTemplate - Task breakdown template" >> docs/RESOURCE_INDEX.md
+          echo "- specKitChecklist - Quality validation checklist" >> docs/RESOURCE_INDEX.md
+          echo "" >> docs/RESOURCE_INDEX.md
+          echo "### Discovery Tools (1)" >> docs/RESOURCE_INDEX.md
+          echo "- resourceDiscovery - List all available resources" >> docs/RESOURCE_INDEX.md
+          echo "" >> docs/RESOURCE_INDEX.md
+
+          # Specs section
+          echo "## Specifications ($(find specs -name 'spec.md' | wc -l))" >> docs/RESOURCE_INDEX.md
+          echo "" >> docs/RESOURCE_INDEX.md
+          for spec in specs/*/spec.md; do
+            DIR=$(dirname "$spec")
+            NAME=$(basename "$DIR")
+            echo "- **$NAME**" >> docs/RESOURCE_INDEX.md
+          done
+        continue-on-error: true
+
+      - name: Generate specification status report
+        run: |
+          mkdir -p docs
+          echo "# Specification Status Report" > docs/SPEC_STATUS.md
+          echo "" >> docs/SPEC_STATUS.md
+          echo "| Feature ID | Name | Status | Owner |" >> docs/SPEC_STATUS.md
+          echo "|------------|------|--------|-------|" >> docs/SPEC_STATUS.md
+
+          for spec in specs/*/spec.md; do
+            DIR=$(dirname "$spec")
+            NAME=$(basename "$DIR")
+            ID=${NAME:0:3}
+            FEATURE_NAME=${NAME:4}
+            STATUS=$(grep -oP '(?<=\*\*Status\*\*: ).*' "$spec" | head -1 || echo "Unknown")
+            OWNER=$(grep -oP '(?<=\*\*Owner\*\*: ).*' "$spec" | head -1 || echo "Unassigned")
+            echo "| $ID | $FEATURE_NAME | $STATUS | $OWNER |" >> docs/SPEC_STATUS.md
+          done
+
+          echo "" >> docs/SPEC_STATUS.md
+          echo "---" >> docs/SPEC_STATUS.md
+          echo "Generated: $(date -u +"%Y-%m-%d %H:%M:%S UTC")" >> docs/SPEC_STATUS.md
+
+      - name: Upload documentation artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-docs
+          path: docs/
+          retention-days: 90
+
+  update-readme-stats:
+    name: Update README Statistics
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Calculate statistics
+        id: stats
+        run: |
+          AGENTS=$(ls resources/agents/*.agent.md | wc -l)
+          PROMPTS=$(ls resources/prompts/*.prompt.md | wc -l)
+          INSTRUCTIONS=$(ls resources/instructions/*.instructions.md | wc -l)
+          SKILLS=$(find resources/skills -name "SKILL.md" | wc -l)
+          SPECS=$(find specs -name "spec.md" | wc -l)
+
+          echo "AGENTS=$AGENTS" >> $GITHUB_OUTPUT
+          echo "PROMPTS=$PROMPTS" >> $GITHUB_OUTPUT
+          echo "INSTRUCTIONS=$INSTRUCTIONS" >> $GITHUB_OUTPUT
+          echo "SKILLS=$SKILLS" >> $GITHUB_OUTPUT
+          echo "SPECS=$SPECS" >> $GITHUB_OUTPUT
+
+          TOTAL=$((AGENTS + PROMPTS + INSTRUCTIONS + SKILLS))
+          echo "TOTAL=$TOTAL" >> $GITHUB_OUTPUT
+
+      - name: Generate statistics badge data
+        run: |
+          mkdir -p .github/badges
+
+          # Create badge JSON files for shields.io
+          echo '{"schemaVersion":1,"label":"agents","message":"${{ steps.stats.outputs.AGENTS }}","color":"blue"}' > .github/badges/agents.json
+          echo '{"schemaVersion":1,"label":"tools","message":"12","color":"green"}' > .github/badges/tools.json
+          echo '{"schemaVersion":1,"label":"specs","message":"${{ steps.stats.outputs.SPECS }}","color":"purple"}' > .github/badges/specs.json

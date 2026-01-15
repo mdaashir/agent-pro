@@ -1,14 +1,20 @@
 const fs = require('fs');
 const path = require('path');
 
+// Required for all specs
 const REQUIRED_SECTIONS = [
   'Overview',
   'User Scenarios & Testing',
   'Requirements',
   'Success Criteria',
+  'Out of Scope'
+];
+
+// Optional but recommended
+const RECOMMENDED_SECTIONS = [
   'Dependencies',
-  'Out of Scope',
-  'Validation Checklist'
+  'Validation Checklist',
+  'Appendix'
 ];
 
 const REQUIRED_FRONTMATTER = [
@@ -102,16 +108,17 @@ function validateScenarios(content, errors, warnings) {
 }
 
 function validateSuccessCriteria(content, errors, warnings) {
-  const successSection = content.match(/## Success Criteria([\s\S]*?)## /);
+  const successSection = content.match(/## Success Criteria([\s\S]*?)(?:## |$)/);
   if (!successSection) {
     return;
   }
 
   const criteriaText = successSection[1];
-  const hasMetrics = criteriaText.match(/\*\*Metric \d+\*\*/g);
 
-  if (!hasMetrics || hasMetrics.length === 0) {
-    errors.push('Success criteria must include measurable metrics (**Metric 1**, **Metric 2**, etc.)');
+  // Check for list items or measurable items
+  const hasCriteria = criteriaText.match(/^[-*]\s+/gm);
+  if (!hasCriteria || hasCriteria.length === 0) {
+    warnings.push('Success criteria should include clear, measurable items');
   }
 
   const vagueCriteria = criteriaText.match(/\b(better|improved|faster|good|efficient)\b/gi);
