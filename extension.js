@@ -18,20 +18,20 @@ class TelemetryReporter {
     try {
       const stats = this.context.globalState.get('agentPro.toolStats', {});
       const key = toolName;
-      
+
       if (!stats[key]) {
         stats[key] = { total: 0, success: 0, failures: 0, firstUsed: Date.now(), lastUsed: Date.now() };
       }
-      
+
       stats[key].total++;
       stats[key].lastUsed = Date.now();
-      
+
       if (success) {
         stats[key].success++;
       } else {
         stats[key].failures++;
       }
-      
+
       await this.context.globalState.update('agentPro.toolStats', stats);
     } catch (error) {
       console.error('Telemetry logging error:', error.message);
@@ -62,7 +62,7 @@ function registerCustomTools(context) {
     async invoke(options, token) {
       const startTime = Date.now();
       let success = true;
-      
+
       try {
         const { input } = options;
         const editor = vscode.window.activeTextEditor;
@@ -104,10 +104,10 @@ function registerCustomTools(context) {
 - Average Line Length: ${analysis.averageLineLength} characters
 - Comment Ratio: ${((analysis.commentLines / analysis.codeLines) * 100).toFixed(1)}%`;
 
-        await telemetry.logToolUsage('codeAnalyzer', true, { 
-          language: languageId, 
+        await telemetry.logToolUsage('codeAnalyzer', true, {
+          language: languageId,
           lines: analysis.totalLines,
-          duration: Date.now() - startTime 
+          duration: Date.now() - startTime
         });
 
         return new vscode.LanguageModelToolResult([
@@ -130,7 +130,7 @@ function registerCustomTools(context) {
 
     async invoke(options, token) {
       const startTime = Date.now();
-      
+
       try {
         const editor = vscode.window.activeTextEditor;
 
@@ -168,10 +168,10 @@ function registerCustomTools(context) {
 
 Selection contains ${selectedText.split('\n').length} lines of code ready for test generation.`;
 
-        await telemetry.logToolUsage('testGenerator', true, { 
+        await telemetry.logToolUsage('testGenerator', true, {
           language: languageId,
           selectionLength: selectedText.length,
-          duration: Date.now() - startTime 
+          duration: Date.now() - startTime
         });
 
         return new vscode.LanguageModelToolResult([
@@ -193,7 +193,7 @@ Selection contains ${selectedText.split('\n').length} lines of code ready for te
 
     async invoke(options, token) {
       const startTime = Date.now();
-      
+
       try {
         const editor = vscode.window.activeTextEditor;
 
@@ -230,9 +230,9 @@ Documentation should include:
 - Exceptions/errors thrown
 - Related functions/methods`;
 
-        await telemetry.logToolUsage('documentationBuilder', true, { 
+        await telemetry.logToolUsage('documentationBuilder', true, {
           language: languageId,
-          duration: Date.now() - startTime 
+          duration: Date.now() - startTime
         });
 
         return new vscode.LanguageModelToolResult([
@@ -254,7 +254,7 @@ Documentation should include:
 
     async invoke(options, token) {
       const startTime = Date.now();
-      
+
       try {
         const editor = vscode.window.activeTextEditor;
 
@@ -303,10 +303,10 @@ General Recommendations:
 - Consider caching for expensive operations
 - Minimize I/O operations in hot paths`;
 
-        await telemetry.logToolUsage('performanceProfiler', true, { 
+        await telemetry.logToolUsage('performanceProfiler', true, {
           language: languageId,
           issuesFound: checks.length,
-          duration: Date.now() - startTime 
+          duration: Date.now() - startTime
         });
 
         return new vscode.LanguageModelToolResult([
@@ -328,7 +328,7 @@ General Recommendations:
 
     async invoke(options, token) {
       const startTime = Date.now();
-      
+
       try {
         const workspaceFolders = vscode.workspace.workspaceFolders;
 
@@ -348,12 +348,12 @@ General Recommendations:
           const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
           const deps = { ...packageJson.dependencies, ...packageJson.devDependencies };
           const depCount = Object.keys(deps).length;
-          
+
           findings.push(`📦 Node.js Project`);
           findings.push(`- Total dependencies: ${depCount}`);
           findings.push(`- Production: ${Object.keys(packageJson.dependencies || {}).length}`);
           findings.push(`- Development: ${Object.keys(packageJson.devDependencies || {}).length}`);
-          
+
           // Check for common outdated patterns
           if (deps['webpack'] && deps['webpack'].startsWith('^4')) {
             findings.push(`⚠️ Webpack 4 detected - consider upgrading to Webpack 5`);
@@ -368,7 +368,7 @@ General Recommendations:
         if (fs.existsSync(requirementsTxtPath)) {
           const content = fs.readFileSync(requirementsTxtPath, 'utf8');
           const deps = content.split('\n').filter(line => line.trim() && !line.startsWith('#'));
-          
+
           findings.push(`🐍 Python Project`);
           findings.push(`- Dependencies in requirements.txt: ${deps.length}`);
           findings.push(`- Recommendation: Use pip-audit for security scanning`);
@@ -379,7 +379,7 @@ General Recommendations:
         if (fs.existsSync(goModPath)) {
           const content = fs.readFileSync(goModPath, 'utf8');
           const requireCount = (content.match(/require\s+/g) || []).length;
-          
+
           findings.push(`🔷 Go Project`);
           findings.push(`- Go modules detected`);
           findings.push(`- Run 'go list -m -u all' to check for updates`);
@@ -406,9 +406,9 @@ General Recommendations:
           findings.push('- Consider using lock files for reproducible builds');
         }
 
-        await telemetry.logToolUsage('dependencyAnalyzer', true, { 
+        await telemetry.logToolUsage('dependencyAnalyzer', true, {
           projectTypes: findings.filter(f => f.includes('Project')).length,
-          duration: Date.now() - startTime 
+          duration: Date.now() - startTime
         });
 
         return new vscode.LanguageModelToolResult([
@@ -430,7 +430,7 @@ General Recommendations:
 
     async invoke(options, token) {
       const startTime = Date.now();
-      
+
       try {
         const editor = vscode.window.activeTextEditor;
 
@@ -509,9 +509,9 @@ components:
 
 Current File: ${path.basename(document.fileName)} (${languageId})`;
 
-        await telemetry.logToolUsage('apiDesigner', true, { 
+        await telemetry.logToolUsage('apiDesigner', true, {
           language: languageId,
-          duration: Date.now() - startTime 
+          duration: Date.now() - startTime
         });
 
         return new vscode.LanguageModelToolResult([
@@ -548,7 +548,7 @@ async function activate(context) {
 
     // Register commands
     const telemetry = new TelemetryReporter(context);
-    
+
     const showStatsCommand = vscode.commands.registerCommand('agentPro.showStats', async () => {
       const stats = await telemetry.getStats();
       const statsArray = Object.entries(stats).map(([tool, data]) => ({
@@ -562,7 +562,7 @@ async function activate(context) {
       }
 
       statsArray.sort((a, b) => b.total - a.total);
-      
+
       const output = statsArray.map(s => {
         const successRate = ((s.success / s.total) * 100).toFixed(1);
         const daysSinceFirst = Math.floor((Date.now() - s.firstUsed) / (1000 * 60 * 60 * 24));

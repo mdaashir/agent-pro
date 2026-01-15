@@ -1,7 +1,7 @@
 {
   "name": "agent-pro",
   "displayName": "Agent Pro - GitHub Copilot Experts",
-  "description": "22+ expert agents, 5 instructions, 6 custom tools, 5 prompts, and comprehensive skills for GitHub Copilot - Your AI development powerhouse with built-in analytics",
+  "description": "24+ expert agents (now with FinTech & Healthcare), 5 instructions, 6 custom tools, 5 prompts, and comprehensive skills for GitHub Copilot - Your AI development powerhouse with built-in analytics",
   "version": "2.3.0",
   "publisher": "mdaashir",
   "author": {
@@ -96,6 +96,16 @@
         "name": "FunctionalProgrammingExpert",
         "path": "./resources/agents/functional-programming-expert.agent.md",
         "description": "Expert in functional programming paradigms and immutable architectures"
+      },
+      {
+        "name": "FinTechExpert",
+        "path": "./resources/agents/fintech-expert.agent.md",
+        "description": "Expert in financial technology, payment systems, PCI DSS compliance, and fintech security"
+      },
+      {
+        "name": "HealthcareExpert",
+        "path": "./resources/agents/healthcare-expert.agent.md",
+        "description": "Expert in healthcare technology, HIPAA compliance, HL7/FHIR standards, and medical data security"
       },
       {
         "name": "GraphQLExpert",
