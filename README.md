@@ -184,7 +184,7 @@ Detects performance anti-patterns:
 4. @observability-sre-expert add model monitoring
 ```
 
-## 📚 What's New in v2.2.0
+## 📚 What's New in v2.3.0
 
 ### Custom Tools (Phase 2)
 
