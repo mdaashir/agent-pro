@@ -20,6 +20,7 @@ The Accessibility Expert Agent provides specialized guidance for building access
 Developer is building a React component and wants to ensure proper semantic HTML structure for screen reader compatibility.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given a React component with interactive elements
 When the developer asks @accessibility-expert to review the component
@@ -29,6 +30,7 @@ And explains impact on screen reader users
 ```
 
 **Test Description**:
+
 - Test validates that agent identifies `<div onClick>` and suggests `<button>`
 - Edge cases: Detects missing ARIA labels, keyboard navigation issues
 
@@ -38,6 +40,7 @@ And explains impact on screen reader users
 Designer provides color palette; developer needs to verify WCAG AA compliance for text/background combinations.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given a CSS file with color definitions
 When developer requests color contrast analysis
@@ -47,6 +50,7 @@ And suggests compliant alternatives
 ```
 
 **Test Description**:
+
 - Test validates contrast ratio calculations match WCAG formula
 - Edge cases: Handles RGB, HEX, HSL formats; gradient backgrounds
 
@@ -58,6 +62,7 @@ And suggests compliant alternatives
 Developer building custom dropdown menu needs proper ARIA attributes.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given a custom component requiring ARIA
 When developer describes the interaction pattern
@@ -67,6 +72,7 @@ And includes keyboard interaction requirements
 ```
 
 **Test Description**:
+
 - Test validates agent recommends correct ARIA pattern for common widgets
 - Edge cases: Complex patterns like combobox, tree grid
 
@@ -78,6 +84,7 @@ And includes keyboard interaction requirements
 Developer wants comprehensive accessibility audit of existing codebase.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given a component or page file
 When developer requests accessibility audit
@@ -148,16 +155,19 @@ Output Formats:
 ## Dependencies
 
 ### Technical Dependencies
+
 - GitHub Copilot Chat API: ^1.90.0
 - VS Code Extension API: ^1.90.0
 
 ### Feature Dependencies
+
 - Depends on: Base agent infrastructure
 - Blocks: None
 
 ## Out of Scope
 
 Explicitly list what this feature will NOT include:
+
 - Automated accessibility testing tool integration (use separate tool)
 - PDF accessibility (focus on web)
 - Native mobile app accessibility (separate agent)

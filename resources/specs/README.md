@@ -4,20 +4,20 @@ This directory contains all feature specifications for Agent Pro, organized usin
 
 ## Current Specifications
 
-| ID | Feature | Type | Status |
-|----|---------|------|--------|
-| 001 | accessibility-expert-agent | Agent | Completed |
-| 025 | code-analyzer-tool | Tool | Completed |
-| 026 | test-generator-tool | Tool | Completed |
-| 027 | documentation-builder-tool | Tool | Completed |
-| 028 | performance-profiler-tool | Tool | Completed |
-| 029 | dependency-analyzer-tool | Tool | Completed |
-| 030 | api-designer-tool | Tool | Completed |
-| 031 | api-development-skill | Skill | Completed |
-| 032 | database-design-skill | Skill | Completed |
-| 033 | graphql-microservices-skill | Skill | Completed |
+| ID  | Feature                         | Type  | Status    |
+| --- | ------------------------------- | ----- | --------- |
+| 001 | accessibility-expert-agent      | Agent | Completed |
+| 025 | code-analyzer-tool              | Tool  | Completed |
+| 026 | test-generator-tool             | Tool  | Completed |
+| 027 | documentation-builder-tool      | Tool  | Completed |
+| 028 | performance-profiler-tool       | Tool  | Completed |
+| 029 | dependency-analyzer-tool        | Tool  | Completed |
+| 030 | api-designer-tool               | Tool  | Completed |
+| 031 | api-development-skill           | Skill | Completed |
+| 032 | database-design-skill           | Skill | Completed |
+| 033 | graphql-microservices-skill     | Skill | Completed |
 | 034 | multi-agent-orchestration-skill | Skill | Completed |
-| 035 | testing-strategies-skill | Skill | Completed |
+| 035 | testing-strategies-skill        | Skill | Completed |
 
 **Total: 12 specifications**
 
@@ -45,6 +45,7 @@ specs/
 ## Numbering Convention
 
 Features are numbered sequentially starting from 001:
+
 - **001-024**: Existing agents (24 expert agents)
 - **025-030**: Custom tools (6 tools)
 - **031-035**: Skills (5 comprehensive skills)
@@ -74,6 +75,7 @@ Each feature directory contains:
 ## Feature Status
 
 Features progress through these states:
+
 - **Draft**: Specification in progress
 - **Review**: Under review for approval
 - **Approved**: Ready for implementation
@@ -83,16 +85,16 @@ Features progress through these states:
 
 ## Quick Reference
 
-| Feature Range | Category | Count |
-|--------------|----------|-------|
-| 001-024 | Expert Agents | 24 |
-| 025-030 | Custom Tools | 6 |
-| 031-035 | Skills | 5 |
-| 036+ | Future Features | TBD |
+| Feature Range | Category        | Count |
+| ------------- | --------------- | ----- |
+| 001-024       | Expert Agents   | 24    |
+| 025-030       | Custom Tools    | 6     |
+| 031-035       | Skills          | 5     |
+| 036+          | Future Features | TBD   |
 
 ## Related Documentation
 
 - [Constitutional Framework](../constitution.md)
 - [Templates](../templates/)
-- [SPEC_DRIVEN.md](../SPEC_DRIVEN.md)
-- [AGENTS.md](../AGENTS.md)
+- [spec-driven.md](../spec-driven.md)
+- [agents.md](../agents.md)

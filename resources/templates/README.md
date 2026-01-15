@@ -77,6 +77,7 @@ specs/
 ```
 
 Example:
+
 ```
 specs/
 ├── 001-accessibility-expert-agent/
@@ -94,21 +95,22 @@ specs/
 ## Template Customization
 
 While templates provide structure, customize them as needed:
+
 - Add sections relevant to your feature
 - Remove sections that don't apply (with justification)
 - Maintain constitutional compliance
 
 ## Quick Reference
 
-| Template | Primary Purpose | Key Output |
-|----------|----------------|------------|
-| spec-template.md | Define feature requirements | User scenarios + acceptance criteria |
-| plan-template.md | Design implementation | Architecture + phases |
-| tasks-template.md | Execute implementation | Actionable tasks |
-| checklist-template.md | Ensure quality | Validation results |
+| Template              | Primary Purpose             | Key Output                           |
+| --------------------- | --------------------------- | ------------------------------------ |
+| spec-template.md      | Define feature requirements | User scenarios + acceptance criteria |
+| plan-template.md      | Design implementation       | Architecture + phases                |
+| tasks-template.md     | Execute implementation      | Actionable tasks                     |
+| checklist-template.md | Ensure quality              | Validation results                   |
 
 ## Related Documentation
 
 - [Constitutional Framework](../constitution.md) - Governing principles
-- [SPEC_DRIVEN.md](../../SPEC_DRIVEN.md) - SDD methodology guide
+- [spec-driven.md](../../spec-driven.md) - SDD methodology guide
 - [CONTRIBUTING.md](../../CONTRIBUTING.md) - Contribution workflow

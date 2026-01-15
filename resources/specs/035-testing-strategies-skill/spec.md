@@ -20,6 +20,7 @@ The Testing Strategies Skill provides comprehensive guidance on test-driven deve
 Developer wants to establish testing strategy for a project.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given project type and requirements
 When developer invokes Testing Strategies skill
@@ -33,6 +34,7 @@ And tailors advice to project context
 ```
 
 **Test Description**:
+
 - Test validates strategy recommendations for various project types
 - Edge cases: Legacy codebases, microservices, monoliths
 
@@ -42,6 +44,7 @@ And tailors advice to project context
 Developer wants to practice test-driven development.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given a feature to implement
 When TDD guidance is requested
@@ -54,6 +57,7 @@ Then skill provides:
 ```
 
 **Test Description**:
+
 - Test validates TDD patterns are practical
 - Edge cases: UI testing, database interactions
 
@@ -65,6 +69,7 @@ Then skill provides:
 Developer wants to implement behavior-driven development.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given feature requirements
 When BDD guidance is requested
@@ -82,6 +87,7 @@ Then skill provides:
 Developer wants to understand modern testing timing strategies.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given software development lifecycle
 When shift testing guidance is requested
@@ -101,6 +107,7 @@ Then skill provides:
 Developer wants to evaluate existing test suite quality.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given existing test suite
 When quality assessment is requested
@@ -176,13 +183,13 @@ Then skill provides:
 
 ### Test Pyramid Ratios
 
-| Project Type      | Unit  | Integration | E2E  |
-|-------------------|-------|-------------|------|
-| Microservice      | 70%   | 20%         | 10%  |
-| Monolith          | 60%   | 25%         | 15%  |
-| Frontend-heavy    | 50%   | 30%         | 20%  |
-| Data Pipeline     | 40%   | 40%         | 20%  |
-| Legacy Migration  | 30%   | 40%         | 30%  |
+| Project Type     | Unit | Integration | E2E |
+| ---------------- | ---- | ----------- | --- |
+| Microservice     | 70%  | 20%         | 10% |
+| Monolith         | 60%  | 25%         | 15% |
+| Frontend-heavy   | 50%  | 30%         | 20% |
+| Data Pipeline    | 40%  | 40%         | 20% |
+| Legacy Migration | 30%  | 40%         | 30% |
 
 ### TDD Cycle
 

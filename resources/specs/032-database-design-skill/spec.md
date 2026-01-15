@@ -20,6 +20,7 @@ The Database Design Skill provides comprehensive guidance on relational and NoSQ
 Developer needs to design a database schema for a new application.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given application requirements and entity descriptions
 When developer invokes Database Design skill
@@ -33,6 +34,7 @@ And follows database-specific best practices
 ```
 
 **Test Description**:
+
 - Test validates schema recommendations for common use cases
 - Edge cases: Many-to-many relationships, hierarchical data
 
@@ -42,6 +44,7 @@ And follows database-specific best practices
 Developer has a slow query that needs optimization.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given a SQL query with performance issues
 When optimization is requested
@@ -53,6 +56,7 @@ And provides optimized query alternatives
 ```
 
 **Test Description**:
+
 - Test validates optimization suggestions improve performance
 - Edge cases: Complex JOINs, window functions, CTEs
 
@@ -64,6 +68,7 @@ And provides optimized query alternatives
 Developer needs to evolve database schema safely.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given current and desired schema states
 When migration guidance is requested
@@ -81,6 +86,7 @@ Then skill provides:
 Developer needs guidance on document/key-value store design.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given application access patterns
 When NoSQL design guidance is requested
@@ -155,19 +161,19 @@ Then skill provides:
 
 ### Normalization Quick Reference
 
-| Form | Rule                                      | When to Use          |
-|------|-------------------------------------------|----------------------|
-| 1NF  | Atomic values, no repeating groups        | Always               |
-| 2NF  | 1NF + no partial dependencies             | Always               |
-| 3NF  | 2NF + no transitive dependencies          | Most applications    |
-| BCNF | 3NF + every determinant is candidate key  | Complex relationships|
+| Form | Rule                                     | When to Use           |
+| ---- | ---------------------------------------- | --------------------- |
+| 1NF  | Atomic values, no repeating groups       | Always                |
+| 2NF  | 1NF + no partial dependencies            | Always                |
+| 3NF  | 2NF + no transitive dependencies         | Most applications     |
+| BCNF | 3NF + every determinant is candidate key | Complex relationships |
 
 ### Index Types
 
-| Type    | Use Case                  | Database          |
-|---------|---------------------------|-------------------|
-| B-tree  | Range queries, equality   | All               |
-| Hash    | Equality only             | PostgreSQL, MySQL |
-| GIN     | Full-text, arrays, JSONB  | PostgreSQL        |
-| GiST    | Geometric, spatial        | PostgreSQL        |
-| Text    | Full-text search          | MongoDB           |
+| Type   | Use Case                 | Database          |
+| ------ | ------------------------ | ----------------- |
+| B-tree | Range queries, equality  | All               |
+| Hash   | Equality only            | PostgreSQL, MySQL |
+| GIN    | Full-text, arrays, JSONB | PostgreSQL        |
+| GiST   | Geometric, spatial       | PostgreSQL        |
+| Text   | Full-text search         | MongoDB           |

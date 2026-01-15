@@ -20,6 +20,7 @@ The API Designer Tool provides REST API design guidance, OpenAPI 3.1 specificati
 Developer wants to generate OpenAPI spec from API design requirements.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given API resource description (e.g., "User management API")
 When developer invokes apiDesigner tool
@@ -31,6 +32,7 @@ And provides proper HTTP status codes
 ```
 
 **Test Description**:
+
 - Test validates generated spec is valid OpenAPI 3.1
 - Edge cases: Complex nested resources, polymorphic types
 
@@ -40,6 +42,7 @@ And provides proper HTTP status codes
 Developer needs guidance on REST API conventions.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given an API endpoint design question
 When best practices guidance is requested
@@ -52,6 +55,7 @@ Then tool provides:
 ```
 
 **Test Description**:
+
 - Test validates recommendations match REST conventions
 - Edge cases: Non-CRUD operations, nested resources
 
@@ -63,6 +67,7 @@ Then tool provides:
 Developer wants to ensure API security best practices.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given API design
 When security review is requested
@@ -81,6 +86,7 @@ Then tool provides:
 Developer needs guidance on API versioning approach.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given existing or new API
 When versioning guidance is requested
@@ -100,6 +106,7 @@ And provides migration strategy guidance
 Developer wants API code scaffolding for specific framework.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given OpenAPI spec and target framework (FastAPI, Express, Spring)
 When code generation is requested
@@ -182,30 +189,30 @@ Then tool provides:
 
 ### HTTP Verb Mapping
 
-| Operation         | HTTP Verb | URL Pattern       | Success Code |
-|-------------------|-----------|-------------------|--------------|
-| List resources    | GET       | /resources        | 200          |
-| Get single        | GET       | /resources/{id}   | 200          |
-| Create            | POST      | /resources        | 201          |
-| Full update       | PUT       | /resources/{id}   | 200          |
-| Partial update    | PATCH     | /resources/{id}   | 200          |
-| Delete            | DELETE    | /resources/{id}   | 204          |
+| Operation      | HTTP Verb | URL Pattern     | Success Code |
+| -------------- | --------- | --------------- | ------------ |
+| List resources | GET       | /resources      | 200          |
+| Get single     | GET       | /resources/{id} | 200          |
+| Create         | POST      | /resources      | 201          |
+| Full update    | PUT       | /resources/{id} | 200          |
+| Partial update | PATCH     | /resources/{id} | 200          |
+| Delete         | DELETE    | /resources/{id} | 204          |
 
 ### Standard Response Codes
 
-| Code | Meaning              | Use Case                    |
-|------|----------------------|-----------------------------|
-| 200  | OK                   | Successful GET, PUT, PATCH  |
-| 201  | Created              | Successful POST             |
-| 204  | No Content           | Successful DELETE           |
-| 400  | Bad Request          | Validation error            |
-| 401  | Unauthorized         | Missing/invalid auth        |
-| 403  | Forbidden            | Insufficient permissions    |
-| 404  | Not Found            | Resource doesn't exist      |
-| 409  | Conflict             | State conflict              |
-| 422  | Unprocessable Entity | Semantic validation error   |
-| 429  | Too Many Requests    | Rate limit exceeded         |
-| 500  | Internal Server Error| Server-side failure         |
+| Code | Meaning               | Use Case                   |
+| ---- | --------------------- | -------------------------- |
+| 200  | OK                    | Successful GET, PUT, PATCH |
+| 201  | Created               | Successful POST            |
+| 204  | No Content            | Successful DELETE          |
+| 400  | Bad Request           | Validation error           |
+| 401  | Unauthorized          | Missing/invalid auth       |
+| 403  | Forbidden             | Insufficient permissions   |
+| 404  | Not Found             | Resource doesn't exist     |
+| 409  | Conflict              | State conflict             |
+| 422  | Unprocessable Entity  | Semantic validation error  |
+| 429  | Too Many Requests     | Rate limit exceeded        |
+| 500  | Internal Server Error | Server-side failure        |
 
 ### Pagination Patterns
 

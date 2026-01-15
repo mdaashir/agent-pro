@@ -8,13 +8,13 @@ A quick reference for Agent Pro's 24 expert agents with embedded resources summa
 
 **Embedded Standards:** TypeScript Instructions
 
-| Rule | Requirement |
-|------|-------------|
-| tsconfig | `strict: true` mandatory |
-| Types | PascalCase: `UserProfile` |
-| Variables | camelCase: `userName` |
+| Rule      | Requirement                     |
+| --------- | ------------------------------- |
+| tsconfig  | `strict: true` mandatory        |
+| Types     | PascalCase: `UserProfile`       |
+| Variables | camelCase: `userName`           |
 | Constants | UPPER_SNAKE_CASE: `MAX_RETRIES` |
-| Avoid | `any` → use `unknown` |
+| Avoid     | `any` → use `unknown`           |
 
 **Best For:** Type-safe code, modern JS/TS features, generics
 
@@ -24,13 +24,13 @@ A quick reference for Agent Pro's 24 expert agents with embedded resources summa
 
 **Embedded Standards:** Python Instructions (PEP 8)
 
-| Rule | Requirement |
-|------|-------------|
-| Indentation | 4 spaces (never tabs) |
+| Rule        | Requirement                |
+| ----------- | -------------------------- |
+| Indentation | 4 spaces (never tabs)      |
 | Line length | 79 chars (code), 72 (docs) |
-| Naming | snake_case: `user_name` |
-| Classes | PascalCase: `UserProfile` |
-| Type hints | Required for public APIs |
+| Naming      | snake_case: `user_name`    |
+| Classes     | PascalCase: `UserProfile`  |
+| Type hints  | Required for public APIs   |
 
 **Best For:** Pythonic code, FastAPI/Django, data science
 
@@ -42,14 +42,15 @@ A quick reference for Agent Pro's 24 expert agents with embedded resources summa
 
 **Embedded Standards:** Code Review Prompt
 
-| Severity | Blocks Merge | Examples |
-|----------|--------------|----------|
-| 🔴 Critical | YES | Security holes, data loss |
-| ⚠️ High | Usually | Missing error handling |
-| 💡 Medium | No | Code duplication |
-| ✨ Low | No | Style improvements |
+| Severity    | Blocks Merge | Examples                  |
+| ----------- | ------------ | ------------------------- |
+| 🔴 Critical | YES          | Security holes, data loss |
+| ⚠️ High     | Usually      | Missing error handling    |
+| 💡 Medium   | No           | Code duplication          |
+| ✨ Low      | No           | Style improvements        |
 
 **Checklist Focus:**
+
 - Security (injection, XSS, CSRF)
 - Error handling
 - Input validation
@@ -73,11 +74,11 @@ Testing Trophy (Modern)
 Static Analysis
 ```
 
-| Metric | Target |
-|--------|--------|
-| Statements | 80% |
-| Branches | 75% |
-| Functions | 90% |
+| Metric     | Target |
+| ---------- | ------ |
+| Statements | 80%    |
+| Branches   | 75%    |
+| Functions  | 90%    |
 
 **TDD Cycle:** 🔴 Red → 🟢 Green → 🔵 Refactor
 
@@ -88,6 +89,7 @@ Static Analysis
 **Embedded Standards:** Code Review Security Checklist
 
 **OWASP Top 10 Quick Check:**
+
 - A01: Access control at every endpoint
 - A02: Encrypt sensitive data
 - A03: Parameterized queries only
@@ -107,15 +109,16 @@ Static Analysis
 
 **Embedded Standards:** Conventional Commits Prompt
 
-| Type | Description | Version |
-|------|-------------|---------|
-| `feat` | New feature | Minor ↑ |
-| `fix` | Bug fix | Patch ↑ |
-| `docs` | Documentation | - |
-| `ci` | CI changes | - |
-| `refactor` | Code restructure | - |
+| Type       | Description      | Version |
+| ---------- | ---------------- | ------- |
+| `feat`     | New feature      | Minor ↑ |
+| `fix`      | Bug fix          | Patch ↑ |
+| `docs`     | Documentation    | -       |
+| `ci`       | CI changes       | -       |
+| `refactor` | Code restructure | -       |
 
 **Example:**
+
 ```
 feat(api): add rate limiting
 
@@ -187,26 +190,27 @@ Fixes #123
 
 ## Available Custom Tools
 
-| Tool | Description |
-|------|-------------|
-| `codeAnalyzer` | Analyze code complexity and metrics |
-| `testGenerator` | Generate test suggestions |
-| `dependencyAnalyzer` | Check for outdated/vulnerable deps |
-| `apiDesigner` | REST API design guidelines |
-| `documentationBuilder` | Generate documentation suggestions |
-| `performanceProfiler` | Performance analysis tips |
-| `specKitConstitution` | SDD constitutional framework |
-| `specKitSpecTemplate` | Specification template |
-| `specKitPlanTemplate` | Implementation plan template |
-| `specKitTasksTemplate` | Task breakdown template |
-| `specKitChecklist` | Quality validation checklist |
-| `resourceDiscovery` | Find all available resources |
+| Tool                   | Description                         |
+| ---------------------- | ----------------------------------- |
+| `codeAnalyzer`         | Analyze code complexity and metrics |
+| `testGenerator`        | Generate test suggestions           |
+| `dependencyAnalyzer`   | Check for outdated/vulnerable deps  |
+| `apiDesigner`          | REST API design guidelines          |
+| `documentationBuilder` | Generate documentation suggestions  |
+| `performanceProfiler`  | Performance analysis tips           |
+| `specKitConstitution`  | SDD constitutional framework        |
+| `specKitSpecTemplate`  | Specification template              |
+| `specKitPlanTemplate`  | Implementation plan template        |
+| `specKitTasksTemplate` | Task breakdown template             |
+| `specKitChecklist`     | Quality validation checklist        |
+| `resourceDiscovery`    | Find all available resources        |
 
 ## How Resources Work
 
 ### Agents Access Resources
 
 Agents now have **critical content embedded inline**:
+
 - Language experts have coding standards embedded
 - Code reviewer has severity criteria embedded
 - Testing specialist has TDD/BDD methodology embedded
@@ -218,6 +222,7 @@ This means agents can provide consistent, accurate guidance without needing exte
 ### Using Instructions
 
 Instructions auto-apply based on file patterns:
+
 - `**/*.py` → Python Instructions
 - `**/*.ts, **/*.tsx` → TypeScript Instructions
 - `**/*.go` → Go Instructions
@@ -227,6 +232,7 @@ Instructions auto-apply based on file patterns:
 ### Skills for Deep Dives
 
 Skills provide comprehensive multi-step guidance:
+
 - `api-development/` - RESTful API design
 - `database-design/` - Schema and optimization
 - `testing-strategies/` - TDD/BDD methodology
@@ -237,12 +243,12 @@ Skills provide comprehensive multi-step guidance:
 
 ## Quick Commands
 
-| Command | Action |
-|---------|--------|
-| `Agent Pro: Show Usage Statistics` | View tool usage stats |
-| `Agent Pro: Reset Usage Statistics` | Clear stats |
+| Command                                 | Action                 |
+| --------------------------------------- | ---------------------- |
+| `Agent Pro: Show Usage Statistics`      | View tool usage stats  |
+| `Agent Pro: Reset Usage Statistics`     | Clear stats            |
 | `Agent Pro: Show Agent Quick Reference` | View agent cheat sheet |
 
 ---
 
-*Agent Pro v3.0 - Specification-Driven Development*
+_Agent Pro v3.0 - Specification-Driven Development_

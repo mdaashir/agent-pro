@@ -20,6 +20,7 @@ The Documentation Builder Tool generates documentation templates and docstrings 
 Developer wants to generate proper documentation for a function.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given a function with parameters and return value
 When developer invokes documentationBuilder tool
@@ -31,6 +32,7 @@ And includes usage example template
 ```
 
 **Test Description**:
+
 - Test validates docstring format matches language conventions
 - Edge cases: Generic types, variadic parameters, overloaded methods
 
@@ -40,6 +42,7 @@ And includes usage example template
 Developer needs comprehensive documentation for a class or module.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given a class or module with multiple methods
 When documentation generation is requested
@@ -51,6 +54,7 @@ And suggests related documentation links
 ```
 
 **Test Description**:
+
 - Test validates complete class documentation
 - Edge cases: Abstract classes, interfaces, nested classes
 
@@ -62,6 +66,7 @@ And suggests related documentation links
 Developer wants to generate a project README from code analysis.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given a project directory structure
 When README generation is requested
@@ -78,6 +83,7 @@ And includes badges (optional) for common services
 Developer needs API documentation for public interfaces.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given exported functions, classes, or interfaces
 When API documentation is requested
@@ -150,12 +156,12 @@ And links to related types/functions
 
 ### Documentation Formats
 
-| Language   | Primary Format | Alternatives        |
-|------------|----------------|---------------------|
-| JavaScript | JSDoc          | TSDoc               |
-| TypeScript | TSDoc          | JSDoc               |
-| Python     | Google-style   | NumPy, Sphinx       |
-| Java       | JavaDoc        | -                   |
-| Go         | GoDoc          | -                   |
-| Rust       | rustdoc        | -                   |
-| C#         | XML Comments   | -                   |
+| Language   | Primary Format | Alternatives  |
+| ---------- | -------------- | ------------- |
+| JavaScript | JSDoc          | TSDoc         |
+| TypeScript | TSDoc          | JSDoc         |
+| Python     | Google-style   | NumPy, Sphinx |
+| Java       | JavaDoc        | -             |
+| Go         | GoDoc          | -             |
+| Rust       | rustdoc        | -             |
+| C#         | XML Comments   | -             |

@@ -20,6 +20,7 @@ The API Development Skill provides comprehensive guidance for designing, impleme
 Developer needs to design a new API for a user management system following REST principles.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given a requirement to create user management API
 When developer invokes API Development skill
@@ -30,6 +31,7 @@ And includes authentication/authorization guidance
 ```
 
 **Test Description**:
+
 - Test validates URL structure follows REST conventions (nouns, not verbs)
 - Edge cases: Nested resources, filtering, pagination
 
@@ -39,6 +41,7 @@ And includes authentication/authorization guidance
 Developer has implemented API endpoints and needs to generate OpenAPI 3.1 specification.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given implemented API endpoints
 When developer requests OpenAPI documentation
@@ -49,6 +52,7 @@ And provides example requests/responses
 ```
 
 **Test Description**:
+
 - Test validates OpenAPI spec is syntactically correct
 - Edge cases: Complex nested schemas, multiple auth methods
 
@@ -60,6 +64,7 @@ And provides example requests/responses
 Developer needs to implement consistent error responses across API.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given API endpoints that may fail
 When developer implements error handling
@@ -69,6 +74,7 @@ And includes validation error details
 ```
 
 **Test Description**:
+
 - Test validates error responses are consistent
 - Edge cases: Multiple validation errors, nested field errors
 
@@ -136,10 +142,12 @@ Supported Frameworks:
 ## Dependencies
 
 ### Technical Dependencies
+
 - GitHub Copilot Chat: ^1.90.0
 - OpenAPI specification: 3.1.0
 
 ### Feature Dependencies
+
 - Depends on: Agent infrastructure, Copilot skill registry
 - Blocks: None
 

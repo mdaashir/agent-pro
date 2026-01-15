@@ -455,5 +455,5 @@ Use these Agent Pro resources together with FinTech Expert:
 ### Custom Tools
 
 - codeAnalyzer - Analyze fintech code
-- 	estGenerator - Generate fintech tests
+-     estGenerator - Generate fintech tests
 - dependencyAnalyzer - Review fintech dependencies

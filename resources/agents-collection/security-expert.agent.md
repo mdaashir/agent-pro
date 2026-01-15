@@ -579,16 +579,16 @@ app.post('/ping', (req, res) => {
 
 ### Critical Security Checks (Must Pass Before Merge)
 
-| Category | Check | Example Vulnerability |
-|----------|-------|----------------------|
-| **Injection** | Parameterized queries only | `SELECT * FROM users WHERE id = ${id}` |
-| **XSS** | Output encoding enabled | `innerHTML = userInput` |
-| **CSRF** | Tokens on state changes | Missing CSRF token on POST |
-| **Secrets** | No hardcoded credentials | `password = "admin123"` |
-| **Auth** | Session properly managed | Session ID in URL |
-| **Authz** | Permissions checked | IDOR vulnerability |
-| **Crypto** | Strong algorithms (AES-256) | Using MD5 for passwords |
-| **Deps** | No known CVEs | Vulnerable npm packages |
+| Category      | Check                       | Example Vulnerability                  |
+| ------------- | --------------------------- | -------------------------------------- |
+| **Injection** | Parameterized queries only  | `SELECT * FROM users WHERE id = ${id}` |
+| **XSS**       | Output encoding enabled     | `innerHTML = userInput`                |
+| **CSRF**      | Tokens on state changes     | Missing CSRF token on POST             |
+| **Secrets**   | No hardcoded credentials    | `password = "admin123"`                |
+| **Auth**      | Session properly managed    | Session ID in URL                      |
+| **Authz**     | Permissions checked         | IDOR vulnerability                     |
+| **Crypto**    | Strong algorithms (AES-256) | Using MD5 for passwords                |
+| **Deps**      | No known CVEs               | Vulnerable npm packages                |
 
 ### OWASP Top 10 Quick Reference (2025)
 

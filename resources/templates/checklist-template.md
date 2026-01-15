@@ -11,6 +11,7 @@ This checklist serves as "unit tests for specifications" - ensuring requirements
 ## Specification Completeness
 
 ### Required Sections
+
 - [ ] Overview section exists and is clear
 - [ ] At least one P1 user scenario defined
 - [ ] All scenarios have Given/When/Then acceptance criteria
@@ -21,6 +22,7 @@ This checklist serves as "unit tests for specifications" - ensuring requirements
 - [ ] Out of scope section exists
 
 ### Scenario Quality
+
 - [ ] Each scenario describes a complete user journey
 - [ ] Acceptance criteria are testable
 - [ ] Edge cases are identified
@@ -28,6 +30,7 @@ This checklist serves as "unit tests for specifications" - ensuring requirements
 - [ ] Priority levels (P1/P2/P3) are appropriate
 
 ### Requirements Quality
+
 - [ ] Each requirement has unique identifier
 - [ ] Requirements are unambiguous
 - [ ] Context provided for each requirement
@@ -37,6 +40,7 @@ This checklist serves as "unit tests for specifications" - ensuring requirements
 ## Clarity & Consistency
 
 ### Language & Terminology
+
 - [ ] Technical terms are defined or well-understood
 - [ ] Terminology is consistent throughout
 - [ ] No undefined acronyms or abbreviations
@@ -44,6 +48,7 @@ This checklist serves as "unit tests for specifications" - ensuring requirements
 - [ ] Concise language (no unnecessary words)
 
 ### Ambiguity Detection
+
 - [ ] No vague words: "should", "might", "probably", "usually"
 - [ ] No undefined pronouns: "it", "they", "this" (without clear antecedent)
 - [ ] No weasel words: "fast", "good", "better", "efficient" (without metrics)
@@ -51,6 +56,7 @@ This checklist serves as "unit tests for specifications" - ensuring requirements
 - [ ] All `[NEEDS CLARIFICATION]` markers have owners
 
 ### Consistency Checks
+
 - [ ] Spec.md aligns with plan.md
 - [ ] Plan.md implementation matches spec.md requirements
 - [ ] Tasks.md covers all plan.md phases
@@ -60,38 +66,46 @@ This checklist serves as "unit tests for specifications" - ensuring requirements
 ## Constitutional Compliance
 
 ### Article I: Specification-First
+
 - [ ] Specification complete before implementation planning
 - [ ] Focus on WHAT, not HOW
 - [ ] No implementation details in spec.md
 
 ### Article II: Agent Isolation
+
 - [ ] Agent boundaries respected (if applicable)
 - [ ] No cross-agent dependencies (if applicable)
 
 ### Article III: Custom Tool Integration
+
 - [ ] Tools use standardized interfaces (if applicable)
 - [ ] Tool registration follows conventions (if applicable)
 
 ### Article IV: Test-First
+
 - [ ] Test scenarios defined in spec.md
 - [ ] Acceptance criteria are testable
 - [ ] Test coverage plan exists in plan.md
 
 ### Article V: Copilot-Native Integration
+
 - [ ] Follows VS Code Chat API (if applicable)
 - [ ] Native integration approach documented
 
 ### Article VI: Privacy-First
+
 - [ ] No PII collection (if applicable)
 - [ ] Telemetry is opt-in (if applicable)
 - [ ] Privacy considerations documented
 
 ### Article VII: Simplicity
+
 - [ ] Solution is as simple as possible
 - [ ] No unnecessary complexity
 - [ ] Clear and maintainable approach
 
 ### Article VIII: Versioned Evolution
+
 - [ ] Semantic versioning plan exists
 - [ ] Breaking changes documented
 - [ ] Migration path defined (if applicable)
@@ -99,17 +113,20 @@ This checklist serves as "unit tests for specifications" - ensuring requirements
 ## Implementation Readiness
 
 ### Technical Feasibility
+
 - [ ] All dependencies are available/installable
 - [ ] Technology choices are validated
 - [ ] Performance targets are achievable
 - [ ] Security requirements are implementable
 
 ### Resource Availability
+
 - [ ] Required skills are available on team
 - [ ] Timeline is realistic
 - [ ] Dependencies on other teams/features identified
 
 ### Risk Assessment
+
 - [ ] Technical risks identified and mitigated
 - [ ] Unknowns are marked with `[NEEDS CLARIFICATION]`
 - [ ] Fallback plans exist for high-risk items
@@ -117,11 +134,13 @@ This checklist serves as "unit tests for specifications" - ensuring requirements
 ## Documentation Quality
 
 ### User-Facing Documentation
+
 - [ ] Feature is documented for end users
 - [ ] Examples provided where helpful
 - [ ] Common use cases covered
 
 ### Developer Documentation
+
 - [ ] Architecture is documented in plan.md
 - [ ] API contracts defined
 - [ ] Error handling strategy documented
@@ -130,12 +149,16 @@ This checklist serves as "unit tests for specifications" - ensuring requirements
 ## Validation Results
 
 ### Issues Found
+
 List any issues discovered during review:
+
 1. [Issue description] - Severity: High | Medium | Low
 2. [Issue description] - Severity: High | Medium | Low
 
 ### Recommendations
+
 List recommendations for improvement:
+
 1. [Recommendation]
 2. [Recommendation]
 

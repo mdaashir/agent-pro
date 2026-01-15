@@ -20,6 +20,7 @@ The Code Analyzer Tool provides automated code complexity analysis, metrics calc
 Developer wants to understand cognitive complexity of a function to determine if refactoring is needed.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given a function in JavaScript, Python, TypeScript, or other supported language
 When developer invokes codeAnalyzer tool on the function
@@ -30,6 +31,7 @@ And suggests refactoring if complexity exceeds thresholds
 ```
 
 **Test Description**:
+
 - Test validates complexity calculations match established algorithms
 - Edge cases: Nested loops, switch statements, short-circuit operators
 
@@ -39,6 +41,7 @@ And suggests refactoring if complexity exceeds thresholds
 Developer needs comprehensive metrics for code review or technical debt assessment.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given a file or code selection
 When developer requests code analysis
@@ -48,6 +51,7 @@ And outputs structured JSON for programmatic consumption
 ```
 
 **Test Description**:
+
 - Test validates all metrics are calculated correctly
 - Edge cases: Comments in unusual formats, multiline strings
 
@@ -59,6 +63,7 @@ And outputs structured JSON for programmatic consumption
 Developer wants to identify common patterns or anti-patterns in codebase.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given code file or selection
 When pattern detection is requested
@@ -68,6 +73,7 @@ And provides pattern usage context
 ```
 
 **Test Description**:
+
 - Test validates pattern recognition accuracy
 - Edge cases: Similar patterns with subtle differences
 
@@ -133,10 +139,12 @@ Supported Languages:
 ## Dependencies
 
 ### Technical Dependencies
+
 - VS Code Extension API: ^1.90.0
 - Parser libraries: acorn (JS), @babel/parser (TS), ast (Python)
 
 ### Feature Dependencies
+
 - Depends on: Base tool infrastructure, telemetry system
 - Blocks: None
 

@@ -627,18 +627,18 @@ spec:
 
 ### Commit Types (Required)
 
-| Type | Description | Triggers |
-|------|-------------|----------|
-| `feat` | New feature | Minor version bump |
-| `fix` | Bug fix | Patch version bump |
-| `docs` | Documentation only | No version bump |
-| `style` | Formatting, no code change | No version bump |
-| `refactor` | Code restructure | No version bump |
-| `perf` | Performance improvement | Patch version bump |
-| `test` | Add/correct tests | No version bump |
-| `build` | Build system changes | No version bump |
-| `ci` | CI configuration | No version bump |
-| `chore` | Other maintenance | No version bump |
+| Type       | Description                | Triggers           |
+| ---------- | -------------------------- | ------------------ |
+| `feat`     | New feature                | Minor version bump |
+| `fix`      | Bug fix                    | Patch version bump |
+| `docs`     | Documentation only         | No version bump    |
+| `style`    | Formatting, no code change | No version bump    |
+| `refactor` | Code restructure           | No version bump    |
+| `perf`     | Performance improvement    | Patch version bump |
+| `test`     | Add/correct tests          | No version bump    |
+| `build`    | Build system changes       | No version bump    |
+| `ci`       | CI configuration           | No version bump    |
+| `chore`    | Other maintenance          | No version bump    |
 
 ### Examples for CI/CD Work
 

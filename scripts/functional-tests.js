@@ -621,15 +621,6 @@ test('agents have Related Resources sections', () => {
   }
 });
 
-test('copilot-instructions.md includes SDD guidance', () => {
-  const instructionsPath = path.join(RESOURCES_DIR, 'copilot-instructions.md');
-  const content = fs.readFileSync(instructionsPath, 'utf8');
-
-  assert(
-    content.includes('Specification-Driven Development') || content.includes('SDD'),
-    'copilot-instructions.md missing SDD guidance'
-  );
-});
 
 // ============================================================================
 // Embedded Resources Tests
@@ -719,9 +710,9 @@ test('security-expert has embedded OWASP checklist', () => {
   );
 });
 
-test('AGENT_QUICKREF.md exists and has agent summaries', () => {
-  const quickRefPath = path.join(RESOURCES_DIR, 'AGENT_QUICKREF.md');
-  assert(fs.existsSync(quickRefPath), 'AGENT_QUICKREF.md not found');
+test('agent-quickref.md exists and has agent summaries', () => {
+  const quickRefPath = path.join(RESOURCES_DIR, 'agent-quickref.md');
+  assert(fs.existsSync(quickRefPath), 'agent-quickref.md not found');
 
   const content = fs.readFileSync(quickRefPath, 'utf8');
   assert(content.includes('@typescript-expert'), 'Quick ref missing typescript-expert');

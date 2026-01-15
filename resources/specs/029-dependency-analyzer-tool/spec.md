@@ -20,6 +20,7 @@ The Dependency Analyzer Tool scans project dependency files (package.json, requi
 Developer wants to know which dependencies are outdated.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given a project with dependency manifest file
 When developer invokes dependencyAnalyzer tool
@@ -31,6 +32,7 @@ And provides links to changelogs/release notes
 ```
 
 **Test Description**:
+
 - Test validates version comparison logic
 - Edge cases: Pre-release versions, version ranges, git dependencies
 
@@ -40,6 +42,7 @@ And provides links to changelogs/release notes
 Developer needs to identify dependencies with known vulnerabilities.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given project dependencies
 When security analysis is requested
@@ -51,6 +54,7 @@ And recommends remediation actions
 ```
 
 **Test Description**:
+
 - Test validates vulnerability matching
 - Edge cases: Transitive dependencies, disputed vulnerabilities
 
@@ -62,6 +66,7 @@ And recommends remediation actions
 Developer wants to evaluate overall health of dependencies.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given project dependencies
 When health assessment is requested
@@ -79,6 +84,7 @@ And flags high-risk dependencies
 Developer needs guidance on safely upgrading dependencies.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given outdated dependencies
 When upgrade path is requested
@@ -158,22 +164,22 @@ Then tool identifies:
 
 ### Supported Dependency Files
 
-| File              | Ecosystem | Registry       |
-|-------------------|-----------|----------------|
-| package.json      | Node.js   | npmjs.com      |
-| requirements.txt  | Python    | pypi.org       |
-| Pipfile           | Python    | pypi.org       |
-| go.mod            | Go        | pkg.go.dev     |
-| Cargo.toml        | Rust      | crates.io      |
-| pom.xml           | Java      | Maven Central  |
-| build.gradle      | Java      | Maven Central  |
-| *.csproj          | .NET      | nuget.org      |
+| File             | Ecosystem | Registry      |
+| ---------------- | --------- | ------------- |
+| package.json     | Node.js   | npmjs.com     |
+| requirements.txt | Python    | pypi.org      |
+| Pipfile          | Python    | pypi.org      |
+| go.mod           | Go        | pkg.go.dev    |
+| Cargo.toml       | Rust      | crates.io     |
+| pom.xml          | Java      | Maven Central |
+| build.gradle     | Java      | Maven Central |
+| \*.csproj        | .NET      | nuget.org     |
 
 ### Severity Levels
 
-| Level    | CVSS Score | Action Required           |
-|----------|------------|---------------------------|
-| Critical | 9.0 - 10.0 | Immediate upgrade         |
-| High     | 7.0 - 8.9  | Upgrade within 7 days     |
-| Medium   | 4.0 - 6.9  | Upgrade within 30 days    |
-| Low      | 0.1 - 3.9  | Upgrade at convenience    |
+| Level    | CVSS Score | Action Required        |
+| -------- | ---------- | ---------------------- |
+| Critical | 9.0 - 10.0 | Immediate upgrade      |
+| High     | 7.0 - 8.9  | Upgrade within 7 days  |
+| Medium   | 4.0 - 6.9  | Upgrade within 30 days |
+| Low      | 0.1 - 3.9  | Upgrade at convenience |

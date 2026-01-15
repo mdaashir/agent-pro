@@ -20,6 +20,7 @@ The Multi-Agent Orchestration Skill provides patterns and best practices for coo
 Developer wants to design a workflow involving multiple specialized agents.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given a complex task requiring multiple agent capabilities
 When developer invokes Multi-Agent Orchestration skill
@@ -33,6 +34,7 @@ And follows agentic AI best practices
 ```
 
 **Test Description**:
+
 - Test validates workflow patterns for common use cases
 - Edge cases: Agent failures, circular dependencies, timeout handling
 
@@ -42,6 +44,7 @@ And follows agentic AI best practices
 Developer needs guidance on how agents should communicate.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given multiple agents that need to collaborate
 When communication design is requested
@@ -54,6 +57,7 @@ Then skill provides:
 ```
 
 **Test Description**:
+
 - Test validates communication patterns
 - Edge cases: Large message payloads, network failures
 
@@ -65,6 +69,7 @@ Then skill provides:
 Developer wants to choose the right orchestration approach.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given multi-agent system requirements
 When architecture guidance is requested
@@ -82,6 +87,7 @@ Then skill provides:
 Developer needs to manage shared state across agents.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given agents needing shared context
 When state management guidance is requested
@@ -101,6 +107,7 @@ Then skill provides:
 Developer wants to monitor multi-agent system health.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given running multi-agent system
 When observability guidance is requested
@@ -175,14 +182,14 @@ Then skill provides:
 
 ### Orchestration Patterns
 
-| Pattern       | Description                       | Use Case                    |
-|---------------|-----------------------------------|-----------------------------|
-| Sequential    | Agents execute in order           | Simple pipelines            |
-| Parallel      | Agents execute simultaneously     | Independent tasks           |
-| Conditional   | Branch based on conditions        | Decision-heavy workflows    |
-| Hierarchical  | Manager delegates to workers      | Complex decomposition       |
-| Peer-to-Peer  | Agents communicate directly       | Collaborative tasks         |
-| Supervisor    | Monitor and restart failed agents | Fault-tolerant systems      |
+| Pattern      | Description                       | Use Case                 |
+| ------------ | --------------------------------- | ------------------------ |
+| Sequential   | Agents execute in order           | Simple pipelines         |
+| Parallel     | Agents execute simultaneously     | Independent tasks        |
+| Conditional  | Branch based on conditions        | Decision-heavy workflows |
+| Hierarchical | Manager delegates to workers      | Complex decomposition    |
+| Peer-to-Peer | Agents communicate directly       | Collaborative tasks      |
+| Supervisor   | Monitor and restart failed agents | Fault-tolerant systems   |
 
 ### Agent Communication Models
 

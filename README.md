@@ -227,7 +227,7 @@ Key agents now have critical content embedded inline for consistent, self-contai
 
 ### Quick Reference Guide
 
-- New **[AGENT_QUICKREF.md](resources/AGENT_QUICKREF.md)** - Quick reference for all 24 agents
+- New **[agent-quickref.md](resources/agent-quickref.md)** - Quick reference for all 24 agents
 - Shows embedded resources summary per agent
 - Custom tools reference table
 - Quick commands cheatsheet
@@ -268,8 +268,8 @@ Total: **12 custom tools** (6 core + 5 SpecKit + 1 discovery)
 
 ### Documentation Enhancements
 
-- **[SPEC_DRIVEN.md](SPEC_DRIVEN.md)** - Complete SDD guide
-- **[AGENTS.md](AGENTS.md)** - Agent integration checklist
+- **[spec-driven.md](spec-driven.md)** - Complete SDD guide
+- **[agents.md](agents.md)** - Agent integration checklist
 - **[Constitutional Framework](resources/constitution.md)** - Governance principles
 - **[Templates](resources/templates/)** - SDD templates with usage guide
 - **[Specifications](specs/)** - Feature specs directory
@@ -297,7 +297,7 @@ Total: **12 custom tools** (6 core + 5 SpecKit + 1 discovery)
 
 ## Documentation
 
-For detailed documentation on each agent, prompt, and skill, see the [INDEX.md](resources/INDEX.md) file.
+For detailed documentation on each agent, prompt, and skill, see the [index.md](resources/index.md) file.
 
 ## Building from Source
 

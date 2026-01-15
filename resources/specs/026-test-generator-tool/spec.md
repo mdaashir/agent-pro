@@ -20,6 +20,7 @@ The Test Generator Tool analyzes code structure and suggests comprehensive test 
 Developer wants to know which testing framework is most appropriate for their code.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given source code in any supported language
 When developer invokes testGenerator tool
@@ -30,6 +31,7 @@ And explains why the framework was recommended
 ```
 
 **Test Description**:
+
 - Test validates framework recommendations for each supported language
 - Edge cases: Multi-language files, ambiguous syntax
 
@@ -39,6 +41,7 @@ And explains why the framework was recommended
 Developer needs guidance on what types of tests to write for a given piece of code.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given a function, class, or module
 When developer requests test strategy
@@ -50,6 +53,7 @@ And provides estimated test coverage improvement
 ```
 
 **Test Description**:
+
 - Test validates comprehensive strategy generation
 - Edge cases: Pure functions vs stateful code, async code
 
@@ -61,6 +65,7 @@ And provides estimated test coverage improvement
 Developer wants boilerplate test code generated for their function.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given a function with clear inputs and outputs
 When developer requests test templates
@@ -71,6 +76,7 @@ And includes appropriate mocking suggestions
 ```
 
 **Test Description**:
+
 - Test validates generated templates are syntactically correct
 - Edge cases: Complex return types, multiple parameters
 
@@ -80,6 +86,7 @@ And includes appropriate mocking suggestions
 Developer wants to understand how testable their code is.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given source code
 When testability analysis is requested
@@ -154,12 +161,12 @@ And suggests refactoring for improved testability
 
 ### Supported Languages & Frameworks
 
-| Language   | Primary Framework | Alternatives     |
-|------------|-------------------|------------------|
-| JavaScript | Jest              | Mocha, Vitest    |
-| TypeScript | Jest/Vitest       | Mocha            |
-| Python     | pytest            | unittest         |
-| Java       | JUnit 5           | TestNG           |
-| Go         | testing (stdlib)  | testify          |
-| Rust       | cargo test        | -                |
-| C#         | xUnit             | NUnit, MSTest    |
+| Language   | Primary Framework | Alternatives  |
+| ---------- | ----------------- | ------------- |
+| JavaScript | Jest              | Mocha, Vitest |
+| TypeScript | Jest/Vitest       | Mocha         |
+| Python     | pytest            | unittest      |
+| Java       | JUnit 5           | TestNG        |
+| Go         | testing (stdlib)  | testify       |
+| Rust       | cargo test        | -             |
+| C#         | xUnit             | NUnit, MSTest |

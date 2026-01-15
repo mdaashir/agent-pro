@@ -340,12 +340,12 @@ Why Trophy: Integration tests catch more real bugs, better confidence
 
 ### Coverage Targets (Required)
 
-| Metric | Minimum | Target | Excellent |
-|--------|---------|--------|-----------|
-| Statements | 70% | 80% | 90%+ |
-| Branches | 65% | 75% | 85%+ |
-| Functions | 80% | 90% | 95%+ |
-| Lines | 70% | 80% | 90%+ |
+| Metric     | Minimum | Target | Excellent |
+| ---------- | ------- | ------ | --------- |
+| Statements | 70%     | 80%    | 90%+      |
+| Branches   | 65%     | 75%    | 85%+      |
+| Functions  | 80%     | 90%    | 95%+      |
+| Lines      | 70%     | 80%    | 90%+      |
 
 ### Test Naming Convention (Enforced)
 

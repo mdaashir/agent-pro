@@ -948,5 +948,5 @@ Use these Agent Pro resources together with Mobile Development Expert:
 ### Custom Tools
 
 - codeAnalyzer - Analyze mobile code
-- 	estGenerator - Generate mobile tests
+-     estGenerator - Generate mobile tests
 - dependencyAnalyzer - Review mobile dependencies

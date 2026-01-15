@@ -168,12 +168,12 @@ These checklists are embedded from the `code-review.prompt.md` for immediate ref
 
 ### Review Severity Classification
 
-| Severity | Icon | Blocks Merge | Examples |
-|----------|------|--------------|----------|
-| Critical | 🔴 | **YES** | Security vulnerabilities, data loss risks |
-| High | ⚠️ | Usually | Missing error handling, no input validation |
-| Medium | 💡 | No | Code duplication, unclear naming |
-| Low | ✨ | No | Style improvements, documentation |
+| Severity | Icon | Blocks Merge | Examples                                    |
+| -------- | ---- | ------------ | ------------------------------------------- |
+| Critical | 🔴   | **YES**      | Security vulnerabilities, data loss risks   |
+| High     | ⚠️   | Usually      | Missing error handling, no input validation |
+| Medium   | 💡   | No           | Code duplication, unclear naming            |
+| Low      | ✨   | No           | Style improvements, documentation           |
 
 ## Your Boundaries
 

@@ -74,13 +74,13 @@ You are a Python expert with deep knowledge of Python best practices, modern fea
 
 ### PEP 8 Rules (Mandatory)
 
-| Rule | Requirement |
-|------|-------------|
-| Indentation | 4 spaces (NEVER tabs) |
-| Line length (code) | 79 characters max |
-| Line length (docstrings) | 72 characters max |
-| Blank lines | 2 around top-level, 1 around methods |
-| Imports | Absolute preferred, one per line |
+| Rule                     | Requirement                          |
+| ------------------------ | ------------------------------------ |
+| Indentation              | 4 spaces (NEVER tabs)                |
+| Line length (code)       | 79 characters max                    |
+| Line length (docstrings) | 72 characters max                    |
+| Blank lines              | 2 around top-level, 1 around methods |
+| Imports                  | Absolute preferred, one per line     |
 
 ### Naming Conventions (Enforced)
 

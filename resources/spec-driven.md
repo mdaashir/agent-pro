@@ -15,12 +15,14 @@ In SDD, you focus on **WHAT** the feature does (specification) before **HOW** it
 ## Why SDD for Agent Pro?
 
 Agent Pro manages 24+ expert agents, 6+ custom tools, 5+ skills, and multiple instruction sets. Without a systematic approach, this complexity leads to:
+
 - Inconsistent agent behavior across updates
 - Unclear requirements for new features
 - Difficulty validating that features work as intended
 - LLM-generated code that drifts from original intent
 
 SDD provides:
+
 - **Consistency**: All features follow the same specification process
 - **Quality**: Testable acceptance criteria ensure features work
 - **Maintainability**: Specifications document intent permanently
@@ -40,6 +42,7 @@ Create a complete specification defining WHAT the feature does.
 **Template**: [resources/templates/spec-template.md](resources/templates/spec-template.md)
 
 **Key Sections**:
+
 - **User Scenarios**: Given/When/Then acceptance criteria (P1/P2/P3 prioritized)
 - **Requirements**: Functional (FR-###) and non-functional (NFR-###) requirements
 - **Success Criteria**: Measurable outcomes
@@ -49,6 +52,7 @@ Create a complete specification defining WHAT the feature does.
 **Focus**: WHAT, not HOW. Describe behavior, not implementation.
 
 **Example**:
+
 ```markdown
 ## User Scenario: Accessibility Validation
 
@@ -65,6 +69,7 @@ Use the quality checklist to validate specification completeness.
 **Template**: [resources/templates/checklist-template.md](resources/templates/checklist-template.md)
 
 **Checks**:
+
 - All scenarios have Given/When/Then format
 - Requirements are unambiguous and testable
 - Success criteria are measurable
@@ -80,6 +85,7 @@ Create implementation plan defining HOW the feature will be built.
 **Template**: [resources/templates/plan-template.md](resources/templates/plan-template.md)
 
 **Key Sections**:
+
 - **Technical Context**: Language, framework, dependencies
 - **Constitutional Check**: Verify alignment with [Constitutional Framework](resources/constitution.md)
 - **Architecture**: Component design, data models, API contracts
@@ -97,8 +103,10 @@ Break down implementation into executable tasks.
 **Organization**: Tasks grouped by phase with deliverables and acceptance criteria.
 
 **Example**:
+
 ```markdown
 ### Phase 1: Core Implementation
+
 - [ ] Task 1.1: Create agent definition file
   - Deliverable: accessibility-expert.agent.md
   - Acceptance: File follows agent template structure
@@ -113,6 +121,7 @@ Break down implementation into executable tasks.
 Execute tasks, write tests, build the feature.
 
 **Principles**:
+
 - Follow the plan and tasks in order
 - Write tests first or alongside code (Test-First Imperative)
 - Update documentation as you build
@@ -167,6 +176,7 @@ Agent Pro provides 5 SpecKit tools accessible through Copilot Chat:
 5. **specKitChecklist**: Get quality validation checklist
 
 **Usage Example**:
+
 ```
 @agent-pro Can you use the specKitSpecTemplate tool to help me create
 a specification for a new security scanning agent?
@@ -235,6 +245,7 @@ Agents will invoke these tools to access templates and guide you through SDD.
 ### Constitutional Compliance
 
 Every feature must pass constitutional review:
+
 - Spec-first approach followed
 - Test strategy defined
 - Privacy respected
@@ -243,19 +254,20 @@ Every feature must pass constitutional review:
 ### Validation Scripts
 
 Agent Pro includes validation scripts to check SDD compliance:
+
 - `scripts/validate-frontmatter.js`: Checks YAML frontmatter and resource metadata
 
 ## Timeline Estimates
 
 Using SDD with AI assistance:
 
-| Activity | Traditional | SDD + AI | Time Saved |
-|----------|-------------|----------|------------|
-| Specification | 4 hours | 15 min | 93% |
-| Implementation Plan | 4 hours | 15 min | 93% |
-| Task Breakdown | 2 hours | 10 min | 92% |
-| Implementation | 8 hours | 6 hours | 25% |
-| **Total** | **18 hours** | **~7 hours** | **61%** |
+| Activity            | Traditional  | SDD + AI     | Time Saved |
+| ------------------- | ------------ | ------------ | ---------- |
+| Specification       | 4 hours      | 15 min       | 93%        |
+| Implementation Plan | 4 hours      | 15 min       | 93%        |
+| Task Breakdown      | 2 hours      | 10 min       | 92%        |
+| Implementation      | 8 hours      | 6 hours      | 25%        |
+| **Total**           | **18 hours** | **~7 hours** | **61%**    |
 
 SDD accelerates planning dramatically while maintaining quality.
 
@@ -287,7 +299,7 @@ SDD accelerates planning dramatically while maintaining quality.
 - [Constitutional Framework](resources/constitution.md) - Governing principles
 - [Templates](resources/templates/) - Spec, plan, tasks, checklist templates
 - [Specs Directory](specs/) - All feature specifications
-- [AGENTS.md](AGENTS.md) - Agent integration guide
+- [agents.md](agents.md) - Agent integration guide
 - [CONTRIBUTING.md](CONTRIBUTING.md) - Contribution workflow
 
 ## Common Questions
@@ -295,6 +307,7 @@ SDD accelerates planning dramatically while maintaining quality.
 ### When do I need a full specification?
 
 For any feature that:
+
 - Adds new agent, tool, or skill
 - Changes existing behavior
 - Affects multiple components
@@ -305,6 +318,7 @@ Simple bug fixes or documentation updates may not need full SDD.
 ### Can I modify the templates?
 
 Yes, customize templates as needed for your feature. Just maintain:
+
 - Constitutional compliance
 - Clear acceptance criteria
 - Measurable success criteria

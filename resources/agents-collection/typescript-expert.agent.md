@@ -572,13 +572,13 @@ These rules are embedded from `typescript.instructions.md` and must be enforced 
 
 ### Naming Convention Rules (Enforced)
 
-| Element | Convention | Example |
-|---------|------------|---------|
-| Types, Interfaces | PascalCase | `UserProfile`, `ApiResponse` |
-| Classes, Enums | PascalCase | `DatabaseConnection`, `HttpStatus` |
-| Variables, Functions | camelCase | `userName`, `calculateTotal()` |
-| Constants | UPPER_SNAKE_CASE | `MAX_RETRY_ATTEMPTS`, `API_BASE_URL` |
-| Interface prefix | No `I` prefix | `User` not `IUser` (unless needed) |
+| Element              | Convention       | Example                              |
+| -------------------- | ---------------- | ------------------------------------ |
+| Types, Interfaces    | PascalCase       | `UserProfile`, `ApiResponse`         |
+| Classes, Enums       | PascalCase       | `DatabaseConnection`, `HttpStatus`   |
+| Variables, Functions | camelCase        | `userName`, `calculateTotal()`       |
+| Constants            | UPPER_SNAKE_CASE | `MAX_RETRY_ATTEMPTS`, `API_BASE_URL` |
+| Interface prefix     | No `I` prefix    | `User` not `IUser` (unless needed)   |
 
 ### Critical Anti-Patterns to Flag
 

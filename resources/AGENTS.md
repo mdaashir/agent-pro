@@ -88,7 +88,7 @@ Use this checklist when adding a new agent:
 
 Every agent file must follow this structure:
 
-```markdown
+````markdown
 ---
 description: 'Agent description (clear, concise, < 200 chars)'
 name: 'Agent Display Name'
@@ -122,6 +122,7 @@ Brief overview of what this agent does and when to use it.
 ```language
 // Code example
 ```
+````
 
 **Explanation**: Why this approach
 
@@ -151,6 +152,7 @@ Brief overview of what this agent does and when to use it.
 ## Related Tools
 
 If this agent works particularly well with custom tools:
+
 - Tool name: Use case
 
 ## Resources
@@ -158,7 +160,8 @@ If this agent works particularly well with custom tools:
 - External documentation links
 - Reference materials
 - Community resources
-```
+
+````
 
 ## YAML Frontmatter Requirements
 
@@ -169,7 +172,7 @@ If this agent works particularly well with custom tools:
 description: 'Brief agent description for Copilot menu'
 name: 'Agent Display Name'
 ---
-```
+````
 
 ### Optional Fields
 
@@ -301,9 +304,7 @@ Add agent to `contributes.chatAgents` array:
 // Add to scripts/functional-tests.js
 test('AgentName appears in agent list', async () => {
   const packageJson = require('../package.json');
-  const agent = packageJson.contributes.chatAgents.find(
-    a => a.name === 'AgentDisplayName'
-  );
+  const agent = packageJson.contributes.chatAgents.find((a) => a.name === 'AgentDisplayName');
   expect(agent).toBeDefined();
   expect(agent.description).toBeTruthy();
 });
@@ -370,13 +371,15 @@ cp resources/templates/spec-template.md specs/036-security-scanner-agent/spec.md
 ```
 
 Edit `spec.md`:
-```markdown
+
+````markdown
 # Feature Specification: Security Scanner Agent
 
 **Feature ID**: 036-security-scanner-agent
 **Status**: Draft
 
 ## Overview
+
 Agent specialized in detecting security vulnerabilities...
 
 ## User Scenarios & Testing
@@ -386,16 +389,19 @@ Agent specialized in detecting security vulnerabilities...
 **User Journey**: Developer wants to scan code for SQL injection risks
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given code with database queries
 When developer asks @security-scanner to review
 Then agent identifies potential SQL injection points
 And suggests parameterized query alternatives
 ```
+````
 
 ### 2. Implement Agent
 
 Create `resources/agents-collection/security-scanner.agent.md`:
+
 ```markdown
 ---
 description: 'Security vulnerability scanning and secure coding practices'
@@ -409,10 +415,11 @@ Specialized in detecting vulnerabilities and secure coding.
 ## Your Expertise Areas
 
 ### 1. Vulnerability Detection
+
 - SQL Injection
 - XSS (Cross-Site Scripting)
 - CSRF
-...
+  ...
 ```
 
 ### 3. Register in package.json
@@ -435,6 +442,7 @@ Specialized in detecting vulnerabilities and secure coding.
 ### 5. Document
 
 Update README.md:
+
 ```markdown
 | **@security-scanner** | Security vulnerabilities, secure coding | Security audits |
 ```
@@ -448,7 +456,8 @@ Update README.md:
 ## Support
 
 For questions or issues:
-- Review [SPEC_DRIVEN.md](SPEC_DRIVEN.md) for SDD workflow
+
+- Review [spec-driven.md](spec-driven.md) for SDD workflow
 - Check [Constitutional Framework](resources/constitution.md)
 - See existing agents in `resources/agents-collection/` for examples
 - Open issue on GitHub repository

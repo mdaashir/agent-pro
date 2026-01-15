@@ -662,5 +662,5 @@ Use these Agent Pro resources together with Healthcare Expert:
 ### Custom Tools
 
 - codeAnalyzer - Analyze healthcare code
-- 	estGenerator - Generate healthcare tests
+-     estGenerator - Generate healthcare tests
 - dependencyAnalyzer - Review health system dependencies

@@ -20,6 +20,7 @@ The Performance Profiler Tool performs static analysis to detect performance ant
 Developer wants to identify common performance anti-patterns in their code.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given source code in any supported language
 When developer invokes performanceProfiler tool
@@ -34,6 +35,7 @@ And suggests optimized alternatives
 ```
 
 **Test Description**:
+
 - Test validates detection of all documented anti-patterns
 - Edge cases: Nested patterns, false positive avoidance
 
@@ -43,6 +45,7 @@ And suggests optimized alternatives
 Developer needs to understand algorithmic complexity of their code.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given a function with loops and data structure operations
 When complexity analysis is requested
@@ -53,6 +56,7 @@ And suggests algorithm improvements where applicable
 ```
 
 **Test Description**:
+
 - Test validates complexity identification accuracy
 - Edge cases: Early returns, break statements, recursion
 
@@ -64,6 +68,7 @@ And suggests algorithm improvements where applicable
 Developer wants to identify potential memory issues.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given source code
 When memory analysis is requested
@@ -81,6 +86,7 @@ And provides memory optimization suggestions
 Developer wants framework-aware performance suggestions.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given code using React, Vue, or other frameworks
 When framework analysis is requested
@@ -159,7 +165,7 @@ Then tool identifies:
 ### Detected Anti-Patterns
 
 | Pattern                    | Severity | Languages        |
-|----------------------------|----------|------------------|
+| -------------------------- | -------- | ---------------- |
 | Array ops in loops         | High     | All              |
 | String concat in loops     | Medium   | JS, Python, Java |
 | N+1 queries                | Critical | All              |

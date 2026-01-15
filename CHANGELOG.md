@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added - Embedded Resources & Enhanced Agents
 
 #### Embedded Resources in Agents
+
 Agents now have critical content embedded inline for self-contained operation:
 
 - **TypeScript Expert**: Embedded TypeScript Instructions
@@ -47,19 +48,23 @@ Agents now have critical content embedded inline for self-contained operation:
   - Required security headers
 
 #### New Resources
-- **AGENT_QUICKREF.md**: Quick reference guide for all 24 agents
+
+- **agent-quickref.md**: Quick reference guide for all 24 agents
   - Embedded resources summary per agent
   - Custom tools reference table
   - Quick commands cheatsheet
 
 #### New Command
+
 - `Agent Pro: Show Agent Quick Reference` - View embedded resources for key agents
 
 #### Enhanced Tests
+
 - 8 new functional tests for embedded resources
 - Total: 53 functional tests (was 45)
 
 ### Changed
+
 - Updated package.json with new command
 - Enhanced extension.js with `getAgentQuickReference` helper
 - Version bumped to 3.1.0
@@ -69,6 +74,7 @@ Agents now have critical content embedded inline for self-contained operation:
 ### Added
 
 #### Specification-Driven Development (SDD)
+
 - Complete SDD methodology framework for systematic feature development
 - Constitutional framework with 8 immutable architectural principles
 - 4 SDD templates: specification, implementation plan, tasks, and quality checklist
@@ -76,6 +82,7 @@ Agents now have critical content embedded inline for self-contained operation:
 - Sample specifications for accessibility expert agent, code analyzer tool, and API development skill
 
 #### SpecKit Tools
+
 - `specKitConstitution` - Access constitutional framework through Copilot Chat
 - `specKitSpecTemplate` - Get specification template for feature definitions
 - `specKitPlanTemplate` - Get implementation plan template
@@ -84,23 +91,27 @@ Agents now have critical content embedded inline for self-contained operation:
 - Total: **11 custom tools** (6 core + 5 SpecKit)
 
 #### Documentation
-- `SPEC_DRIVEN.md` - Comprehensive SDD methodology guide
-- `AGENTS.md` - Agent integration checklist and guidelines
+
+- `spec-driven.md` - Comprehensive SDD methodology guide
+- `agents.md` - Agent integration checklist and guidelines
 - `resources/constitution.md` - Constitutional framework document
 - `resources/templates/` - SDD template directory with usage guide
 - `specs/` - Feature specifications directory
 
 #### Validation & Quality
+
 - `scripts/validate-frontmatter.js` - Frontmatter and resource validation
 - Automated validation for agents, prompts, instructions, and skills
 
 ### Changed
+
 - Extension description updated to reflect SDD capabilities
 - README.md enhanced with SDD overview and SpecKit tools documentation
 - Version bumped to 3.0.0 (major: breaking changes with SDD introduction)
 - Tool registration message updated (6 → 11 tools)
 
 ### Governance
+
 - Established 8 constitutional articles:
   1. Specification-First Development
   2. Agent Isolation Principle
@@ -110,6 +121,7 @@ Agents now have critical content embedded inline for self-contained operation:
   6. Privacy-First Telemetry
   7. Simplicity and Clarity
   8. Versioned Evolution
+
 ## [2.3.0] - 2026-01-15
 
 ### Added - Analytics, New Tools & Vertical-Specific Agents

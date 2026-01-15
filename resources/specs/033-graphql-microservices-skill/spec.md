@@ -20,6 +20,7 @@ The GraphQL Microservices Skill provides comprehensive guidance on Apollo Federa
 Developer wants to design a federated GraphQL architecture for microservices.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given microservices with distinct domains
 When developer invokes GraphQL Microservices skill
@@ -33,6 +34,7 @@ And follows Apollo Federation 2.x specifications
 ```
 
 **Test Description**:
+
 - Test validates federation patterns for common architectures
 - Edge cases: Circular dependencies, shared entities
 
@@ -42,6 +44,7 @@ And follows Apollo Federation 2.x specifications
 Developer needs to combine multiple GraphQL schemas.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given multiple existing GraphQL services
 When schema combination is needed
@@ -54,6 +57,7 @@ Then skill provides:
 ```
 
 **Test Description**:
+
 - Test validates stitching recommendations
 - Edge cases: Overlapping types, versioned schemas
 
@@ -65,6 +69,7 @@ Then skill provides:
 Developer wants to optimize federated GraphQL performance.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given federated GraphQL deployment
 When performance optimization is requested
@@ -82,6 +87,7 @@ Then skill provides:
 Developer needs subscriptions in federated architecture.
 
 **Acceptance Criteria**:
+
 ```gherkin
 Given need for real-time updates across services
 When subscription guidance is requested
@@ -152,14 +158,14 @@ Then skill provides:
 
 ### Federation Directives Reference
 
-| Directive   | Purpose                              | Example                    |
-|-------------|--------------------------------------|----------------------------|
-| @key        | Define entity primary key            | @key(fields: "id")         |
-| @shareable  | Allow field in multiple subgraphs    | @shareable                 |
-| @external   | Reference field from another subgraph| @external                  |
-| @provides   | Declare fields resolved locally      | @provides(fields: "name")  |
-| @requires   | Declare required external fields     | @requires(fields: "price") |
-| @override   | Take ownership from another subgraph | @override(from: "products")|
+| Directive  | Purpose                               | Example                     |
+| ---------- | ------------------------------------- | --------------------------- |
+| @key       | Define entity primary key             | @key(fields: "id")          |
+| @shareable | Allow field in multiple subgraphs     | @shareable                  |
+| @external  | Reference field from another subgraph | @external                   |
+| @provides  | Declare fields resolved locally       | @provides(fields: "name")   |
+| @requires  | Declare required external fields      | @requires(fields: "price")  |
+| @override  | Take ownership from another subgraph  | @override(from: "products") |
 
 ### Subgraph Design Principles
 

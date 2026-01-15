@@ -35,12 +35,11 @@ agent-pro/
 ├── .github/
 │   └── workflows/         # GitHub Actions CI/CD
 ├── resources/
-│   ├── agents/           # 24 agent definitions (.agent.md)
-│   ├── prompts/          # 5 reusable prompts (.prompt.md)
-│   ├── instructions/     # 5 language instructions (.instructions.md)
-│   ├── skills/           # 5 comprehensive skills (SKILL.md)
-│   ├── INDEX.md          # Resource reference
-│   └── copilot-instructions.md
+│   ├── agents-collection/    # 24 agent definitions (.agent.md)
+│   ├── prompts-collection/   # 5 reusable prompts (.prompt.md)
+│   ├── instructions/         # 5 language instructions (.instructions.md)
+│   ├── skills-collection/    # 5 comprehensive skills (SKILL.md)
+│   └── index.md              # Resource reference
 ├── scripts/              # Build and validation scripts
 ├── extension.js          # Extension entry point (58 lines)
 ├── package.json          # Extension manifest
@@ -66,7 +65,7 @@ model: 'Claude Sonnet 4.5'
 
 4. Add comprehensive content with examples
 5. Update counts in test scripts
-6. Update [resources/INDEX.md](resources/INDEX.md)
+6. Update [resources/index.md](resources/index.md)
 7. Update `package.json` chatAgents section
 
 ### Adding a New Prompt
@@ -82,7 +81,7 @@ tools: ['codebase', 'terminalCommand']
 ---
 ```
 
-3. Update counts and INDEX.md
+3. Update counts and index.md
 
 ### Adding New Instructions
 
@@ -281,9 +280,9 @@ Keep [README.md](README.md) current:
 - Feature list
 - Installation instructions
 
-### INDEX.md
+### index.md
 
-Update [.github/INDEX.md](.github/INDEX.md) when adding resources:
+Update [resources/index.md](resources/index.md) when adding resources:
 
 - Alphabetical agent list
 - Prompt descriptions
