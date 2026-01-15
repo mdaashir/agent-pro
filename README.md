@@ -16,7 +16,7 @@ Agent Pro provides **40+ curated resources** plus **SDD methodology framework** 
 - **5 Comprehensive Skills** - Bundled capabilities with best practices
 - **Constitutional Framework** - 8 architectural principles governing all development
 - **Enhanced Validation** - Production-ready validation with framework version checks and security pattern detection
-- **Comprehensive Testing** - 25 functional tests ensure production quality
+- **Comprehensive Testing** - 53 functional tests ensure production quality
 - **Global Storage** - Agents available in all your projects
 
 ## Quick Start
@@ -211,6 +211,35 @@ Discover all available Agent Pro resources:
 3. @platform-engineering-expert create deployment pipeline
 4. @observability-sre-expert add model monitoring
 ```
+
+## 📚 What's New in v3.1.0
+
+### Embedded Resources for Self-Contained Agents
+
+Key agents now have critical content embedded inline for consistent, self-contained operation:
+
+- **TypeScript Expert**: Embedded strict tsconfig requirements, naming conventions, anti-patterns to flag
+- **Python Expert**: Embedded PEP 8 rules, type hint requirements, import ordering
+- **Code Reviewer**: Embedded security/quality/performance checklists, severity classification
+- **Testing Specialist**: Embedded TDD methodology, testing trophy, coverage targets
+- **DevOps Expert**: Embedded conventional commits format, commit types, CI/CD examples
+- **Security Expert**: Embedded OWASP Top 10 checklist, security headers, critical checks
+
+### Quick Reference Guide
+
+- New **[AGENT_QUICKREF.md](resources/AGENT_QUICKREF.md)** - Quick reference for all 24 agents
+- Shows embedded resources summary per agent
+- Custom tools reference table
+- Quick commands cheatsheet
+
+### New Command
+
+- `Agent Pro: Show Agent Quick Reference` - View embedded resources for key agents via quick pick
+
+### Enhanced Testing
+
+- 53 functional tests (up from 45)
+- Tests verify embedded content in all enhanced agents
 
 ## 📚 What's New in v3.0.0
 
