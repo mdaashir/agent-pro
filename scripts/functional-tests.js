@@ -216,7 +216,7 @@ test('package.json version is 2.3.0 or higher', () => {
   const packageData = JSON.parse(fs.readFileSync(PACKAGE_JSON, 'utf8'));
   const version = packageData.version;
 
-  const [major, minor, patch] = version.split('.').map(Number);
+  const [major, minor] = version.split('.').map(Number);
   assert(
     major >= 2 && minor >= 3,
     `Version ${version} is lower than required 2.3.0`
