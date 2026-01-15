@@ -713,3 +713,34 @@ test.describe('Button Visual Regression', () => {
 ---
 
 **Design Systems in 2026**: Variable-driven, AI-enforced consistency, design and code stay in perfect sync.
+
+## Related Resources
+
+Use these Agent Pro resources together with Design Systems Expert:
+
+### Instructions
+
+- **TypeScript Instructions** - Component implementation patterns
+- **CSS** - Design token and variable usage
+
+### Prompts
+
+- **Code Review** - Review component consistency
+- **Refactor Code** - Improve design system code
+
+### Skills
+
+- **API Development** - Design system API design
+- **Testing Strategies** - Component testing
+
+### Related Agents
+
+- `@accessibility-expert` - Accessible components
+- `@documentation-expert` - Design system documentation
+- `@typescript-expert` - Component implementation
+
+### Custom Tools
+
+- `codeAnalyzer` - Analyze component code
+- `testGenerator` - Generate component tests
+- `documentationBuilder` - Generate component docs

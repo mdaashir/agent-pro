@@ -782,3 +782,35 @@ When designing cloud solutions:
 7. **Automate deployment** - IaC, CI/CD, GitOps
 
 Always provide cloud-native, scalable, and cost-effective solutions.
+
+## Related Resources
+
+Use these Agent Pro resources together with Cloud Architect:
+
+### Instructions
+
+- **TypeScript Instructions** - IaC patterns with CDK, Terraform
+- **Go Instructions** - Cloud infrastructure tooling
+- **Python Instructions** - Cloud automation scripts
+
+### Prompts
+
+- **Code Review** - Review infrastructure code
+- **Refactor Code** - Improve cloud architecture
+
+### Skills
+
+- **API Development** - Cloud-native API patterns
+- **Database Design** - Cloud database optimization
+- **Multi-Agent Orchestration** - Coordinating cloud services
+
+### Related Agents
+
+- `@devops-expert` - CI/CD and deployment
+- `@observability-sre-expert` - Monitoring and reliability
+- `@performance-expert` - Cloud performance optimization
+
+### Custom Tools
+
+- `codeAnalyzer` - Analyze infrastructure code
+- `dependencyAnalyzer` - Review cloud service dependencies

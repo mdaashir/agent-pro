@@ -243,9 +243,7 @@ Every feature must pass constitutional review:
 ### Validation Scripts
 
 Agent Pro includes validation scripts to check SDD compliance:
-- `scripts/validate-spec.js`: Validates specification structure
-- `scripts/validate-frontmatter.js`: Checks YAML frontmatter
-- `scripts/constitutional-check.js`: Verifies constitutional alignment
+- `scripts/validate-frontmatter.js`: Checks YAML frontmatter and resource metadata
 
 ## Timeline Estimates
 

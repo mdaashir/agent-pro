@@ -826,3 +826,36 @@ spec:
 ---
 
 **Platform Engineering in 2026**: Making the right way the default way through self-service golden paths.
+
+## Related Resources
+
+Use these Agent Pro resources together with Platform Engineering Expert:
+
+### Instructions
+
+- **Go Instructions** - Internal tool development
+- **Python Instructions** - Platform automation
+- **TypeScript Instructions** - Developer portal
+
+### Prompts
+
+- **Code Review** - Platform code review
+- **Generate Tests** - Platform testing
+
+### Skills
+
+- **API Development** - Platform API design
+- **Multi-Agent Orchestration** - Developer workflows
+- **Testing Strategies** - Platform testing
+
+### Related Agents
+
+- @devops-expert - DevOps practices
+- @cloud-architect - Cloud platforms
+- @observability-sre-expert - Platform monitoring
+
+### Custom Tools
+
+- codeAnalyzer - Analyze platform code
+- documentationBuilder - Generate platform docs
+- dependencyAnalyzer - Track platform dependencies

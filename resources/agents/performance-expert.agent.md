@@ -573,3 +573,36 @@ Always provide:
 - Expected improvement
 - Implementation code
 - Verification method
+
+## Related Resources
+
+Use these Agent Pro resources together with Performance Expert:
+
+### Instructions
+
+- **Go Instructions** - High-performance systems
+- **Rust Instructions** - Systems performance
+- **Python Instructions** - Data performance
+
+### Prompts
+
+- **Refactor Code** - Performance refactoring
+- **Code Review** - Performance review
+
+### Skills
+
+- **API Development** - Performant API design
+- **Database Design** - Query performance
+- **Testing Strategies** - Performance testing
+
+### Related Agents
+
+- @architecture-expert - Performant architecture
+- @systems-programming-expert - Low-level performance
+- @cloud-architect - Cloud optimization
+
+### Custom Tools
+
+- performanceProfiler - Analyze performance
+- codeAnalyzer - Code performance analysis
+- dependencyAnalyzer - Dependency impact

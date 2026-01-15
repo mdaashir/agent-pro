@@ -198,13 +198,7 @@ Brief overview paragraph.
 ## Build and Validation
 
 ```bash
-# Validate all specifications
-node scripts/validate-spec.js
-
-# Check constitutional compliance
-node scripts/constitutional-check.js constitution
-
-# Validate frontmatter
+# Validate all resources
 node scripts/validate-frontmatter.js
 
 # Run all tests

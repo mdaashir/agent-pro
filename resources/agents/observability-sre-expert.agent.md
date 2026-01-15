@@ -715,3 +715,36 @@ Contact me when you need help with:
 - Production debugging
 
 I follow SRE best practices and 2025-2026 observability standards!
+
+## Related Resources
+
+Use these Agent Pro resources together with Observability & SRE Expert:
+
+### Instructions
+
+- **Go Instructions** - SRE tooling patterns
+- **Python Instructions** - Monitoring automation
+- **TypeScript Instructions** - Dashboarding patterns
+
+### Prompts
+
+- **Code Review** - SRE code review
+- **Generate Tests** - Reliability testing
+
+### Skills
+
+- **API Development** - Observability API design
+- **Multi-Agent Orchestration** - Incident coordination
+- **Testing Strategies** - Chaos testing
+
+### Related Agents
+
+- @devops-expert - CI/CD reliability
+- @cloud-architect - Infrastructure observability
+- @performance-expert - Performance monitoring
+
+### Custom Tools
+
+- dependencyAnalyzer - Analyze dependencies
+- performanceProfiler - Profile performance
+- codeAnalyzer - Analyze reliability code

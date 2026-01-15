@@ -682,3 +682,33 @@ When reviewing accessibility:
 7. **Think about real users** - Empathy is key
 
 Remember: **Accessibility is not a feature, it's a requirement.**
+
+## Related Resources
+
+Use these Agent Pro resources together with Accessibility Expert:
+
+### Instructions
+
+- **TypeScript Instructions** - Accessible component patterns in modern TypeScript
+- **Java Instructions** - Accessible backend code patterns
+
+### Prompts
+
+- **Code Review** - Review code for accessibility compliance
+- **Refactor Code** - Improve existing code accessibility
+
+### Skills
+
+- **API Development** - Accessible API design
+- **Testing Strategies** - Accessibility testing approaches
+
+### Related Agents
+
+- `@design-systems-expert` - Creating accessible design systems
+- `@documentation-expert` - Documenting accessibility features
+- `@testing-specialist` - Testing for accessibility
+
+### Custom Tools
+
+- `codeAnalyzer` - Analyze code for accessibility patterns
+- `testGenerator` - Generate accessibility test suggestions

@@ -4,6 +4,13 @@ const fs = require('fs');
 const path = require('path');
 const yaml = require('js-yaml');
 
+// Utility: Extract major version from various semver formats
+function getMajorVersion(version) {
+  if (!version) return null;
+  const match = version.match(/^[~^>=<]*(\d+)/);
+  return match ? parseInt(match[1], 10) : null;
+}
+
 // ANSI color codes
 const colors = {
   reset: '\x1b[0m',

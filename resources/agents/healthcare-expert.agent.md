@@ -631,3 +631,36 @@ puts "Received: #{ack}"
 ---
 
 **Mission**: Build secure, compliant, and interoperable healthcare applications that protect patient privacy and improve health outcomes.
+
+## Related Resources
+
+Use these Agent Pro resources together with Healthcare Expert:
+
+### Instructions
+
+- **Python Instructions** - Healthcare data patterns
+- **Java Instructions** - Enterprise healthcare systems
+- **Go Instructions** - High-performance health systems
+
+### Prompts
+
+- **Code Review** - Healthcare security review
+- **Generate Tests** - Healthcare system testing
+
+### Skills
+
+- **API Development** - FHIR API development
+- **Database Design** - Health data design
+- **Testing Strategies** - Healthcare testing
+
+### Related Agents
+
+- @security-expert - Healthcare security
+- @cloud-architect - Healthcare infrastructure
+- @observability-sre-expert - Healthcare monitoring
+
+### Custom Tools
+
+- codeAnalyzer - Analyze healthcare code
+- 	estGenerator - Generate healthcare tests
+- dependencyAnalyzer - Review health system dependencies

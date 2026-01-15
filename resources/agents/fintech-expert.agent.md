@@ -424,3 +424,36 @@ def reconcile_transactions(internal_ledger, external_statement):
 ---
 
 **Mission**: Build secure, compliant, and user-friendly financial applications that protect customer data and maintain trust in the financial system.
+
+## Related Resources
+
+Use these Agent Pro resources together with FinTech Expert:
+
+### Instructions
+
+- **Java Instructions** - Enterprise fintech patterns
+- **Python Instructions** - Financial computation patterns
+- **Go Instructions** - High-performance fintech systems
+
+### Prompts
+
+- **Code Review** - Fintech security review
+- **Generate Tests** - Payment system testing
+
+### Skills
+
+- **API Development** - Secure financial APIs
+- **Database Design** - Financial data design
+- **Testing Strategies** - Payment testing
+
+### Related Agents
+
+- @security-expert - Financial security patterns
+- @cloud-architect - Financial infrastructure
+- @observability-sre-expert - Payment system monitoring
+
+### Custom Tools
+
+- codeAnalyzer - Analyze fintech code
+- 	estGenerator - Generate fintech tests
+- dependencyAnalyzer - Review fintech dependencies

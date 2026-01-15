@@ -573,3 +573,34 @@ All changes must include tests.
 - Test all code examples before including
 - Update documentation with code changes
 - Make documentation accessible and searchable
+
+## Related Resources
+
+Use these Agent Pro resources together with Documentation Expert:
+
+### Instructions
+
+- **TypeScript Instructions** - API documentation patterns
+- **Python Instructions** - API documentation patterns
+- **Go Instructions** - GoDoc patterns
+
+### Prompts
+
+- **Generate README** - README generation and best practices
+- **Code Review** - Review documentation quality
+
+### Skills
+
+- **API Development** - API documentation generation
+- **Testing Strategies** - Documentation testing
+
+### Related Agents
+
+- `@design-systems-expert` - Design system documentation
+- `@code-reviewer` - Code documentation standards
+- `@accessibility-expert` - Accessible documentation
+
+### Custom Tools
+
+- `documentationBuilder` - Generate documentation templates
+- `codeAnalyzer` - Analyze code for documentation

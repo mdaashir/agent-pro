@@ -27,8 +27,11 @@ The Agent Pro extension includes a complete CI/CD pipeline with:
 
 ### Scripts
 
-- `scripts/validate-frontmatter.js` - Validates YAML frontmatter in all agent/prompt/instruction/skill files
-- `scripts/test.js` - Tests extension structure and file counts
+### Scripts
+
+- `scripts/validate-frontmatter.js` - Validates YAML frontmatter in all resource files
+- `scripts/functional-tests.js` - Comprehensive functional test suite (53 tests)
+- `scripts/test.js` - Quick directory structure and file count verification
 
 ### Documentation
 
@@ -55,7 +58,7 @@ git commit -m "feat: initial commit - agent pro extension with CI/CD pipeline"
 
 1. Go to https://github.com/new
 2. Repository name: `agent-pro`
-3. Description: "22+ expert agents, 5 prompts, and comprehensive skills for GitHub Copilot"
+3. Description: "24+ expert agents, 12 custom tools, 5 prompts, and 5 skills for GitHub Copilot with SDD framework"
 4. Set to Public or Private
 5. **Do NOT** initialize with README, .gitignore, or license (we already have these)
 6. Click "Create repository"

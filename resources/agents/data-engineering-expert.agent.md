@@ -821,3 +821,35 @@ spec:
 ---
 
 **Modern Data Stack in 2026**: dbt + Airflow + Snowflake/Databricks - event-driven, 8.2x faster than batch.
+
+## Related Resources
+
+Use these Agent Pro resources together with Data Engineering Expert:
+
+### Instructions
+
+- **Python Instructions** - Data pipeline code patterns
+- **SQL** - Data transformation best practices
+
+### Prompts
+
+- **Generate Tests** - Data pipeline testing
+- **Code Review** - Review data engineering code
+
+### Skills
+
+- **API Development** - Data API design
+- **Database Design** - Data warehouse and lakehouse design
+- **Testing Strategies** - Data validation testing
+
+### Related Agents
+
+- `@python-expert` - Python data engineering
+- `@cloud-architect` - Cloud data infrastructure
+- `@ai-ml-engineering-expert` - ML data pipelines
+
+### Custom Tools
+
+- `codeAnalyzer` - Analyze pipeline code
+- `dependencyAnalyzer` - Review data dependencies
+- `performanceProfiler` - Optimize pipeline performance

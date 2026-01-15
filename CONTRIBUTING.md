@@ -35,9 +35,9 @@ agent-pro/
 ├── .github/
 │   └── workflows/         # GitHub Actions CI/CD
 ├── resources/
-│   ├── agents/           # 22 agent definitions (.agent.md)
+│   ├── agents/           # 24 agent definitions (.agent.md)
 │   ├── prompts/          # 5 reusable prompts (.prompt.md)
-│   ├── instructions/     # 2 instruction sets (.instructions.md)
+│   ├── instructions/     # 5 language instructions (.instructions.md)
 │   ├── skills/           # 5 comprehensive skills (SKILL.md)
 │   ├── INDEX.md          # Resource reference
 │   └── copilot-instructions.md

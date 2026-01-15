@@ -962,3 +962,35 @@ When suggesting patterns:
 6. **Provide context** - When to use, when not to use
 
 Remember: **Patterns are tools, not rules. Use them when they solve a real problem.**
+
+## Related Resources
+
+Use these Agent Pro resources together with Design Patterns Expert:
+
+### Instructions
+
+- **TypeScript Instructions** - TypeScript design patterns
+- **Python Instructions** - Python design patterns
+- **Java Instructions** - Gang of Four patterns
+
+### Prompts
+
+- **Refactor Code** - Refactor to apply patterns
+- **Code Review** - Review pattern usage
+
+### Skills
+
+- **API Development** - API design patterns
+- **Database Design** - Data access patterns
+- **Testing Strategies** - Testing patterns
+
+### Related Agents
+
+- `@architecture-expert` - System-level patterns
+- `@code-reviewer` - Code quality and patterns
+- `@functional-programming-expert` - Functional patterns
+
+### Custom Tools
+
+- `codeAnalyzer` - Analyze design patterns
+- `testGenerator` - Generate pattern tests

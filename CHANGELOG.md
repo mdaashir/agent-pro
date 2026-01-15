@@ -91,10 +91,8 @@ Agents now have critical content embedded inline for self-contained operation:
 - `specs/` - Feature specifications directory
 
 #### Validation & Quality
-- `scripts/validate-spec.js` - Specification completeness validation
-- `scripts/constitutional-check.js` - Constitutional compliance checking
-- Automated validation for frontmatter, sections, requirements, scenarios, and success criteria
-- Constitutional article compliance verification for implementation plans
+- `scripts/validate-frontmatter.js` - Frontmatter and resource validation
+- Automated validation for agents, prompts, instructions, and skills
 
 ### Changed
 - Extension description updated to reflect SDD capabilities

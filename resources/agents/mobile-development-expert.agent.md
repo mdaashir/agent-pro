@@ -917,3 +917,36 @@ func userNotificationCenter(
 ---
 
 **Cross-platform in 2026**: Write once with React Native/Flutter, run everywhere with native performance.
+
+## Related Resources
+
+Use these Agent Pro resources together with Mobile Development Expert:
+
+### Instructions
+
+- **TypeScript Instructions** - React Native patterns
+- **Java Instructions** - Android development
+- **Python Instructions** - Mobile backend services
+
+### Prompts
+
+- **Generate Tests** - Mobile app testing
+- **Code Review** - Mobile code review
+
+### Skills
+
+- **API Development** - Mobile API design
+- **Testing Strategies** - Mobile testing strategies
+- **Database Design** - Mobile data design
+
+### Related Agents
+
+- @design-systems-expert - Mobile design systems
+- @testing-specialist - Mobile testing
+- @performance-expert - Mobile performance
+
+### Custom Tools
+
+- codeAnalyzer - Analyze mobile code
+- 	estGenerator - Generate mobile tests
+- dependencyAnalyzer - Review mobile dependencies

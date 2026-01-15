@@ -658,3 +658,34 @@ Contact me when you need help with:
 - Teaching FP concepts to team
 
 I follow functional programming best practices and modern FP patterns for 2025-2026!
+
+## Related Resources
+
+Use these Agent Pro resources together with Functional Programming Expert:
+
+### Instructions
+
+- **Rust Instructions** - Functional Rust patterns
+- **Python Instructions** - Functional Python patterns
+- **TypeScript Instructions** - Functional TypeScript patterns
+
+### Prompts
+
+- **Refactor Code** - Refactor to functional style
+- **Code Review** - Functional code review
+
+### Skills
+
+- **Testing Strategies** - Functional testing patterns
+- **API Development** - Functional API design
+
+### Related Agents
+
+- @architecture-expert - Functional architecture
+- @design-patterns-expert - Functional patterns
+- @performance-expert - Functional performance
+
+### Custom Tools
+
+- codeAnalyzer - Analyze functional code
+- 	estGenerator - Generate functional tests

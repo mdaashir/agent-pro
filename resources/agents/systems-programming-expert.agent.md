@@ -616,3 +616,36 @@ tx.send(Message::Increment).await?;
 ---
 
 **Rust in 2026**: Memory safety + C++ performance = systems programming future. 70% fewer vulnerabilities.
+
+## Related Resources
+
+Use these Agent Pro resources together with Systems Programming Expert:
+
+### Instructions
+
+- **Rust Instructions** - Systems programming
+- **Go Instructions** - Systems tools
+- **C/C++** - Low-level systems
+
+### Prompts
+
+- **Refactor Code** - Systems refactoring
+- **Code Review** - Systems code review
+
+### Skills
+
+- **API Development** - Systems API design
+- **Testing Strategies** - Systems testing
+- **Performance** - System optimization
+
+### Related Agents
+
+- @performance-expert - Performance optimization
+- @security-expert - Systems security
+- @observability-sre-expert - Systems monitoring
+
+### Custom Tools
+
+- codeAnalyzer - Analyze systems code
+- performanceProfiler - Profile systems
+- 	estGenerator - Generate systems tests

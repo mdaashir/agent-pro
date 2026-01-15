@@ -1,6 +1,6 @@
 # How to Use Agent Pro
 
-Agent Pro provides **22 expert agents** that integrate directly with GitHub Copilot. Agents are installed globally and accessible from any project.
+Agent Pro provides **24 expert agents** that integrate directly with GitHub Copilot. Agents are installed globally and accessible from any project.
 
 ## Quick Setup
 
