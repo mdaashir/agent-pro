@@ -54,7 +54,7 @@ class TelemetryReporter {
  */
 function registerCustomTools(context) {
   const telemetry = new TelemetryReporter(context);
-  // Tool 1: Code Analyzer - Analyze code complexity and patterns
+
   const codeAnalyzer = vscode.lm.registerTool('codeAnalyzer', {
     displayName: 'Code Analyzer',
     description: 'Analyzes code complexity, patterns, and potential improvements',
@@ -79,7 +79,6 @@ function registerCustomTools(context) {
         const text = document.getText();
         const languageId = document.languageId;
 
-        // Analyze code metrics
         const lines = text.split('\n');
         const nonEmptyLines = lines.filter(line => line.trim().length > 0);
         const commentLines = lines.filter(line => {
@@ -123,7 +122,6 @@ function registerCustomTools(context) {
     }
   });
 
-  // Tool 2: Test Generator Helper - Suggest test cases based on code
   const testGenerator = vscode.lm.registerTool('testGenerator', {
     displayName: 'Test Generator',
     description: 'Generates test case suggestions for selected code',
@@ -186,7 +184,6 @@ Selection contains ${selectedText.split('\n').length} lines of code ready for te
     }
   });
 
-  // Tool 3: Documentation Builder - Generate documentation templates
   const documentationBuilder = vscode.lm.registerTool('documentationBuilder', {
     displayName: 'Documentation Builder',
     description: 'Generates documentation templates and suggestions',
@@ -247,7 +244,6 @@ Documentation should include:
     }
   });
 
-  // Tool 4: Performance Profiler - Basic performance insights
   const performanceProfiler = vscode.lm.registerTool('performanceProfiler', {
     displayName: 'Performance Profiler',
     description: 'Provides performance insights and optimization suggestions',
@@ -269,33 +265,31 @@ Documentation should include:
         const text = document.getText();
         const languageId = document.languageId;
 
-        // Basic performance checks
         const checks = [];
 
-        // Check for common performance anti-patterns
         if (text.includes('for (') && text.includes('.push(')) {
-          checks.push('⚠️ Detected array push in loop - consider pre-allocation');
+          checks.push('Detected array push in loop - consider pre-allocation');
         }
 
         if (text.match(/\.map\(.*\)\.filter\(.*\)/)) {
-          checks.push('⚠️ Chained map+filter detected - consider single reduce for performance');
+          checks.push('Chained map+filter detected - consider single reduce for performance');
         }
 
         if (languageId === 'javascript' || languageId === 'typescript') {
           if (text.includes('JSON.parse(JSON.stringify(')) {
-            checks.push('⚠️ Deep clone via JSON detected - consider structured clone or library');
+            checks.push('Deep clone via JSON detected - consider structured clone or library');
           }
         }
 
         if (languageId === 'python' && text.includes('pandas')) {
-          checks.push('ℹ️ Pandas detected - ensure vectorized operations over loops');
+          checks.push('Pandas detected - ensure vectorized operations over loops');
         }
 
         const result = `Performance Analysis:
 File: ${path.basename(document.fileName)}
 Language: ${languageId}
 
-${checks.length > 0 ? checks.join('\n') : '✓ No obvious performance issues detected'}
+${checks.length > 0 ? checks.join('\n') : 'No obvious performance issues detected'}
 
 General Recommendations:
 - Profile with appropriate tools before optimizing
@@ -321,7 +315,6 @@ General Recommendations:
     }
   });
 
-  // Tool 5: Dependency Analyzer - Analyze project dependencies
   const dependencyAnalyzer = vscode.lm.registerTool('dependencyAnalyzer', {
     displayName: 'Dependency Analyzer',
     description: 'Analyzes project dependencies for outdated packages, security issues, and optimization opportunities',
@@ -349,49 +342,45 @@ General Recommendations:
           const deps = { ...packageJson.dependencies, ...packageJson.devDependencies };
           const depCount = Object.keys(deps).length;
 
-          findings.push(`📦 Node.js Project`);
+          findings.push('Node.js Project');
           findings.push(`- Total dependencies: ${depCount}`);
           findings.push(`- Production: ${Object.keys(packageJson.dependencies || {}).length}`);
           findings.push(`- Development: ${Object.keys(packageJson.devDependencies || {}).length}`);
 
-          // Check for common outdated patterns
           if (deps['webpack'] && deps['webpack'].startsWith('^4')) {
-            findings.push(`⚠️ Webpack 4 detected - consider upgrading to Webpack 5`);
+            findings.push('Webpack 4 detected - consider upgrading to Webpack 5');
           }
           if (deps['react'] && deps['react'].startsWith('^16')) {
-            findings.push(`ℹ️ React 16 detected - React 18 available with new features`);
+            findings.push('React 16 detected - React 18 available with new features');
           }
         }
 
-        // Check for requirements.txt (Python)
         const requirementsTxtPath = path.join(rootPath, 'requirements.txt');
         if (fs.existsSync(requirementsTxtPath)) {
           const content = fs.readFileSync(requirementsTxtPath, 'utf8');
           const deps = content.split('\n').filter(line => line.trim() && !line.startsWith('#'));
 
-          findings.push(`🐍 Python Project`);
+          findings.push('Python Project');
           findings.push(`- Dependencies in requirements.txt: ${deps.length}`);
-          findings.push(`- Recommendation: Use pip-audit for security scanning`);
+          findings.push('- Recommendation: Use pip-audit for security scanning');
         }
 
-        // Check for go.mod (Go)
         const goModPath = path.join(rootPath, 'go.mod');
         if (fs.existsSync(goModPath)) {
           const content = fs.readFileSync(goModPath, 'utf8');
           const requireCount = (content.match(/require\s+/g) || []).length;
 
-          findings.push(`🔷 Go Project`);
-          findings.push(`- Go modules detected`);
-          findings.push(`- Run 'go list -m -u all' to check for updates`);
+          findings.push('Go Project');
+          findings.push('- Go modules detected');
+          findings.push('- Run \'go list -m -u all\' to check for updates');
         }
 
-        // Check for Cargo.toml (Rust)
         const cargoTomlPath = path.join(rootPath, 'Cargo.toml');
         if (fs.existsSync(cargoTomlPath)) {
-          findings.push(`🦀 Rust Project`);
-          findings.push(`- Cargo.toml detected`);
-          findings.push(`- Run 'cargo outdated' to check for updates`);
-          findings.push(`- Run 'cargo audit' for security vulnerabilities`);
+          findings.push('Rust Project');
+          findings.push('- Cargo.toml detected');
+          findings.push('- Run \'cargo outdated\' to check for updates');
+          findings.push('- Run \'cargo audit\' for security vulnerabilities');
         }
 
         if (findings.length === 0) {
@@ -399,7 +388,7 @@ General Recommendations:
           findings.push('Supported: package.json, requirements.txt, go.mod, Cargo.toml');
         } else {
           findings.push('');
-          findings.push('🔒 Security Recommendations:');
+          findings.push('Security Recommendations:');
           findings.push('- Regularly update dependencies');
           findings.push('- Use automated dependency scanning (Dependabot, Renovate)');
           findings.push('- Monitor for security advisories');
@@ -423,7 +412,6 @@ General Recommendations:
     }
   });
 
-  // Tool 6: API Designer - Generate OpenAPI/REST API specifications
   const apiDesigner = vscode.lm.registerTool('apiDesigner', {
     displayName: 'API Designer',
     description: 'Generates OpenAPI specifications and REST API design suggestions',
@@ -446,7 +434,7 @@ General Recommendations:
 
         const apiGuidelines = `API Design Guidelines:
 
-🎯 REST API Best Practices:
+REST API Best Practices:
 - Use nouns for resources (GET /users, not GET /getUsers)
 - HTTP verbs map to CRUD: POST (Create), GET (Read), PUT/PATCH (Update), DELETE
 - Use plural nouns: /users/{id}, not /user/{id}
@@ -456,7 +444,7 @@ General Recommendations:
   • 400 Bad Request, 401 Unauthorized, 403 Forbidden, 404 Not Found
   • 500 Internal Server Error
 
-📝 OpenAPI 3.1 Structure:
+OpenAPI 3.1 Structure:
 \`\`\`yaml
 openapi: 3.1.0
 info:
@@ -484,14 +472,14 @@ components:
         name: { type: string }
 \`\`\`
 
-🔧 Framework-Specific Tools:
+Framework-Specific Tools:
 - Node.js: swagger-jsdoc, tsoa (TypeScript)
 - Python: FastAPI (auto-generates OpenAPI), Flask-RESTX
 - Java: SpringDoc OpenAPI, Swagger Core
 - Go: swaggo/swag
 - .NET: Swashbuckle, NSwag
 
-🌐 API Design Patterns:
+API Design Patterns:
 - Pagination: offset/limit or cursor-based
 - Filtering: ?status=active&role=admin
 - Sorting: ?sort=createdAt:desc
@@ -499,7 +487,7 @@ components:
 - Rate limiting: Use 429 Too Many Requests
 - HATEOAS: Include hypermedia links in responses
 
-🔒 Security:
+Security:
 - Always use HTTPS in production
 - Implement authentication (OAuth 2.0, JWT)
 - Validate and sanitize all inputs
@@ -526,7 +514,6 @@ Current File: ${path.basename(document.fileName)} (${languageId})`;
     }
   });
 
-  // Register all tools for cleanup
   context.subscriptions.push(
     codeAnalyzer,
     testGenerator,
@@ -543,10 +530,8 @@ async function activate(context) {
   console.log('Agent Pro: Activating...');
 
   try {
-    // Register custom tools first
     registerCustomTools(context);
 
-    // Register commands
     const telemetry = new TelemetryReporter(context);
 
     const showStatsCommand = vscode.commands.registerCommand('agentPro.showStats', async () => {
@@ -570,7 +555,7 @@ async function activate(context) {
       }).join('\n');
 
       const totalUses = statsArray.reduce((sum, s) => sum + s.total, 0);
-      const message = `📊 Agent Pro Usage Statistics\n\nTotal tool invocations: ${totalUses}\n\n${output}`;
+      const message = `Agent Pro Usage Statistics\n\nTotal tool invocations: ${totalUses}\n\n${output}`;
 
       vscode.window.showInformationMessage(message, { modal: true });
     });

@@ -4,9 +4,9 @@ A comprehensive collection of **24+ expert agents** (including FinTech & Healthc
 
 Agent Pro provides **40+ curated resources** to enhance your development workflow with AI-powered assistance across multiple domains including architecture, security, testing, cloud infrastructure, regulated industries (finance, healthcare), and more.
 
-## ✨ Features
+## Features
 
-- **24 Expert Agents** - Specialized AI assistants accessible via `@` in Copilot Chat (NEW: FinTech & Healthcare)
+- **24 Expert Agents** - Specialized AI assistants accessible via `@` in Copilot Chat
 - **6 Custom Tools** - Code analysis, test generation, documentation, performance profiling, dependency analysis, and API design
 - **Built-in Analytics** - Track tool usage, success rates, and performance (privacy-respecting, local only)
 - **Copilot Integration** - All agents appear natively in GitHub Copilot's @ menu
@@ -17,7 +17,7 @@ Agent Pro provides **40+ curated resources** to enhance your development workflo
 - **Comprehensive Testing** - 25 functional tests ensure production quality
 - **Global Storage** - Agents available in all your projects
 
-## 🚀 Quick Start
+## Quick Start
 
 1. Install Agent Pro from the VS Code Marketplace
 2. Open GitHub Copilot Chat (`Ctrl+Alt+I` / `Cmd+Option+I`)
@@ -26,7 +26,7 @@ Agent Pro provides **40+ curated resources** to enhance your development workflo
 5. Agents automatically have access to 6 custom tools for enhanced capabilities
 6. View usage statistics: `Ctrl+Shift+P` → "Agent Pro: Show Usage Statistics"
 
-## 💡 Usage
+## Usage
 
 ### Using Agents in Copilot Chat with Custom Tools
 
@@ -36,8 +36,8 @@ Open GitHub Copilot Chat and type `@` to see all available agents. All agents no
 - **testGenerator** - Suggests test strategies for your code
 - **documentationBuilder** - Generates documentation templates
 - **performanceProfiler** - Detects performance anti-patterns
-- **dependencyAnalyzer** - 🆕 Scans project dependencies (package.json, requirements.txt, go.mod, Cargo.toml)
-- **apiDesigner** - 🆕 Provides OpenAPI 3.1 specifications and REST API best practices
+- **dependencyAnalyzer** - Scans project dependencies (package.json, requirements.txt, go.mod, Cargo.toml)
+- **apiDesigner** - Provides OpenAPI 3.1 specifications and REST API best practices
 
 Example:
 ```
@@ -62,10 +62,10 @@ Example:
 | **@design-systems-expert**         | Figma Variables, Design Tokens         | Design systems          |
 | **@devops-expert**                 | Docker, Kubernetes, CI/CD              | DevOps workflows        |
 | **@documentation-expert**          | Technical writing, API docs            | Documentation           |
-| **@fintech-expert** 🆕             | PCI DSS, payments, fraud, KYC/AML      | Financial applications  |
+| **@fintech-expert**                | PCI DSS, payments, fraud, KYC/AML      | Financial applications  |
 | **@functional-programming-expert** | FRP, RxJS, monads                      | Functional code         |
 | **@graphql-expert**                | Apollo Federation 2.10                 | GraphQL APIs            |
-| **@healthcare-expert** 🆕          | HIPAA, HL7/FHIR, EHR integration       | Healthcare applications |
+| **@healthcare-expert**             | HIPAA, HL7/FHIR, EHR integration       | Healthcare applications |
 | **@microservices-expert**          | SAGA, Circuit Breaker, CQRS            | Microservices           |
 | **@mobile-development-expert**     | React Native, Flutter, iOS, Android    | Mobile apps             |
 | **@observability-sre-expert**      | OpenTelemetry, SLOs                    | Monitoring & SRE        |

@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.3.0] - 2026-01-15
 
-### Added - Analytics, New Tools & Vertical-Specific Agents 🚀
+### Added - Analytics, New Tools & Vertical-Specific Agents
 
 #### Telemetry & Analytics
 - **TelemetryReporter Class**: Privacy-respecting local-only usage analytics
@@ -91,7 +91,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.2.0] - 2026-01-15
 
-### Added - Custom Tools & Extended Language Support 🚀
+### Added - Custom Tools & Extended Language Support
 
 #### Custom Tools (Phase 2)
 - **4 VSCode Native Tools** registered for all Copilot Chat agents:
@@ -131,7 +131,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.1.0] - 2026-01-13
 
-### Added - GitHub Copilot Chat Integration 🎉
+### Added - GitHub Copilot Chat Integration
 
 - **Agents in Copilot @ Menu**: All 22 expert agents now appear in GitHub Copilot Chat's @ selector
 - **Direct Agent Access**: Type `@AccessibilityExpert`, `@PythonExpert`, `@SecurityExpert`, etc. in Copilot Chat
