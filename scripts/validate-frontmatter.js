@@ -38,6 +38,22 @@ function info(message) {
   log(`ℹ ${message}`, 'blue');
 }
 
+// Valid tools available in Copilot Chat
+const VALID_TOOLS = [
+  'read',
+  'edit',
+  'search',
+  'codebase',
+  'terminalCommand'
+];
+
+// Additional custom tools (will be extended in Phase 2)
+const CUSTOM_TOOLS = [
+  // Phase 2: Add custom tools here
+];
+
+const ALL_VALID_TOOLS = [...VALID_TOOLS, ...CUSTOM_TOOLS];
+
 function extractFrontmatter(content) {
   // Remove code fence if present (e.g., ```chatagent, ```prompt)
   const cleanContent = content.replace(/^```[a-z]*\r?\n/, '');
@@ -63,7 +79,7 @@ function validateAgent(filePath, content) {
   const frontmatter = extractFrontmatter(content);
 
   if (!frontmatter) {
-    error(`${filePath}: Missing frontmatter`);
+    error(`${filePath}: Missing frontmatter block (should start with --- and end with ---)`);
     return;
   }
 
@@ -71,19 +87,56 @@ function validateAgent(filePath, content) {
   const required = ['description', 'name', 'tools', 'model'];
   for (const field of required) {
     if (!frontmatter[field]) {
-      error(`${filePath}: Missing required field '${field}'`);
+      error(`${filePath}: Missing required field '${field}' in frontmatter`);
     }
   }
 
   // Validate tools array
-  if (frontmatter.tools && !Array.isArray(frontmatter.tools)) {
-    error(`${filePath}: 'tools' must be an array`);
+  if (frontmatter.tools) {
+    if (!Array.isArray(frontmatter.tools)) {
+      error(`${filePath}: 'tools' must be an array (e.g., tools: ['read', 'edit', 'search'])`);
+    } else {
+      // Validate each tool reference
+      const invalidTools = frontmatter.tools.filter(tool => !ALL_VALID_TOOLS.includes(tool));
+      if (invalidTools.length > 0) {
+        error(
+          `${filePath}: Unknown tools: ${invalidTools.join(', ')}\n` +
+          `  Valid tools are: ${ALL_VALID_TOOLS.join(', ')}`
+        );
+      }
+      
+      // Warn if tool list is empty
+      if (frontmatter.tools.length === 0) {
+        warning(`${filePath}: Agent has no tools assigned`);
+      }
+      
+      // Warn if excessive tools (performance concern)
+      if (frontmatter.tools.length > 10) {
+        warning(
+          `${filePath}: Agent has ${frontmatter.tools.length} tools (recommended max: 10)\n` +
+          `  Too many tools may cause slower response times and context overhead`
+        );
+      }
+    }
   }
 
   // Validate model
   const validModels = ['Claude Sonnet 4.5', 'GPT-4', 'GPT-4o'];
   if (frontmatter.model && !validModels.includes(frontmatter.model)) {
-    warning(`${filePath}: Unusual model '${frontmatter.model}'`);
+    warning(
+      `${filePath}: Unusual model '${frontmatter.model}'\n` +
+      `  Recommended models: ${validModels.join(', ')}`
+    );
+  }
+
+  // Validate name format (should be descriptive)
+  if (frontmatter.name && frontmatter.name.length < 3) {
+    warning(`${filePath}: Agent name '${frontmatter.name}' is very short (recommended: 3+ characters)`);
+  }
+
+  // Validate description (should be meaningful)
+  if (frontmatter.description && frontmatter.description.length < 10) {
+    warning(`${filePath}: Description is too short (recommended: 10+ characters for clarity)`);
   }
 
   if (!hasErrors) {
@@ -97,7 +150,7 @@ function validatePrompt(filePath, content) {
   const frontmatter = extractFrontmatter(content);
 
   if (!frontmatter) {
-    error(`${filePath}: Missing frontmatter`);
+    error(`${filePath}: Missing frontmatter block (should start with --- and end with ---)`);
     return;
   }
 
@@ -105,13 +158,18 @@ function validatePrompt(filePath, content) {
   const required = ['description'];
   for (const field of required) {
     if (!frontmatter[field]) {
-      error(`${filePath}: Missing required field '${field}'`);
+      error(`${filePath}: Missing required field '${field}' in frontmatter`);
     }
   }
 
   // Optional but common fields
   if (!frontmatter.agent) {
-    warning(`${filePath}: No agent specified`);
+    warning(`${filePath}: No agent specified (consider adding 'agent' field for context)`);
+  }
+
+  // Validate description quality
+  if (frontmatter.description && frontmatter.description.length < 10) {
+    warning(`${filePath}: Description is too short (recommended: 10+ characters for clarity)`);
   }
 
   if (!hasErrors) {
@@ -125,7 +183,7 @@ function validateInstruction(filePath, content) {
   const frontmatter = extractFrontmatter(content);
 
   if (!frontmatter) {
-    error(`${filePath}: Missing frontmatter`);
+    error(`${filePath}: Missing frontmatter block (should start with --- and end with ---)`);
     return;
   }
 
@@ -133,13 +191,25 @@ function validateInstruction(filePath, content) {
   const required = ['description', 'applyTo'];
   for (const field of required) {
     if (!frontmatter[field]) {
-      error(`${filePath}: Missing required field '${field}'`);
+      error(`${filePath}: Missing required field '${field}' in frontmatter`);
     }
   }
 
   // Validate applyTo is a valid glob pattern
-  if (frontmatter.applyTo && typeof frontmatter.applyTo !== 'string') {
-    error(`${filePath}: 'applyTo' must be a string (glob pattern)`);
+  if (frontmatter.applyTo) {
+    if (typeof frontmatter.applyTo !== 'string') {
+      error(`${filePath}: 'applyTo' must be a string (glob pattern like '**/*.py')`);
+    } else if (!frontmatter.applyTo.includes('*')) {
+      warning(
+        `${filePath}: 'applyTo' pattern '${frontmatter.applyTo}' doesn't contain wildcards\n` +
+        `  Consider using glob patterns like '**/*.py' or '**/*.ts'`
+      );
+    }
+  }
+
+  // Validate description quality
+  if (frontmatter.description && frontmatter.description.length < 10) {
+    warning(`${filePath}: Description is too short (recommended: 10+ characters for clarity)`);
   }
 
   if (!hasErrors) {
@@ -153,7 +223,7 @@ function validateSkill(filePath, content) {
   const frontmatter = extractFrontmatter(content);
 
   if (!frontmatter) {
-    error(`${filePath}: Missing frontmatter`);
+    error(`${filePath}: Missing frontmatter block (should start with --- and end with ---)`);
     return;
   }
 
@@ -161,8 +231,18 @@ function validateSkill(filePath, content) {
   const required = ['name', 'description'];
   for (const field of required) {
     if (!frontmatter[field]) {
-      error(`${filePath}: Missing required field '${field}'`);
+      error(`${filePath}: Missing required field '${field}' in frontmatter`);
     }
+  }
+
+  // Validate name quality
+  if (frontmatter.name && frontmatter.name.length < 3) {
+    warning(`${filePath}: Skill name '${frontmatter.name}' is very short (recommended: 3+ characters)`);
+  }
+
+  // Validate description quality
+  if (frontmatter.description && frontmatter.description.length < 10) {
+    warning(`${filePath}: Description is too short (recommended: 10+ characters for clarity)`);
   }
 
   if (!hasErrors) {
