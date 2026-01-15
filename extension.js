@@ -52,8 +52,7 @@ class TelemetryReporter {
  * Register custom tools for Copilot Chat agents
  * These tools extend the built-in capabilities with specialized functionality
  */
-function registerCustomTools(context) {
-  const telemetry = new TelemetryReporter(context);
+function registerCustomTools(context, telemetry) {
 
   const codeAnalyzer = vscode.lm.registerTool('codeAnalyzer', {
     displayName: 'Code Analyzer',
@@ -61,14 +60,12 @@ function registerCustomTools(context) {
 
     async invoke(options, token) {
       const startTime = Date.now();
-      let success = true;
 
       try {
         const { input } = options;
         const editor = vscode.window.activeTextEditor;
 
         if (!editor) {
-          success = false;
           await telemetry.logToolUsage('codeAnalyzer', false, { reason: 'no_editor' });
           return new vscode.LanguageModelToolResult([
             new vscode.LanguageModelTextPart('No active editor found')
@@ -95,13 +92,17 @@ function registerCustomTools(context) {
           fileName: path.basename(document.fileName)
         };
 
+        const commentRatio = analysis.codeLines > 0 
+          ? ((analysis.commentLines / analysis.codeLines) * 100).toFixed(1) + '%'
+          : 'N/A';
+
         const result = `Code Analysis for ${analysis.fileName}:
 - Language: ${analysis.language}
 - Total Lines: ${analysis.totalLines}
 - Code Lines: ${analysis.codeLines}
 - Comment Lines: ${analysis.commentLines}
 - Average Line Length: ${analysis.averageLineLength} characters
-- Comment Ratio: ${((analysis.commentLines / analysis.codeLines) * 100).toFixed(1)}%`;
+- Comment Ratio: ${commentRatio}`;
 
         await telemetry.logToolUsage('codeAnalyzer', true, {
           language: languageId,
@@ -113,7 +114,6 @@ function registerCustomTools(context) {
           new vscode.LanguageModelTextPart(result)
         ]);
       } catch (error) {
-        success = false;
         await telemetry.logToolUsage('codeAnalyzer', false, { error: error.message });
         return new vscode.LanguageModelToolResult([
           new vscode.LanguageModelTextPart(`Error analyzing code: ${error.message}`)
@@ -338,7 +338,19 @@ General Recommendations:
         // Check for package.json (Node.js/JavaScript)
         const packageJsonPath = path.join(rootPath, 'package.json');
         if (fs.existsSync(packageJsonPath)) {
-          const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+          let packageJson;
+          try {
+            const packageJsonContent = fs.readFileSync(packageJsonPath, 'utf8');
+            packageJson = JSON.parse(packageJsonContent);
+          } catch (e) {
+            await telemetry.logToolUsage('dependencyAnalyzer', false, { reason: 'invalid_package_json', error: e.message });
+            return new vscode.LanguageModelToolResult([
+              new vscode.LanguageModelTextPart(
+                `The package.json file at "${packageJsonPath}" contains invalid JSON and could not be parsed. ` +
+                'Please fix the JSON syntax and run the dependency analyzer again.'
+              )
+            ]);
+          }
           const deps = { ...packageJson.dependencies, ...packageJson.devDependencies };
           const depCount = Object.keys(deps).length;
 
@@ -530,9 +542,8 @@ async function activate(context) {
   console.log('Agent Pro: Activating...');
 
   try {
-    registerCustomTools(context);
-
     const telemetry = new TelemetryReporter(context);
+    registerCustomTools(context, telemetry);
 
     const showStatsCommand = vscode.commands.registerCommand('agentPro.showStats', async () => {
       const stats = await telemetry.getStats();
@@ -606,7 +617,7 @@ async function activate(context) {
 
       console.log(`Resources installed to ${resourcesPath}`);
       vscode.window.showInformationMessage(
-        'Agent Pro: Activated! Your 22 expert agents + 6 custom tools are ready. Open Copilot Chat and type @ to see them.'
+        'Agent Pro: Activated! Your 24 expert agents + 6 custom tools are ready. Open Copilot Chat and type @ to see them.'
       );
     } else {
       console.log(`Resources already installed (version ${currentVersion})`);
