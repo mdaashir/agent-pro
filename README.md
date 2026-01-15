@@ -145,6 +145,24 @@ Detects performance anti-patterns:
 - Deep clone anti-patterns
 - Framework-specific optimizations
 
+### 5. Dependency Analyzer
+
+Scans and analyzes project dependencies:
+
+- Supports: package.json (Node.js), requirements.txt (Python), go.mod (Go), Cargo.toml (Rust)
+- Detects outdated packages and provides update recommendations
+- Security scanning suggestions (Dependabot, Renovate, pip-audit, cargo audit)
+
+### 6. API Designer
+
+REST API design and OpenAPI specification generator:
+
+- OpenAPI 3.1 templates and best practices
+- HTTP verb mapping and resource naming conventions
+- API design patterns (pagination, filtering, sorting, HATEOAS)
+- Security guidelines (OAuth 2.0, JWT, rate limiting)
+- Framework-specific tool recommendations (FastAPI, Express, SpringDoc)
+
 ## 🎓 Quick Start Workflows
 
 ### Building a Web API
@@ -188,8 +206,8 @@ Detects performance anti-patterns:
 
 ### Custom Tools (Phase 2)
 
-- 4 VSCode native tools for all agents
-- Code analysis, test generation, documentation, performance profiling
+- 6 VSCode native tools for all agents
+- Code analysis, test generation, documentation, performance profiling, dependency analysis, and API design
 - Production-ready error handling
 
 ### Extended Language Support (Phase 1)
