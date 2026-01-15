@@ -6,6 +6,7 @@
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
+const { getMajorVersion } = require('./utils');
 
 // Test configuration
 const RESOURCES_DIR = path.join(__dirname, '..', 'resources');
@@ -367,53 +368,33 @@ test('dependencyAnalyzer checks for Cargo.toml', () => {
 // Version Detection Tests (getMajorVersion helper)
 // ============================================================================
 
-// Helper to extract and create the getMajorVersion function for testing
-// Note: This is called once and cached to avoid repeated file I/O
-let cachedGetMajorVersion = null;
-function extractGetMajorVersion() {
-  if (cachedGetMajorVersion) return cachedGetMajorVersion;
-  
-  const content = fs.readFileSync(EXTENSION_JS, 'utf8');
-  const funcMatch = content.match(/const getMajorVersion = \(version\) => {[^}]+}/s);
-  assert(funcMatch, 'getMajorVersion function not found in extension.js');
-  // Note: eval is used here in a controlled test environment to test the function logic
-  cachedGetMajorVersion = eval(`(${funcMatch[0].replace('const getMajorVersion = ', '')})`);
-  return cachedGetMajorVersion;
-}
-
 test('getMajorVersion extracts version from caret ranges', () => {
-  const getMajorVersion = extractGetMajorVersion();
   assert.strictEqual(getMajorVersion('^4.0.0'), 4, 'Failed to extract version from ^4.0.0');
   assert.strictEqual(getMajorVersion('^16.8.0'), 16, 'Failed to extract version from ^16.8.0');
 });
 
 test('getMajorVersion extracts version from tilde ranges', () => {
-  const getMajorVersion = extractGetMajorVersion();
   assert.strictEqual(getMajorVersion('~4.0.0'), 4, 'Failed to extract version from ~4.0.0');
   assert.strictEqual(getMajorVersion('~16.8.0'), 16, 'Failed to extract version from ~16.8.0');
 });
 
 test('getMajorVersion extracts version from comparison operators', () => {
-  const getMajorVersion = extractGetMajorVersion();
   assert.strictEqual(getMajorVersion('>=4.0.0'), 4, 'Failed to extract version from >=4.0.0');
   assert.strictEqual(getMajorVersion('>16.0.0'), 16, 'Failed to extract version from >16.0.0');
   assert.strictEqual(getMajorVersion('<5.0.0'), 5, 'Failed to extract version from <5.0.0');
 });
 
 test('getMajorVersion extracts version from exact versions', () => {
-  const getMajorVersion = extractGetMajorVersion();
   assert.strictEqual(getMajorVersion('4.46.0'), 4, 'Failed to extract version from 4.46.0');
   assert.strictEqual(getMajorVersion('16.8.0'), 16, 'Failed to extract version from 16.8.0');
 });
 
 test('getMajorVersion extracts version from wildcard versions', () => {
-  const getMajorVersion = extractGetMajorVersion();
   assert.strictEqual(getMajorVersion('4.x'), 4, 'Failed to extract version from 4.x');
   assert.strictEqual(getMajorVersion('16.x'), 16, 'Failed to extract version from 16.x');
 });
 
 test('getMajorVersion returns null for invalid inputs', () => {
-  const getMajorVersion = extractGetMajorVersion();
   assert.strictEqual(getMajorVersion(null), null, 'Should return null for null input');
   assert.strictEqual(getMajorVersion(undefined), null, 'Should return null for undefined input');
   assert.strictEqual(getMajorVersion(''), null, 'Should return null for empty string');
