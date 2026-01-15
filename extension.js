@@ -528,16 +528,196 @@ Current File: ${path.basename(document.fileName)} (${languageId})`;
     }
   });
 
+  const specKitConstitution = vscode.lm.registerTool('specKitConstitution', {
+    displayName: 'SpecKit Constitution',
+    description: 'Returns the Agent Pro constitutional framework defining architectural principles',
+
+    async invoke(options, token) {
+      const startTime = Date.now();
+
+      try {
+        const constitutionPath = path.join(__dirname, 'resources', 'constitution.md');
+
+        if (!fs.existsSync(constitutionPath)) {
+          await telemetry.logToolUsage('specKitConstitution', false, { reason: 'file_not_found' });
+          return new vscode.LanguageModelToolResult([
+            new vscode.LanguageModelTextPart('Constitutional framework file not found. Please ensure resources/constitution.md exists.')
+          ]);
+        }
+
+        const constitutionContent = fs.readFileSync(constitutionPath, 'utf8');
+
+        await telemetry.logToolUsage('specKitConstitution', true, {
+          duration: Date.now() - startTime
+        });
+
+        return new vscode.LanguageModelToolResult([
+          new vscode.LanguageModelTextPart(constitutionContent)
+        ]);
+      } catch (error) {
+        await telemetry.logToolUsage('specKitConstitution', false, { error: error.message });
+        return new vscode.LanguageModelToolResult([
+          new vscode.LanguageModelTextPart(`Error loading constitutional framework: ${error.message}`)
+        ]);
+      }
+    }
+  });
+
+  const specKitSpecTemplate = vscode.lm.registerTool('specKitSpecTemplate', {
+    displayName: 'SpecKit Specification Template',
+    description: 'Returns the specification template for creating new features following SDD methodology',
+
+    async invoke(options, token) {
+      const startTime = Date.now();
+
+      try {
+        const templatePath = path.join(__dirname, 'resources', 'templates', 'spec-template.md');
+
+        if (!fs.existsSync(templatePath)) {
+          await telemetry.logToolUsage('specKitSpecTemplate', false, { reason: 'file_not_found' });
+          return new vscode.LanguageModelToolResult([
+            new vscode.LanguageModelTextPart('Specification template not found.')
+          ]);
+        }
+
+        const templateContent = fs.readFileSync(templatePath, 'utf8');
+
+        await telemetry.logToolUsage('specKitSpecTemplate', true, {
+          duration: Date.now() - startTime
+        });
+
+        return new vscode.LanguageModelToolResult([
+          new vscode.LanguageModelTextPart(templateContent)
+        ]);
+      } catch (error) {
+        await telemetry.logToolUsage('specKitSpecTemplate', false, { error: error.message });
+        return new vscode.LanguageModelToolResult([
+          new vscode.LanguageModelTextPart(`Error loading spec template: ${error.message}`)
+        ]);
+      }
+    }
+  });
+
+  const specKitPlanTemplate = vscode.lm.registerTool('specKitPlanTemplate', {
+    displayName: 'SpecKit Plan Template',
+    description: 'Returns the implementation plan template for technical planning after specification approval',
+
+    async invoke(options, token) {
+      const startTime = Date.now();
+
+      try {
+        const templatePath = path.join(__dirname, 'resources', 'templates', 'plan-template.md');
+
+        if (!fs.existsSync(templatePath)) {
+          await telemetry.logToolUsage('specKitPlanTemplate', false, { reason: 'file_not_found' });
+          return new vscode.LanguageModelToolResult([
+            new vscode.LanguageModelTextPart('Plan template not found.')
+          ]);
+        }
+
+        const templateContent = fs.readFileSync(templatePath, 'utf8');
+
+        await telemetry.logToolUsage('specKitPlanTemplate', true, {
+          duration: Date.now() - startTime
+        });
+
+        return new vscode.LanguageModelToolResult([
+          new vscode.LanguageModelTextPart(templateContent)
+        ]);
+      } catch (error) {
+        await telemetry.logToolUsage('specKitPlanTemplate', false, { error: error.message });
+        return new vscode.LanguageModelToolResult([
+          new vscode.LanguageModelTextPart(`Error loading plan template: ${error.message}`)
+        ]);
+      }
+    }
+  });
+
+  const specKitTasksTemplate = vscode.lm.registerTool('specKitTasksTemplate', {
+    displayName: 'SpecKit Tasks Template',
+    description: 'Returns the task breakdown template for creating executable implementation tasks',
+
+    async invoke(options, token) {
+      const startTime = Date.now();
+
+      try {
+        const templatePath = path.join(__dirname, 'resources', 'templates', 'tasks-template.md');
+
+        if (!fs.existsSync(templatePath)) {
+          await telemetry.logToolUsage('specKitTasksTemplate', false, { reason: 'file_not_found' });
+          return new vscode.LanguageModelToolResult([
+            new vscode.LanguageModelTextPart('Tasks template not found.')
+          ]);
+        }
+
+        const templateContent = fs.readFileSync(templatePath, 'utf8');
+
+        await telemetry.logToolUsage('specKitTasksTemplate', true, {
+          duration: Date.now() - startTime
+        });
+
+        return new vscode.LanguageModelToolResult([
+          new vscode.LanguageModelTextPart(templateContent)
+        ]);
+      } catch (error) {
+        await telemetry.logToolUsage('specKitTasksTemplate', false, { error: error.message });
+        return new vscode.LanguageModelToolResult([
+          new vscode.LanguageModelTextPart(`Error loading tasks template: ${error.message}`)
+        ]);
+      }
+    }
+  });
+
+  const specKitChecklist = vscode.lm.registerTool('specKitChecklist', {
+    displayName: 'SpecKit Quality Checklist',
+    description: 'Returns the quality checklist template for validating specification completeness',
+
+    async invoke(options, token) {
+      const startTime = Date.now();
+
+      try {
+        const templatePath = path.join(__dirname, 'resources', 'templates', 'checklist-template.md');
+
+        if (!fs.existsSync(templatePath)) {
+          await telemetry.logToolUsage('specKitChecklist', false, { reason: 'file_not_found' });
+          return new vscode.LanguageModelToolResult([
+            new vscode.LanguageModelTextPart('Checklist template not found.')
+          ]);
+        }
+
+        const templateContent = fs.readFileSync(templatePath, 'utf8');
+
+        await telemetry.logToolUsage('specKitChecklist', true, {
+          duration: Date.now() - startTime
+        });
+
+        return new vscode.LanguageModelToolResult([
+          new vscode.LanguageModelTextPart(templateContent)
+        ]);
+      } catch (error) {
+        await telemetry.logToolUsage('specKitChecklist', false, { error: error.message });
+        return new vscode.LanguageModelToolResult([
+          new vscode.LanguageModelTextPart(`Error loading checklist template: ${error.message}`)
+        ]);
+      }
+    }
+  });
+
   context.subscriptions.push(
     codeAnalyzer,
     testGenerator,
     documentationBuilder,
     performanceProfiler,
     dependencyAnalyzer,
-    apiDesigner
+    apiDesigner,
+    specKitConstitution,
+    specKitSpecTemplate,
+    specKitPlanTemplate,
+    specKitTasksTemplate,
+    specKitChecklist
   );
 
-  console.log('Agent Pro: Registered 6 custom tools');
+  console.log('Agent Pro: Registered 11 custom tools (6 core + 5 SpecKit SDD tools)');
 }
 
 async function activate(context) {
