@@ -47,9 +47,12 @@ const VALID_TOOLS = [
   'terminalCommand'
 ];
 
-// Additional custom tools (will be extended in Phase 2)
+// Custom tools registered by the extension
 const CUSTOM_TOOLS = [
-  // Phase 2: Add custom tools here
+  'codeAnalyzer',
+  'testGenerator',
+  'documentationBuilder',
+  'performanceProfiler'
 ];
 
 const ALL_VALID_TOOLS = [...VALID_TOOLS, ...CUSTOM_TOOLS];
