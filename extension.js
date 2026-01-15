@@ -92,8 +92,9 @@ function registerCustomTools(context, telemetry) {
           fileName: path.basename(document.fileName)
         };
 
-        const commentRatio = analysis.codeLines > 0 
-          ? ((analysis.commentLines / analysis.codeLines) * 100).toFixed(1) + '%'
+        const actualCodeLines = analysis.codeLines - analysis.commentLines;
+        const commentRatio = actualCodeLines > 0 
+          ? ((analysis.commentLines / actualCodeLines) * 100).toFixed(1) + '%'
           : 'N/A';
 
         const result = `Code Analysis for ${analysis.fileName}:
