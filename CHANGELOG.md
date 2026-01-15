@@ -4,7 +4,54 @@ All notable changes to the "Agent Pro" extension will be documented in this file
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## [3.0.0] - 2026-01-15
 
+### Added
+
+#### Specification-Driven Development (SDD)
+- Complete SDD methodology framework for systematic feature development
+- Constitutional framework with 8 immutable architectural principles
+- 4 SDD templates: specification, implementation plan, tasks, and quality checklist
+- Numbered feature specifications directory structure (001-024: agents, 025-030: tools, 031-035: skills)
+- Sample specifications for accessibility expert agent, code analyzer tool, and API development skill
+
+#### SpecKit Tools
+- `specKitConstitution` - Access constitutional framework through Copilot Chat
+- `specKitSpecTemplate` - Get specification template for feature definitions
+- `specKitPlanTemplate` - Get implementation plan template
+- `specKitTasksTemplate` - Get task breakdown template
+- `specKitChecklist` - Get quality validation checklist
+- Total: **11 custom tools** (6 core + 5 SpecKit)
+
+#### Documentation
+- `SPEC_DRIVEN.md` - Comprehensive SDD methodology guide
+- `AGENTS.md` - Agent integration checklist and guidelines
+- `resources/constitution.md` - Constitutional framework document
+- `resources/templates/` - SDD template directory with usage guide
+- `specs/` - Feature specifications directory
+
+#### Validation & Quality
+- `scripts/validate-spec.js` - Specification completeness validation
+- `scripts/constitutional-check.js` - Constitutional compliance checking
+- Automated validation for frontmatter, sections, requirements, scenarios, and success criteria
+- Constitutional article compliance verification for implementation plans
+
+### Changed
+- Extension description updated to reflect SDD capabilities
+- README.md enhanced with SDD overview and SpecKit tools documentation
+- Version bumped to 3.0.0 (major: breaking changes with SDD introduction)
+- Tool registration message updated (6 → 11 tools)
+
+### Governance
+- Established 8 constitutional articles:
+  1. Specification-First Development
+  2. Agent Isolation Principle
+  3. Custom Tool Integration Mandate
+  4. Test-First Imperative
+  5. Copilot-Native Integration
+  6. Privacy-First Telemetry
+  7. Simplicity and Clarity
+  8. Versioned Evolution
 ## [2.3.0] - 2026-01-15
 
 ### Added - Analytics, New Tools & Vertical-Specific Agents

@@ -1,8 +1,8 @@
 {
   "name": "agent-pro",
   "displayName": "Agent Pro - GitHub Copilot Experts",
-  "description": "24+ expert agents (now with FinTech & Healthcare), 5 instructions, 6 custom tools, 5 prompts, and comprehensive skills for GitHub Copilot - Your AI development powerhouse with built-in analytics",
-  "version": "2.3.0",
+  "description": "24+ expert agents, 11 custom tools (including SpecKit SDD tools), 5 instructions, 6 prompts, 5 skills, and complete Specification-Driven Development framework for GitHub Copilot",
+  "version": "3.0.0",
   "publisher": "mdaashir",
   "author": {
     "name": "mdaashir"
