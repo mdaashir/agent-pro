@@ -5,6 +5,46 @@ All notable changes to the "Agent Pro" extension will be documented in this file
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2026-01-15
+
+### Added - Custom Tools & Extended Language Support 🚀
+
+#### Custom Tools (Phase 2)
+- **4 VSCode Native Tools** registered for all Copilot Chat agents:
+  - `codeAnalyzer`: Analyzes code complexity, metrics, and patterns
+  - `testGenerator`: Suggests test strategies and appropriate frameworks
+  - `documentationBuilder`: Generates documentation templates
+  - `performanceProfiler`: Detects performance anti-patterns
+- **Tool Integration**: All tools available to agents via VSCode Language Model Tool API
+- **Production Ready**: Tools handle errors gracefully and work across all file types
+
+#### Extended Language Instructions (Phase 1)
+- **3 New Language Instruction Sets**:
+  - `go.instructions.md`: Effective Go best practices and idioms
+  - `rust.instructions.md`: Rust API Guidelines and safety patterns
+  - `java.instructions.md`: Modern Java 17+ standards and features
+- **Comprehensive Coverage**: Now supports Python, TypeScript, Go, Rust, and Java
+- **Auto-Applied**: Instructions automatically apply based on file type (glob patterns)
+
+#### Enhanced Validation
+- **Tool Reference Validation**: Validates agent tool references against allowed tools
+- **Improved Error Messages**: Detailed error messages with suggestions and examples
+- **Performance Warnings**: Warns when agents exceed recommended tool count (>10)
+- **Quality Checks**: Validates description length, name format, glob patterns
+- **Better Developer Experience**: Clear, actionable validation feedback
+
+### Changed
+- Updated activation message to reflect 4 new custom tools
+- Enhanced validation script with tool registry and quality checks
+- Bumped version to 2.2.0 for feature release
+
+### Technical Details
+- Tools registered via `vscode.lm.registerTool()` API
+- Validation script now tracks 9 total tools (5 built-in + 4 custom)
+- All tools registered on extension activation
+- Tools work with editor context (active file, selection)
+- Instruction files follow same frontmatter pattern as existing resources
+
 ## [2.1.0] - 2026-01-13
 
 ### Added - GitHub Copilot Chat Integration 🎉

@@ -1,17 +1,18 @@
 # Agent Pro - GitHub Copilot Experts
 
-A comprehensive collection of 22+ expert agents, 5 prompts, and comprehensive skills for GitHub Copilot.
+A comprehensive collection of 22+ expert agents, 4 custom tools, 5 language instructions, 5 prompts, and 5 comprehensive skills for GitHub Copilot.
 
-Agent Pro provides 34 curated resources to enhance your development workflow with AI-powered assistance across multiple domains including architecture, security, testing, cloud infrastructure, and more.
+Agent Pro provides 38+ curated resources to enhance your development workflow with AI-powered assistance across multiple domains including architecture, security, testing, cloud infrastructure, and more.
 
 ## ✨ Features
 
 - **22 Expert Agents** - Specialized AI assistants accessible via `@` in Copilot Chat
+- **4 Custom Tools** - Code analysis, test generation, documentation, and performance profiling
 - **Copilot Integration** - All agents appear natively in GitHub Copilot's @ menu
+- **5 Language Instructions** - Auto-applied coding standards for Python, TypeScript, Go, Rust, Java
 - **5 Reusable Prompts** - Pre-built templates for common tasks
-- **2 Instruction Sets** - Automatic coding standards for Python and TypeScript
 - **5 Comprehensive Skills** - Bundled capabilities with best practices
-- **Sidebar Access** - Browse and manage all agents from the TreeView
+- **Enhanced Validation** - Production-ready validation with helpful error messages
 - **Global Storage** - Agents available in all your projects
 
 ## 🚀 Quick Start
@@ -20,25 +21,24 @@ Agent Pro provides 34 curated resources to enhance your development workflow wit
 2. Open GitHub Copilot Chat (`Ctrl+Alt+I` / `Cmd+Option+I`)
 3. Type `@` to see all 22 expert agents
 4. Select an agent (e.g., `@PythonExpert`) and start chatting!
+5. Agents automatically have access to 4 custom tools for enhanced capabilities
 
 ## 💡 Usage
 
-### Using Agents in Copilot Chat
+### Using Agents in Copilot Chat with Custom Tools
 
-Open GitHub Copilot Chat and type `@` to see all available agents:
+Open GitHub Copilot Chat and type `@` to see all available agents. All agents now have access to these custom tools:
 
-- **Agent Pro: Update Global Agents** - Update to latest version
-- **Agent Pro: Reset and Reinstall** - Reinstall all agents
-- **Agent Pro: Open Agent Storage Location** - View `~/.github` folder
+- **codeAnalyzer** - Analyzes code complexity, metrics, and patterns
+- **testGenerator** - Suggests test strategies for your code
+- **documentationBuilder** - Generates documentation templates
+- **performanceProfiler** - Detects performance anti-patterns
 
-### Using Agents
-
-Open GitHub Copilot Chat (`Ctrl+Shift+I` / `Cmd+Shift+I`) and type `@` to see all available agents:
-
+Example:
 ```
-@python-expert help me optimize this function
-@security-expert review this authentication code
-@testing-specialist generate tests for this component
+@python-expert analyze this code for complexity
+@testing-specialist suggest tests for this function
+@performance-expert profile this algorithm
 ```
 
 ### Available Agents
@@ -82,8 +82,11 @@ Prompts are reusable templates that work with specific agents:
 
 Instructions automatically apply to files matching patterns:
 
-- **Python** (`**/*.py`) - PEP 8, type hints, modern best practices
+- **Python** (`**/*.py`) - PEP 8, type hints, asyncio, modern best practices
 - **TypeScript** (`**/*.ts`, `**/*.tsx`) - TS 5.x standards, React patterns
+- **Go** (`**/*.go`) - Effective Go, idioms, error handling
+- **Rust** (`**/*.rs`) - Rust API Guidelines, ownership, safety patterns
+- **Java** (`**/*.java`) - Modern Java 17+, records, sealed classes, streams
 
 ### Available Skills
 
@@ -95,15 +98,45 @@ Skills are comprehensive, self-contained capabilities:
 4. **Multi-Agent Orchestration** - Agent HQ, workflow coordination
 5. **Testing Strategies** - TDD/BDD, shift-left/right, test pyramid
 
+## 🛠️ Custom Tools
+
+All agents have access to 4 specialized tools:
+
+### 1. Code Analyzer
+Analyzes code complexity, metrics, and patterns:
+- Total lines, code lines, comment lines
+- Average line length and comment ratio
+- Language-specific insights
+
+### 2. Test Generator
+Suggests test strategies and frameworks:
+- Recommends appropriate testing framework (Jest, pytest, JUnit, etc.)
+- Identifies test types needed (unit, integration, edge cases)
+- Analyzes code structure for testability
+
+### 3. Documentation Builder
+Generates documentation templates:
+- Language-specific doc formats (JSDoc, TSDoc, docstring, JavaDoc, etc.)
+- Function/method documentation structure
+- Usage examples and best practices
+
+### 4. Performance Profiler
+Detects performance anti-patterns:
+- Array operations in loops
+- Inefficient chaining (map+filter)
+- Deep clone anti-patterns
+- Framework-specific optimizations
+
 ## 🎓 Quick Start Workflows
 
 ### Building a Web API
 
 ```
 1. @graphql-expert design my API schema
-2. @security-expert review authentication
-3. @testing-specialist create integration tests
-4. @documentation-expert generate API docs
+2. Use codeAnalyzer tool to check complexity
+3. @security-expert review authentication
+4. @testing-specialist create integration tests (with testGenerator)
+5. @documentation-expert generate API docs (with documentationBuilder)
 ```
 
 ### Mobile App Development
@@ -111,7 +144,7 @@ Skills are comprehensive, self-contained capabilities:
 ```
 1. @mobile-development-expert help me structure this React Native app
 2. @design-systems-expert create component library
-3. @performance-expert optimize rendering
+3. @performance-expert optimize rendering (with performanceProfiler)
 4. @accessibility-expert ensure WCAG compliance
 ```
 
@@ -128,10 +161,28 @@ Skills are comprehensive, self-contained capabilities:
 
 ```
 1. @ai-ml-engineering-expert help build RAG system
-2. @python-expert optimize model code
+2. @python-expert optimize model code (with codeAnalyzer)
 3. @platform-engineering-expert create deployment pipeline
 4. @observability-sre-expert add model monitoring
 ```
+
+## 📚 What's New in v2.2.0
+
+### Custom Tools (Phase 2)
+- 4 VSCode native tools for all agents
+- Code analysis, test generation, documentation, performance profiling
+- Production-ready error handling
+
+### Extended Language Support (Phase 1)
+- 3 new instruction sets: Go, Rust, Java
+- Comprehensive best practices for each language
+- Auto-applied based on file type
+
+### Enhanced Validation
+- Tool reference validation
+- Improved error messages with suggestions
+- Performance warnings for tool count
+- Quality checks for names and descriptions
 
 ## Documentation
 

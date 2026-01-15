@@ -1,8 +1,8 @@
 {
   "name": "agent-pro",
   "displayName": "Agent Pro - GitHub Copilot Experts",
-  "description": "22+ expert agents, 5 prompts, and comprehensive skills for GitHub Copilot - Your AI development powerhouse",
-  "version": "2.1.0",
+  "description": "22+ expert agents, 5 instructions, 4 custom tools, 5 prompts, and comprehensive skills for GitHub Copilot - Your AI development powerhouse",
+  "version": "2.2.0",
   "publisher": "mdaashir",
   "author": {
     "name": "mdaashir"
@@ -23,7 +23,9 @@
     "copilot agents",
     "ai development",
     "code generation",
-    "productivity"
+    "productivity",
+    "custom tools",
+    "code analysis"
   ],
   "icon": "icon.png",
   "repository": {
