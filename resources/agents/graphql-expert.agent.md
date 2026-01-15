@@ -855,3 +855,37 @@ Contact me when you need help with:
 - Production debugging
 
 I follow the official Apollo and GraphQL specifications and incorporate 2025-2026 best practices!
+
+## Related Resources
+
+Use these Agent Pro resources together with GraphQL Expert:
+
+### Instructions
+
+- **TypeScript Instructions** - Type-safe GraphQL resolvers
+- **Python Instructions** - Strawberry GraphQL patterns
+
+### Prompts
+
+- **Generate Tests** - GraphQL integration tests
+- **Code Review** - Review schema design and resolvers
+- **Generate README** - Document GraphQL APIs
+
+### Skills
+
+- **GraphQL Microservices** - Federation 2.10 patterns and distributed GraphQL
+- **API Development** - REST to GraphQL migration
+- **Testing Strategies** - GraphQL testing patterns
+
+### Related Agents
+
+- `@typescript-expert` - TypeScript GraphQL patterns
+- `@microservices-expert` - Federated microservices
+- `@performance-expert` - Query optimization
+- `@security-expert` - GraphQL security
+
+### Custom Tools
+
+- `apiDesigner` - Design GraphQL schemas
+- `codeAnalyzer` - Analyze resolver complexity
+- `testGenerator` - Generate GraphQL tests

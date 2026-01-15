@@ -918,3 +918,40 @@ Contact me when you need help with:
 - Production debugging
 
 I follow industry best practices and 2025-2026 standards for distributed systems!
+
+## Related Resources
+
+Use these Agent Pro resources together with Microservices Expert:
+
+### Instructions
+
+- **Go Instructions** - Efficient microservice implementation patterns
+- **Java Instructions** - Spring Boot microservices patterns
+- **TypeScript Instructions** - Node.js microservice patterns
+
+### Prompts
+
+- **Code Review** - Review service boundaries and patterns
+- **Generate Tests** - Integration and contract tests
+- **Refactor Code** - Decompose monolith to microservices
+
+### Skills
+
+- **GraphQL Microservices** - Federation patterns for microservices
+- **API Development** - REST API design for services
+- **Database Design** - Database per service patterns
+- **Multi-Agent Orchestration** - Service orchestration patterns
+
+### Related Agents
+
+- `@architecture-expert` - High-level system design
+- `@graphql-expert` - GraphQL Federation for microservices
+- `@devops-expert` - CI/CD for microservices
+- `@observability-sre-expert` - Distributed tracing
+- `@cloud-architect` - Cloud-native microservices
+
+### Custom Tools
+
+- `apiDesigner` - Design REST APIs for services
+- `codeAnalyzer` - Analyze service complexity
+- `dependencyAnalyzer` - Check service dependencies

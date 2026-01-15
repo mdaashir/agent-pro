@@ -970,6 +970,40 @@ training_df = store.get_historical_features(
 - **Vector Database**: [Chroma](https://www.trychroma.com) - Embeddings storage
 - **Model Monitoring**: [Evidently AI](https://evidentlyai.com) - Drift detection
 
+## Related Resources
+
+Use these Agent Pro resources together with AI/ML Engineering Expert:
+
+### Instructions
+
+- **Python Instructions** - Python ML code patterns and type hints
+
+### Prompts
+
+- **Generate Tests** - ML model testing and validation
+- **Code Review** - Review ML pipeline code
+- **Refactor Code** - Optimize ML code patterns
+
+### Skills
+
+- **Multi-Agent Orchestration** - AI agent coordination patterns
+- **API Development** - ML model serving APIs
+- **Database Design** - Vector database patterns
+
+### Related Agents
+
+- `@python-expert` - Python ML implementation
+- `@data-engineering-expert` - Data pipelines for ML
+- `@cloud-architect` - ML infrastructure
+- `@devops-expert` - MLOps CI/CD
+- `@observability-sre-expert` - Model monitoring
+
+### Custom Tools
+
+- `codeAnalyzer` - Analyze ML code complexity
+- `dependencyAnalyzer` - Check ML dependencies
+- `performanceProfiler` - Profile ML code
+
 ---
 
 **Software 2.0**: The future where you train systems with data instead of writing code line-by-line.

@@ -2,9 +2,11 @@
 
 Complete alphabetical index of all agents, prompts, instructions, and skills in this .github folder.
 
+**New**: Agents now include **Related Resources** sections that connect them to relevant prompts, skills, and instructions!
+
 ---
 
-## 🤖 Agents (22 Total)
+## 🤖 Agents (24 Total)
 
 ### A-C
 
@@ -55,10 +57,13 @@ Complete alphabetical index of all agents, prompts, instructions, and skills in 
 
 ---
 
-## 📋 Instructions (2 Total)
+## 📋 Instructions (5 Total)
 
 - **[Python Instructions](instructions/python.instructions.md)** - Applies to `**/*.py` - PEP 8, best practices
 - **[TypeScript Instructions](instructions/typescript.instructions.md)** - Applies to `**/*.ts, **/*.tsx` - TS standards
+- **[Go Instructions](instructions/go.instructions.md)** - Applies to `**/*.go` - Effective Go patterns
+- **[Rust Instructions](instructions/rust.instructions.md)** - Applies to `**/*.rs` - Memory safety, ownership
+- **[Java Instructions](instructions/java.instructions.md)** - Applies to `**/*.java` - Modern Java 17+ patterns
 
 ---
 
@@ -174,11 +179,12 @@ Complete alphabetical index of all agents, prompts, instructions, and skills in 
 
 | Category     | Count  | Total Size  |
 | ------------ | ------ | ----------- |
-| Agents       | 22     | ~420 KB     |
+| Agents       | 24     | ~450 KB     |
 | Prompts      | 5      | ~40 KB      |
-| Instructions | 2      | ~26 KB      |
+| Instructions | 5      | ~50 KB      |
 | Skills       | 5      | ~86 KB      |
-| **Total**    | **34** | **~572 KB** |
+| Templates    | 4      | ~20 KB      |
+| **Total**    | **43** | **~646 KB** |
 
 ---
 
@@ -225,5 +231,6 @@ Use the skill-name skill for...
 ---
 
 **Last Updated**: January 11, 2026
-**Total Resources**: 34 files covering 80+ technologies
+**Total Resources**: 43 files covering 80+ technologies
 **Timeline**: 1990s SOLID → 2026 Agentic AI (35+ years)
+**Custom Tools**: 12 (6 core + 5 SpecKit + resourceDiscovery)
