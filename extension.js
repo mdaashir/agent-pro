@@ -1,6 +1,7 @@
 const vscode = require('vscode');
 const fs = require('fs');
 const path = require('path');
+const { getMajorVersion } = require('./scripts/utils');
 
 /**
  * Telemetry reporter for usage analytics
@@ -359,14 +360,6 @@ General Recommendations:
           findings.push(`- Total dependencies: ${depCount}`);
           findings.push(`- Production: ${Object.keys(packageJson.dependencies || {}).length}`);
           findings.push(`- Development: ${Object.keys(packageJson.devDependencies || {}).length}`);
-
-          // Helper function to extract major version from various semver formats
-          const getMajorVersion = (version) => {
-            if (!version) return null;
-            // Handle ranges like ^4.0.0, ~4.0.0, >=4.0.0, >4.0.0, 4.x, etc.
-            const match = version.match(/^[~^>=<]*(\d+)/);
-            return match ? parseInt(match[1], 10) : null;
-          };
 
           const webpackMajor = getMajorVersion(deps['webpack']);
           if (webpackMajor === 4) {
