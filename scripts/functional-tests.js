@@ -364,6 +364,74 @@ test('dependencyAnalyzer checks for Cargo.toml', () => {
 });
 
 // ============================================================================
+// Version Detection Tests (getMajorVersion helper)
+// ============================================================================
+
+test('getMajorVersion extracts version from caret ranges', () => {
+  // We need to extract and test the getMajorVersion function
+  const content = fs.readFileSync(EXTENSION_JS, 'utf8');
+  
+  // Extract the function code
+  const funcMatch = content.match(/const getMajorVersion = \(version\) => {[^}]+}/s);
+  assert(funcMatch, 'getMajorVersion function not found in extension.js');
+  
+  // Create a test function by evaluating the code
+  const getMajorVersion = eval(`(${funcMatch[0].replace('const getMajorVersion = ', '')})`);
+  
+  // Test caret ranges
+  assert.strictEqual(getMajorVersion('^4.0.0'), 4, 'Failed to extract version from ^4.0.0');
+  assert.strictEqual(getMajorVersion('^16.8.0'), 16, 'Failed to extract version from ^16.8.0');
+});
+
+test('getMajorVersion extracts version from tilde ranges', () => {
+  const content = fs.readFileSync(EXTENSION_JS, 'utf8');
+  const funcMatch = content.match(/const getMajorVersion = \(version\) => {[^}]+}/s);
+  const getMajorVersion = eval(`(${funcMatch[0].replace('const getMajorVersion = ', '')})`);
+  
+  assert.strictEqual(getMajorVersion('~4.0.0'), 4, 'Failed to extract version from ~4.0.0');
+  assert.strictEqual(getMajorVersion('~16.8.0'), 16, 'Failed to extract version from ~16.8.0');
+});
+
+test('getMajorVersion extracts version from comparison operators', () => {
+  const content = fs.readFileSync(EXTENSION_JS, 'utf8');
+  const funcMatch = content.match(/const getMajorVersion = \(version\) => {[^}]+}/s);
+  const getMajorVersion = eval(`(${funcMatch[0].replace('const getMajorVersion = ', '')})`);
+  
+  assert.strictEqual(getMajorVersion('>=4.0.0'), 4, 'Failed to extract version from >=4.0.0');
+  assert.strictEqual(getMajorVersion('>16.0.0'), 16, 'Failed to extract version from >16.0.0');
+  assert.strictEqual(getMajorVersion('<5.0.0'), 5, 'Failed to extract version from <5.0.0');
+});
+
+test('getMajorVersion extracts version from exact versions', () => {
+  const content = fs.readFileSync(EXTENSION_JS, 'utf8');
+  const funcMatch = content.match(/const getMajorVersion = \(version\) => {[^}]+}/s);
+  const getMajorVersion = eval(`(${funcMatch[0].replace('const getMajorVersion = ', '')})`);
+  
+  assert.strictEqual(getMajorVersion('4.46.0'), 4, 'Failed to extract version from 4.46.0');
+  assert.strictEqual(getMajorVersion('16.8.0'), 16, 'Failed to extract version from 16.8.0');
+});
+
+test('getMajorVersion extracts version from wildcard versions', () => {
+  const content = fs.readFileSync(EXTENSION_JS, 'utf8');
+  const funcMatch = content.match(/const getMajorVersion = \(version\) => {[^}]+}/s);
+  const getMajorVersion = eval(`(${funcMatch[0].replace('const getMajorVersion = ', '')})`);
+  
+  assert.strictEqual(getMajorVersion('4.x'), 4, 'Failed to extract version from 4.x');
+  assert.strictEqual(getMajorVersion('16.x'), 16, 'Failed to extract version from 16.x');
+});
+
+test('getMajorVersion returns null for invalid inputs', () => {
+  const content = fs.readFileSync(EXTENSION_JS, 'utf8');
+  const funcMatch = content.match(/const getMajorVersion = \(version\) => {[^}]+}/s);
+  const getMajorVersion = eval(`(${funcMatch[0].replace('const getMajorVersion = ', '')})`);
+  
+  assert.strictEqual(getMajorVersion(null), null, 'Should return null for null input');
+  assert.strictEqual(getMajorVersion(undefined), null, 'Should return null for undefined input');
+  assert.strictEqual(getMajorVersion(''), null, 'Should return null for empty string');
+  assert.strictEqual(getMajorVersion('react-dom-16.8.0'), null, 'Should return null for package name with version');
+});
+
+// ============================================================================
 // API Designer Tool Tests
 // ============================================================================
 
