@@ -1,18 +1,20 @@
 # Agent Pro - GitHub Copilot Experts
 
-A comprehensive collection of **24+ expert agents** (including FinTech & Healthcare specialists), **6 custom tools** with built-in analytics, **5 language instructions**, **5 prompts**, and **5 comprehensive skills** for GitHub Copilot.
+A comprehensive collection of **24+ expert agents** (including FinTech & Healthcare specialists), **11 custom tools** with built-in analytics, **5 language instructions**, **5 prompts**, and **5 comprehensive skills** for GitHub Copilot, now powered by **Specification-Driven Development (SDD)**.
 
-Agent Pro provides **40+ curated resources** to enhance your development workflow with AI-powered assistance across multiple domains including architecture, security, testing, cloud infrastructure, regulated industries (finance, healthcare), and more.
+Agent Pro provides **40+ curated resources** plus **SDD methodology framework** to enhance your development workflow with AI-powered assistance across multiple domains including architecture, security, testing, cloud infrastructure, regulated industries (finance, healthcare), and systematic feature development.
 
 ## Features
 
 - **24 Expert Agents** - Specialized AI assistants accessible via `@` in Copilot Chat
-- **6 Custom Tools** - Code analysis, test generation, documentation, performance profiling, dependency analysis, and API design
+- **11 Custom Tools** - Code analysis, test generation, documentation, performance profiling, dependency analysis, API design, plus 5 SpecKit SDD tools
+- **Specification-Driven Development** - Complete SDD framework with constitutional governance, templates, and validation
 - **Built-in Analytics** - Track tool usage, success rates, and performance (privacy-respecting, local only)
 - **Copilot Integration** - All agents appear natively in GitHub Copilot's @ menu
 - **5 Language Instructions** - Auto-applied coding standards for Python, TypeScript, Go, Rust, Java
 - **5 Reusable Prompts** - Pre-built templates for common tasks
 - **5 Comprehensive Skills** - Bundled capabilities with best practices
+- **Constitutional Framework** - 8 architectural principles governing all development
 - **Enhanced Validation** - Production-ready validation with framework version checks and security pattern detection
 - **Comprehensive Testing** - 25 functional tests ensure production quality
 - **Global Storage** - Agents available in all your projects
@@ -201,6 +203,35 @@ REST API design and OpenAPI specification generator:
 3. @platform-engineering-expert create deployment pipeline
 4. @observability-sre-expert add model monitoring
 ```
+
+## 📚 What's New in v3.0.0
+
+### Specification-Driven Development (SDD)
+
+- Complete SDD methodology framework
+- Constitutional governance with 8 architectural principles
+- 4 SDD templates: spec, plan, tasks, checklist
+- 5 SpecKit tools accessible through Copilot Chat
+- Numbered feature specifications for all agents, tools, and skills
+- Integration guide for systematic agent development
+
+### SpecKit Tools
+
+- **specKitConstitution** - Access constitutional framework
+- **specKitSpecTemplate** - Feature specification template
+- **specKitPlanTemplate** - Implementation planning template
+- **specKitTasksTemplate** - Task breakdown template
+- **specKitChecklist** - Quality validation checklist
+
+Total: **11 custom tools** (6 core + 5 SpecKit)
+
+### Documentation Enhancements
+
+- **[SPEC_DRIVEN.md](SPEC_DRIVEN.md)** - Complete SDD guide
+- **[AGENTS.md](AGENTS.md)** - Agent integration checklist
+- **[Constitutional Framework](resources/constitution.md)** - Governance principles
+- **[Templates](resources/templates/)** - SDD templates with usage guide
+- **[Specifications](specs/)** - Feature specs directory
 
 ## 📚 What's New in v2.3.0
 
