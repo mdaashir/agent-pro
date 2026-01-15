@@ -363,7 +363,7 @@ General Recommendations:
           const getMajorVersion = (version) => {
             if (!version) return null;
             // Handle ranges like ^4.0.0, ~4.0.0, >=4.0.0, >4.0.0, 4.x, etc.
-            const match = version.match(/(\d+)/);
+            const match = version.match(/^[~^>=<]*(\d+)/);
             return match ? parseInt(match[1], 10) : null;
           };
 
