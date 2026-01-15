@@ -486,7 +486,7 @@ mod test_utils {
 - Use `//!` for module/crate docs
 - Include examples in doc comments
 
-```rust
+````rust
 /// Calculates the total price of all items.
 ///
 /// # Arguments
@@ -506,11 +506,11 @@ mod test_utils {
 pub fn calculate_total(items: &[Item]) -> f64 {
     items.iter().map(|item| item.price).sum()
 }
-```
+````
 
 ### Module Documentation
 
-```rust
+````rust
 //! # User Module
 //!
 //! This module provides user management functionality.
@@ -524,7 +524,7 @@ pub fn calculate_total(items: &[Item]) -> f64 {
 //! ```
 
 use std::collections::HashMap;
-```
+````
 
 ## Performance Best Practices
 

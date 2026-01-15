@@ -40,6 +40,7 @@ Open GitHub Copilot Chat and type `@` to see all available agents. All agents no
 - **apiDesigner** - Provides OpenAPI 3.1 specifications and REST API best practices
 
 Example:
+
 ```
 @python-expert analyze this code for complexity
 @testing-specialist suggest tests for this function
@@ -112,25 +113,33 @@ Skills are comprehensive, self-contained capabilities:
 All agents have access to 4 specialized tools:
 
 ### 1. Code Analyzer
+
 Analyzes code complexity, metrics, and patterns:
+
 - Total lines, code lines, comment lines
 - Average line length and comment ratio
 - Language-specific insights
 
 ### 2. Test Generator
+
 Suggests test strategies and frameworks:
+
 - Recommends appropriate testing framework (Jest, pytest, JUnit, etc.)
 - Identifies test types needed (unit, integration, edge cases)
 - Analyzes code structure for testability
 
 ### 3. Documentation Builder
+
 Generates documentation templates:
+
 - Language-specific doc formats (JSDoc, TSDoc, docstring, JavaDoc, etc.)
 - Function/method documentation structure
 - Usage examples and best practices
 
 ### 4. Performance Profiler
+
 Detects performance anti-patterns:
+
 - Array operations in loops
 - Inefficient chaining (map+filter)
 - Deep clone anti-patterns
@@ -178,16 +187,19 @@ Detects performance anti-patterns:
 ## 📚 What's New in v2.2.0
 
 ### Custom Tools (Phase 2)
+
 - 4 VSCode native tools for all agents
 - Code analysis, test generation, documentation, performance profiling
 - Production-ready error handling
 
 ### Extended Language Support (Phase 1)
+
 - 3 new instruction sets: Go, Rust, Java
 - Comprehensive best practices for each language
 - Auto-applied based on file type
 
 ### Enhanced Validation
+
 - Tool reference validation
 - Improved error messages with suggestions
 - Performance warnings for tool count

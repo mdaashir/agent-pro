@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added - Analytics, New Tools & Vertical-Specific Agents
 
 #### Telemetry & Analytics
+
 - **TelemetryReporter Class**: Privacy-respecting local-only usage analytics
 - **Tool Usage Tracking**: Tracks invocations, success/failure rates, and performance metrics
 - **VS Code Commands**:
@@ -20,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Performance Insights**: Duration tracking for tool operations
 
 #### New Custom Tools (Total: 6)
+
 - **dependencyAnalyzer**: Scans and analyzes project dependencies
   - Supports: package.json (Node.js), requirements.txt (Python), go.mod (Go), Cargo.toml (Rust)
   - Detects outdated packages and provides update recommendations
@@ -32,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Framework-specific tool recommendations (FastAPI, Express, SpringDoc)
 
 #### New Vertical-Specific Agents (Total: 24)
+
 - **FinTechExpert**: Financial technology and compliance specialist
   - Payment processing (Stripe, PayPal, Square, Adyen)
   - PCI DSS compliance, tokenization, encryption
@@ -48,6 +51,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - De-identification techniques (Safe Harbor method)
 
 #### Enhanced Validation & Testing
+
 - **Framework Version Detection**: Warns about outdated frameworks
   - React 16, Angular 2-9, Vue 2, Webpack 4, Node.js 10-14, Python <3.7
   - TypeScript 1-3, TLS 1.0/1.1 security warnings
@@ -67,6 +71,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `npm run test:all` - Run all tests (structure + functional + validation)
 
 ### Changed
+
 - **Total Tools**: Increased from 4 to 6 custom tools
 - **Total Agents**: Increased from 22 to 24 with vertical specialists
 - **Total Resources**: 40+ curated resources (24 agents + 6 tools + 5 instructions + 5 prompts + 5 skills)
@@ -77,6 +82,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Test Expectations**: Updated agent count from 22 to 24
 
 ### Technical Details
+
 - Telemetry data stored in VS Code global state (local only, never transmitted)
 - Tool usage stats include: total invocations, success/failure counts, first/last used timestamps
 - Framework detection uses regex patterns with severity levels (info, warning, error)
@@ -84,6 +90,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - All new agents follow consistent frontmatter schema with tools, model, description
 
 ### Migration Notes
+
 - No breaking changes - fully backward compatible
 - Telemetry is opt-out via configuration: `"agentPro.telemetry.enabled": false`
 - New tools are automatically available to all agents on activation
@@ -94,6 +101,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added - Custom Tools & Extended Language Support
 
 #### Custom Tools (Phase 2)
+
 - **4 VSCode Native Tools** registered for all Copilot Chat agents:
   - `codeAnalyzer`: Analyzes code complexity, metrics, and patterns
   - `testGenerator`: Suggests test strategies and appropriate frameworks
@@ -103,6 +111,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Production Ready**: Tools handle errors gracefully and work across all file types
 
 #### Extended Language Instructions (Phase 1)
+
 - **3 New Language Instruction Sets**:
   - `go.instructions.md`: Effective Go best practices and idioms
   - `rust.instructions.md`: Rust API Guidelines and safety patterns
@@ -111,6 +120,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Auto-Applied**: Instructions automatically apply based on file type (glob patterns)
 
 #### Enhanced Validation
+
 - **Tool Reference Validation**: Validates agent tool references against allowed tools
 - **Improved Error Messages**: Detailed error messages with suggestions and examples
 - **Performance Warnings**: Warns when agents exceed recommended tool count (>10)
@@ -118,11 +128,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Better Developer Experience**: Clear, actionable validation feedback
 
 ### Changed
+
 - Updated activation message to reflect 4 new custom tools
 - Enhanced validation script with tool registry and quality checks
 - Bumped version to 2.2.0 for feature release
 
 ### Technical Details
+
 - Tools registered via `vscode.lm.registerTool()` API
 - Validation script now tracks 9 total tools (5 built-in + 4 custom)
 - All tools registered on extension activation
