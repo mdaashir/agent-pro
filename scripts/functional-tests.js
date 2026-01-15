@@ -368,12 +368,17 @@ test('dependencyAnalyzer checks for Cargo.toml', () => {
 // ============================================================================
 
 // Helper to extract and create the getMajorVersion function for testing
+// Note: This is called once and cached to avoid repeated file I/O
+let cachedGetMajorVersion = null;
 function extractGetMajorVersion() {
+  if (cachedGetMajorVersion) return cachedGetMajorVersion;
+  
   const content = fs.readFileSync(EXTENSION_JS, 'utf8');
   const funcMatch = content.match(/const getMajorVersion = \(version\) => {[^}]+}/s);
   assert(funcMatch, 'getMajorVersion function not found in extension.js');
   // Note: eval is used here in a controlled test environment to test the function logic
-  return eval(`(${funcMatch[0].replace('const getMajorVersion = ', '')})`);
+  cachedGetMajorVersion = eval(`(${funcMatch[0].replace('const getMajorVersion = ', '')})`);
+  return cachedGetMajorVersion;
 }
 
 test('getMajorVersion extracts version from caret ranges', () => {
