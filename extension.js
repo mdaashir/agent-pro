@@ -351,7 +351,7 @@ General Recommendations:
               )
             ]);
           }
-          const deps = { ...packageJson.dependencies, ...packageJson.devDependencies };
+          const deps = { ...(packageJson.dependencies || {}), ...(packageJson.devDependencies || {}) };
           const depCount = Object.keys(deps).length;
 
           findings.push('Node.js Project');
@@ -380,7 +380,6 @@ General Recommendations:
         const goModPath = path.join(rootPath, 'go.mod');
         if (fs.existsSync(goModPath)) {
           const content = fs.readFileSync(goModPath, 'utf8');
-          const requireCount = (content.match(/require\s+/g) || []).length;
 
           findings.push('Go Project');
           findings.push('- Go modules detected');
